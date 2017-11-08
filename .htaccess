@@ -16,7 +16,7 @@ ErrorDocument 403 /TCC/errors/404.php
 </Files>
 
 <IfModule mod_deflate.c>
-    <FilesMatch "\.(js|css|jpg|png|gif|ico|php|html|htm)$">
+    <FilesMatch "\.(js|css|jpg|png|gif|ico|php|html|htm|ttf)$">
         <ifModule mod_filter.c>
             SetOutputFilter DEFLATE
             AddOutputFilterByType DEFLATE text/css text/javascript application/x-javascript text/html text/plain text/xml image/x-icon

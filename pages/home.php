@@ -1,3 +1,4 @@
+	<link rel="stylesheet" href="<?php echo CSS; ?>home.css" type="text/css">
 	<div class='slideshow'>
 		<div class='highlight_container'>
 			<div class='highlight_img' style='background-image: linear-gradient(to bottom, rgba(20,20,20,.45) 0%,rgba(20,20,20,.45) 100%), url(public/img/Overwatch.jpg);'>
@@ -66,8 +67,6 @@
 				</div>
 			</div>
 		</div>
-		<div class='play flex material-icons'>play_arrow</div>
-		<div class='play flex material-icons'>pause</div>
 		<div class='container_dots flex'>
 			<div class='dots_line'></div>
 			<div class='group_dots'></div>

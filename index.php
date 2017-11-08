@@ -10,7 +10,7 @@
         <title>Sinp Sports</title>
         <meta content='width=device-width, initial-scale=0.6, maximum-scale=0.6, user-scalable=0' name='viewport' />
         <link rel="shortcut icon" href="<?php echo IMG; ?>icon.png" type="image/x-icon">
-        <link rel="stylesheet" href="<?php echo CSS; ?>main.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo CSS; ?>index.css" type="text/css">
     </head>
 <body>
     <div class='header flex'>

@@ -1,0 +1,151 @@
+.highlight_container{
+	right: 0%;
+	position: relative;
+	width: 20000px;
+	color: #fff;
+    height: 100%;
+    font-size: 16px;
+    display: flex;
+    background-color: #141414;
+}
+.highlight_img{
+	width: 100vw;
+	height: 100%;
+	overflow: hidden;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center 10%;
+	position: relative;
+	filter: contrast(105%) brightness(110%);
+}
+.highlight_position{
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -55%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	width: 65vw;
+}
+@font-face {
+    font-family: Esporte;
+    src: url(../../fonts/fon.ttf)
+}
+.highlight_sport{
+	font: 600 42px Esporte;
+	letter-spacing: 2px;
+}
+.highlight_line{
+	background-color: #e2aa00;
+	width: 27vw;
+	height: 5px;
+	border-radius: 3px;
+}
+.animation_line{
+	animation-name: line;
+	animation-duration: 6s;
+	animation-timing-function: ease-in-out;
+	animation-fill-mode: forwards;
+}
+@keyframes line{to{width: 65vw;}}
+.pause{
+	animation-play-state: paused;
+}
+.highlight_date{
+	font-weight: 300;
+}
+.highlight_text{
+	font-size: 17px;
+	font-weight: 300;
+	overflow: hidden;
+}
+.highlight_img div:nth-child(n+2){
+	margin: 8px 0px;
+}
+.shadow{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background: linear-gradient(transparent,rgba(0,0,0,.6) 95%);
+	-webkit-user-select: none;
+	user-select: none;
+	overflow: hidden;
+}
+.slideshow{
+	height: 100vh;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+.arrow{
+	cursor: pointer;
+	padding: 40px 0;
+	-webkit-user-select: none;
+	user-select: none;
+	height: 100%;
+	width: 100px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 16vh;
+	color: #fff;
+	background: linear-gradient(to right, rgba(0,0,0,0) 20%,rgba(0,0,0,.5) 100%);
+	transition: .4s;
+	opacity: .4;
+}
+.arrow:last-child{
+	background: linear-gradient(to left, rgba(0,0,0,0) 20%,rgba(0,0,0,.5) 100%);
+	left: 0;
+}
+.arrow:hover{
+	opacity: .8;
+	color: #fff;
+}
+.container_dots{
+	position: absolute;
+	z-index: 3;
+	bottom: 8vh;
+	width: 100%;
+}
+.dots_line{
+	margin: 0 15px;
+	flex-grow: 1;
+	height: .3vh;
+	background-color: #cfcfcf;
+	display: none;
+}
+.group_dots{
+	display: flex;
+}
+.dots{
+	cursor: pointer;
+	padding: 2px 2.5vw;
+	border-radius: 2px;
+	flex-grow: 1;
+	background-color: rgba(255,255,255,.4);
+	margin: 0 .2vw;
+	transition: background .4s;
+}
+.dots:hover, .active_dots{
+	background-color: #cfcfcf;
+}
+.next_games{
+	background-color: #1b1b1b;
+	width: 100%;
+	height: 150px;
+}
+@media screen and (max-width:1025px) {
+	.arrow{
+		opacity: 0;
+		visibility: hidden;
+	}
+	.dots{
+		width: 4vw;
+	}
+	.highlight_line{
+		width: 40vw;
+	}
+	@keyframes line{to{width: 80vw;}}
+}
