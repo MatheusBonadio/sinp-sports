@@ -51,7 +51,7 @@
 			</select><br>
 		Texto<textarea name="texto"><?php echo $destaque->getTexto();?></textarea><br>
 		imagem<br>
-				<img src="../../img/destaque/<?php echo $destaque->getImagem(); ?>"><br>
+				<img src="../../../public/img/destaque/<?php echo $destaque->getImagem(); ?>"><br>
  				<input type="file" name="imagem">
 		<input type="submit">
 		</form>

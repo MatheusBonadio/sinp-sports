@@ -1,6 +1,6 @@
 <?php
-	require_once '../../conexao.php';
 
+require_once '/../conexao.php';
 class DestaqueDAO{
 
 	private $con;
@@ -20,7 +20,7 @@ class DestaqueDAO{
 	}
 
 	public function listar(){
-		$sql = 'SELECT * FROM destaque';
+		$sql = "SELECT *, (select esporte from esporte where esporte.id_esporte = partida.id_esporte) as esporte, (select tipo from esporte where esporte.id_esporte = partida.id_esporte) as tipo, date_format(partida.dia,'%d/%m/%Y') as dia FROM destaque,partida WHERE partida.id_partida = destaque.id_partida ORDER BY dia DESC, termino DESC, inicio DESC, id_destaque DESC LIMIT 6";
 		$prep = $this->con->prepare($sql);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
