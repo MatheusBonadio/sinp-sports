@@ -1,5 +1,6 @@
 <?php
-	require_once '../../conexao.php';
+
+require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/conexao.php";
 
 class TorneioDAO{
 
@@ -60,6 +61,3 @@ class TorneioDAO{
         $prep->execute();
 	}
 }
-	
-	
-?>

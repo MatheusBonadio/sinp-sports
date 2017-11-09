@@ -1,6 +1,7 @@
  <?php
-	require_once '../../conexao.php';
-	require_once '../../class/Fase.php';
+
+require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/conexao.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/class/Fase.php";
 
 class FaseDAO{
 
@@ -58,6 +59,3 @@ class FaseDAO{
         $prep->execute();
 	}
 }
-	
-	
-?>

@@ -80,7 +80,7 @@ body{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	background-image: url("../img/logo2.png");
+	background-image: url("../img/sistema/logo.png");
 	transition: .4s;
 }
 .header .active{
@@ -112,7 +112,7 @@ body{
 	background-repeat: no-repeat;
 	background-position: center;
 	background-image: linear-gradient(to bottom, rgba(20,20,20,.96) 0%,
-	rgba(20,20,20,.96) 100%), url(../../public/img/load.png);
+	rgba(20,20,20,.96) 100%), url(../../public/img/sistema/load.png);
     position: relative;
     flex-direction: column;
     width: 100%;

@@ -1,10 +1,18 @@
 <?php
+
 class Conexao {
     private $servidor = "localhost";
     private $usuario = "root";
     private $senha = "";
     private $banco = "sinpsports";
     private $conexao;
+    /*
+    private $servidor = "localhost";
+    private $usuario = "id3206094_root";
+    private $senha = "p13m29m28";
+    private $banco = "id3206094_sinpsports";
+    private $conexao;
+    */
 
     public function __construct() {
         try {
@@ -23,4 +31,3 @@ class Conexao {
 }
 
 new Conexao();
-?>

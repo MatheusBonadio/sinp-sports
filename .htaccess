@@ -1,7 +1,7 @@
 Options +FollowSymLinks
 Options -Indexes
-ErrorDocument 404 /TCC/errors/404.php
-ErrorDocument 403 /TCC/errors/404.php
+ErrorDocument 404 /public_html/errors/404.php
+ErrorDocument 403 /public_html/errors/404.php
 
 <IfModule mod_rewrite.c>
     RewriteEngine On

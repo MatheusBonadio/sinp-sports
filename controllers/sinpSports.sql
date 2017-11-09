@@ -7,7 +7,7 @@ Create table administrador (
 	id_torneio Int NOT NULL,
 	login Varchar(20) NOT NULL,
 	senha Varchar(32) NOT NULL,
-	email Varchar(100) NOT NULL,
+	email Varchar(70) NOT NULL,
 	nome Varchar(20) NOT NULL,
  	Primary Key (id_adm)
 );
@@ -74,7 +74,7 @@ Create table torneio (
 	descricao Varchar(100) NOT NULL,
 	inicio Date NOT NULL,
 	termino Date NOT NULL,
-        Primary Key (id_torneio)
+    Primary Key (id_torneio)
 );
 
 Create table partida_log (
@@ -87,7 +87,7 @@ Create table partida_log (
 	vencedor Int,
 	dataUpdate Datetime,
 	action Varchar(50),
-        Primary Key (id_log)
+    Primary Key (id_log)
 );
 
 Create table selecao_esporte (
@@ -109,7 +109,7 @@ Create table participacao_esporte (
 );
 
 
-Alter table permissao add Foreign Key (id_adm) references administrador (id_adm) on delete  restrict on update  restrict;
+Alter table permissao add Foreign Key (login) references administrador (id_adm) on delete  restrict on update  restrict;
 Alter table permissao add Foreign Key (id_esporte) references esporte (id_esporte) on delete  restrict on update  restrict;
 Alter table partida add Foreign Key (id_esporte) references esporte (id_esporte) on delete  restrict on update  restrict;
 Alter table selecao_esporte add Foreign Key (id_esporte) references esporte (id_esporte) on delete  restrict on update  restrict;

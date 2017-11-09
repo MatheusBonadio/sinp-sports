@@ -1,7 +1,6 @@
 	<link rel="stylesheet" href="public/css/home.css" type="text/css">
-
 	<?php
-	require_once '/../controllers/dao/DestaqueDAO.php';
+		require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/dao/DestaqueDAO.php";
 		$dao = new DestaqueDAO();
 		$exec = $dao->listar();
 	?>
@@ -37,7 +36,7 @@
 	</div>
 	<div class='next_games'>
 		<div class='team'>
-			1º INFO
+			
 		</div>
 	</div>
 	<script>
