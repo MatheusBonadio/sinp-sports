@@ -1,4 +1,4 @@
-	<link rel="stylesheet" href="<?php echo CSS; ?>home.css" type="text/css">
+	<link rel="stylesheet" href="public/css/home.css" type="text/css">
 	<div class='slideshow'>
 		<div class='highlight_container'>
 			<div class='highlight_img' style='background-image: linear-gradient(to bottom, rgba(20,20,20,.45) 0%,rgba(20,20,20,.45) 100%), url(public/img/Overwatch.jpg);'>
