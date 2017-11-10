@@ -14,7 +14,7 @@ $esporte->setClassificacao($_POST['classificacao']);
 
 $ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
 $nome = sha1(microtime()).".".$ext;
-move_uploaded_file($_FILES['imagem']['tmp_name'], '../../img/esporte/'.$nome);
+move_uploaded_file($_FILES['imagem']['tmp_name'], '../../../public/img/esporte/'.$nome);
 $esporte->setImagem($nome);
 
 $dao->inserir($esporte);

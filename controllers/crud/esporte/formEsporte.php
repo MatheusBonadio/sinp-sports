@@ -54,7 +54,6 @@
 		</form>
 
 <?php
-		echo $esporte->getImagem();	
 	}
 ?>
 </body>
