@@ -48,13 +48,13 @@
 				<?php $func->optionsClassificacao($esporte); ?>
 				</select><br>
 		imagem<br>
-				<img src="../../img/esporte/<?php echo $esporte->getImagem(); ?>">
+				<img src="../../../public/img/esporte/<?php echo $esporte->getImagem(); ?>">
  				<input type="file" name="imagem">
 		<input type="submit">
 		</form>
 
 <?php
-
+		echo $esporte->getImagem();	
 	}
 ?>
 </body>

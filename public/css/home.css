@@ -92,7 +92,7 @@
 	font-size: 16vh;
 	color: #fff;
 	background: linear-gradient(to right, rgba(0,0,0,0) 20%,rgba(0,0,0,.5) 100%);
-	transition: .4s;
+	transition: opacity .4s, visibility .4s;
 	opacity: .4;
 }
 .arrow:last-child{

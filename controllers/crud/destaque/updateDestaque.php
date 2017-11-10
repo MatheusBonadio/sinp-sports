@@ -4,15 +4,15 @@
 	$destaque = new Destaque();
 	$dao = new DestaqueDAO();
 
-	$destaque = $dao->consultar($_POST['id']);
-	$imagem = $destaque->getImagem();
-    unlink('../../../public/img/destaque/'.$imagem);
-
 	$destaque->setidDestaque($_POST['id']);
 	$destaque->setidPartida($_POST['partida']);
 	$destaque->setTexto($_POST['texto']);
 
-	if(isset($_FILES['imagem'])){
+	if($_FILES['imagem']['error']==0){
+		$destaque = $dao->consultar($_POST['id']);
+		$imagem = $destaque->getImagem();
+    	unlink('../../../public/img/destaque/'.$imagem);
+
 		$ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
 		$nome = sha1(microtime()).".".$ext;
 		move_uploaded_file($_FILES['imagem']['tmp_name'], '../../../public/img/destaque/'.$nome);

@@ -4,10 +4,6 @@
 	$esporte = new Esporte();
 	$dao = new EsporteDAO();
 
-	$esporte = $dao->consultar($_POST['id']);
-	$imagem = $esporte->getImagem();
-    unlink('../../img/esporte/'.$imagem);
-
 	$esporte->setidEsporte($_POST['id']);
 	$esporte->setEsporte($_POST['esporte']);
 	$esporte->setGenero($_POST['genero']);
@@ -15,10 +11,14 @@
 	$esporte->setqtdJogadores($_POST['qtdJogadores']);
 	$esporte->setClassificacao($_POST['classificacao']);
 
-	if(isset($_FILES['imagem'])){
+	if($_FILES['imagem']['error']==0){
+		$esporte = $dao->consultar($_POST['id']);
+		$imagem = $esporte->getImagem();
+    	unlink('../../../public/img/esporte/'.$imagem);
+
 		$ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
 		$nome = sha1(microtime()).".".$ext;
-		move_uploaded_file($_FILES['imagem']['tmp_name'], '../../img/esporte/'.$nome);
+		move_uploaded_file($_FILES['imagem']['tmp_name'], '../../../public/img/esporte/'.$nome);
 		$esporte->setImagem($nome);
 		$dao->alterarImagem($esporte);
 	}else

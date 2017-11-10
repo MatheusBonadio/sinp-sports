@@ -50,4 +50,4 @@
 			ref.appendChild(div);
 		}
 	</script>
-	<script src="public/js/index.js"></script>
+	<script src="public/js/slideshow.js"></script>
