@@ -1,15 +1,21 @@
 Options +FollowSymLinks
 Options -Indexes
-ErrorDocument 404 /public_html/errors/404.php
-ErrorDocument 403 /public_html/errors/404.php
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^index\.php$ - [L]
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} \.php$
-</IfModule>
+    RewriteCond %{SCRIPT_FILENAME} !-f
+    RewriteCond %{SCRIPT_FILENAME} !-d
+    RewriteRule ^painel/adm/?$ controllers/crud/adm/selectAdm.php [NC,L]
+    RewriteRule ^painel/destaque/?$ controllers/crud/destaque/selectDestaque.php [NC,L]
+    RewriteRule ^painel/equipe/?$ controllers/crud/equipe/selectEquipe.php [NC,L]
+    RewriteRule ^painel/esporte/?$ controllers/crud/esporte/selectEsporte.php [NC,L]
+    RewriteRule ^painel/fase/?$ controllers/crud/fase/selectFase.php [NC,L]
+    RewriteRule ^painel/partida/?$ controllers/crud/partida/selectPartida.php [NC,L]
+    RewriteRule ^painel/torneio/?$ controllers/crud/torneio/selectTorneio.php [NC,L]
+    ErrorDocument 404 /errors/404.php
+    ErrorDocument 403 /errors/404.php
+    #RewriteRule ^(.*)$ url.php?url=$1
+ </IfModule>
 
 <Files ~ "^\.(htaccess|htpasswd)$">
     deny from all
