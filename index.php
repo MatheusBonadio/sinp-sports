@@ -23,15 +23,27 @@
         <a onclick='select_head(3)'>sobre nós</a>
         <a onclick='select_head(4)'>
             <label>login</label>
-            <div class='material-icons'>directions_walk</div>
         </a>
     </div>
+
+    <script src="<?php echo JS; ?>header.js"></script>
 
     <div id='loader' class='flex'>
         <div class='loader'></div>
         <label>Loading</label>
     </div>
 
-    <div class="content flex"><?php include("pages/home.php") ?></div>
+    <?php
+        $url = (isset($_GET["url"])) ? $_GET["url"]:"home";
+        //$url = array_filter(explode("/",$url));
+        $url = $_SERVER['DOCUMENT_ROOT']."/public_html/pages/".$url.".php";
+        if(!file_exists($url)) 
+            $url = $_SERVER['DOCUMENT_ROOT']."/public_html/errors/404.php";
+        //echo "<script>console.log('".$url."')</script>";
+    ?>
+
+    <script>$('#loader').hide();</script>
+
+    <div class="content flex"><?php include($url) ?></div>
 
     <?php include("footer.php");?>

@@ -1,0 +1,8 @@
+.error{
+	width: 100vw;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background-image: linear-gradient(to bottom, rgba(20,20,20,.96) 0%,
+	rgba(20,20,20,.96) 100%), url(../../public/img/sistema/error.jpg);
+}

@@ -1,4 +1,4 @@
-var currentHead = 0;
+var currentHead;
 
 function select_head(n){
     if(currentHead!=n){
@@ -12,6 +12,7 @@ function select_head(n){
             },
             success: function (data){
                 setTimeout(function(){
+                    window.history.pushState("", "", "/public_html/"+sites[n]);
                     $('#loader').hide();
                     $('.content').show();
                     $(".content").html(data);

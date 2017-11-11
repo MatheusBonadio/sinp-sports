@@ -51,3 +51,4 @@
 		}
 	</script>
 	<script src="public/js/slideshow.js"></script>
+	<script>slider($(".header a:eq(1)"))</script>
