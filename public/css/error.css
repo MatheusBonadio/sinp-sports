@@ -3,6 +3,32 @@
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	background-image: linear-gradient(to bottom, rgba(20,20,20,.96) 0%,
-	rgba(20,20,20,.96) 100%), url(../../public/img/sistema/error.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: linear-gradient(to bottom, rgba(20,20,20,.6) 0%,
+	rgba(20,20,20,.6) 100%), url(../../public/img/sistema/error.jpg);
+    filter: contrast(105%) brightness(110%);
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	box-sizing: border-box;
+	padding: 20px;
+}
+.error label{
+	text-align: center;
+	margin: 15px 0;
+}
+.error label:first-child{
+	font-size: 80px;
+	font-weight: 500;
+}
+.error label:last-child{
+	font-weight: 300;
+	font-size: 25px;
+}
+.error .line{
+	background-color: #cfcfcf;
+	width: 70vw;
+	height: 2px;
 }

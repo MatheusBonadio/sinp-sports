@@ -30,12 +30,16 @@
 	width: 65vw;
 }
 @font-face {
-    font-family: Esporte;
-    src: url(../../fonts/fon.ttf)
+    font-family: Main;
+    src: url(../../fonts/Main.ttf)
+}
+@font-face {
+    font-family: Caligrafia;
+    src: url(../../fonts/caligrafia.ttf)
 }
 .highlight_sport{
-	font: 600 42px Esporte;
-	letter-spacing: 2px;
+	font: 600 50px Caligrafia;
+	letter-spacing: 0px;
 }
 .highlight_line{
 	background-color: #e2aa00;
@@ -62,7 +66,7 @@
 	overflow: hidden;
 }
 .highlight_img div:nth-child(n+2){
-	margin: 8px 0px;
+	margin: 7px 0px;
 }
 .shadow{
 	width: 100%;
