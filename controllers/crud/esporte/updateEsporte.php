@@ -14,8 +14,8 @@ $esporte->setqtdJogadores($_POST['qtdJogadores']);
 $esporte->setClassificacao($_POST['classificacao']);
 
 if($_FILES['imagem']['error']==0){
-	$esporte = $dao->consultar($_POST['id']);
-	$imagem = $esporte->getImagem();
+	$espImg = $dao->consultar($_POST['id']);
+	$imagem = $espImg->getImagem();
 	unlink('../../../public/img/esporte/'.$imagem);
 
 	$ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);

@@ -11,8 +11,8 @@ $destaque->setidPartida($_POST['partida']);
 $destaque->setTexto($_POST['texto']);
 
 if($_FILES['imagem']['error']==0){
-	$destaque = $dao->consultar($_POST['id']);
-	$imagem = $destaque->getImagem();
+	$desImg = $dao->consultar($_POST['id']);
+	$imagem = $desImg->getImagem();
 	unlink('../../../public/img/destaque/'.$imagem);
 
 	$ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);

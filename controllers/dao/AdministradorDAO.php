@@ -79,7 +79,7 @@ class AdministradorDAO{
  	}
 
  	public function consultarPermissao($login){
- 		$sql = "select * from esporte,permissao where permissao.login = :login and permissao.id_esporte = esporte.id_esporte order by tipo,esporte;";
+ 		$sql = "select esporte, permissao.id_esporte from esporte, permissao where permissao.login = :login and permissao.id_esporte = esporte.id_esporte order by tipo,esporte;";
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':login', $login);
 		$prep->execute();
@@ -123,4 +123,16 @@ class AdministradorDAO{
 		return $idTorneio;
 	}
 
+	public function verificarLogin($login, $senha){
+		$sql = "select * from administrador where login = :login and senha = :senha";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':login', $login);
+		$prep->bindValue(':senha', $senha);
+		$prep->execute();
+		if($prep->fetchColumn() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

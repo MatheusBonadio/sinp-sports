@@ -80,7 +80,7 @@
 	else{
 		$id = $_GET['id'];
 		$partida = $dao->consultar($id);
-
+		//select * from permissao where id_esporte = $listar['id_esporte'] and login = $_SESSION['login'];
  ?>
 
 	

@@ -148,8 +148,11 @@
 	.dots{
 		width: 4vw;
 	}
+	.highlight_position{
+		width: 85vw;
+	}
 	.highlight_line{
 		width: 40vw;
 	}
-	@keyframes line{to{width: 80vw;}}
+	@keyframes line{to{width: 85vw;}}
 }
