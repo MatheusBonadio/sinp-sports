@@ -34,14 +34,6 @@
 		<div class='arrow flex material-icons' onclick='plusSlides(1)'>keyboard_arrow_right</div>
 		<div class='arrow flex material-icons' onclick='plusSlides(-1)'>keyboard_arrow_left</div>
 	</div>
-	<div class='next_games'>
-		<div class='team'>
-			1º INF
-		</div>
-		<div class='team'>
-			2° INF
-		</div>
-	</div>
 	<script>
 		$('#loader').hide();
 		var slides = document.getElementsByClassName("highlight_img");

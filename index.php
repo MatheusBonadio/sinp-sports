@@ -21,7 +21,7 @@
         <a onclick='select_head(0)'>home</a>
         <a onclick='select_head(1)'>partidas</a>
         <a onclick='select_head(2)'>esportes</a>
-        <a onclick='select_head(3)'>sobre nós</a>
+        <a onclick='select_head(3)'>equipes</a>
         <a onclick='select_head(4)'>login</a>
     </div>
 

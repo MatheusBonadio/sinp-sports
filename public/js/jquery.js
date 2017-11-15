@@ -2,7 +2,7 @@ var currentHead;
 
 function select_head(n){
     if(currentHead!=n){
-        var sites = ["home", "partidas", "esportes", "sobre", "login"];
+        var sites = ["home", "partidas", "esportes", "equipes", "login"];
         var url = "pages/"+sites[n]+".php";
         $.ajax({
             url: url,
