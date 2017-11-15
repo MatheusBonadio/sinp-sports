@@ -3,7 +3,7 @@
 			<label>login</label>
 			<input type='text' name='login' /><br />
 			<label>senha</label>
-			<input type='text' name='senha' /><br />
+			<input type='password' name='senha' /><br />
 			<input type='submit' />
 		</form>
 	</div>

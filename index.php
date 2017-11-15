@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang='pt-br'>
-    <head>
-        <?php include("config.php");?>
-        <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-        <script src='<?php echo JS; ?>jquery.js'></script>
-        <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-        <meta name='theme-color' content='#141414'>
-        <meta charset='UTF-8'>
-        <title>Sinp Sports | Gerenciador de competições esportivas</title>
-        <meta content='width=device-width, initial-scale=0.6, maximum-scale=0.6, user-scalable=0' name='viewport' />
-        <link rel='shortcut icon' href='<?php echo IMG; ?>/sistema/icon.png' type='image/x-icon'>
-        <link rel='stylesheet' href='<?php echo CSS; ?>index.css' type='text/css'>
-    </head>
+<head>
+    <?php include("config.php");?>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='<?php echo JS; ?>jquery.js'></script>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+    <meta name='theme-color' content='#141414'>
+    <meta charset='UTF-8'>
+    <title>Sinp Sports | Gerenciador de competições esportivas</title>
+    <meta content='width=device-width, initial-scale=0.6, maximum-scale=0.6, user-scalable=0' name='viewport' />
+    <link rel='shortcut icon' href='<?php echo IMG; ?>/sistema/icon.png' type='image/x-icon'>
+    <link rel='stylesheet' href='<?php echo CSS; ?>index.css' type='text/css'>
+</head>
+
 <body>
     <div class='header flex'>
         <a href=''>

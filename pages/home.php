@@ -36,7 +36,10 @@
 	</div>
 	<div class='next_games'>
 		<div class='team'>
-			
+			1º INF
+		</div>
+		<div class='team'>
+			2° INF
 		</div>
 	</div>
 	<script>

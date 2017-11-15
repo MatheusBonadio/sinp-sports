@@ -140,6 +140,9 @@
 	width: 100%;
 	height: 150px;
 }
+.team{
+	background-color: red;
+}
 @media screen and (max-width:1025px) {
 	.arrow{
 		opacity: 0;

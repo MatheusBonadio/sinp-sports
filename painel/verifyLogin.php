@@ -11,7 +11,7 @@ $verifica = $dao->verificarLogin($login, $senha);
 if($verifica){
 	$_SESSION['permissao'] = $dao->consultarPermissao($login);
 	$_SESSION['login'] = $login;
-	header('location: ../controllers/index.php');
+	header('location: painel.php');
 }else{
 	header('location: ../index.php');
 }

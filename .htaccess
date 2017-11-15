@@ -1,5 +1,5 @@
 Options +FollowSymLinks
-Options -Indexes
+Options All -Indexes
 
 ErrorDocument 404 /errors/403.php
 ErrorDocument 403 /errors/403.php
@@ -20,7 +20,7 @@ ErrorDocument 403 /errors/403.php
     <FilesMatch "\.(js|css|jpg|png|gif|ico|php|html|htm|ttf)$">
         <ifModule mod_filter.c>
             SetOutputFilter DEFLATE
-            AddOutputFilterByType DEFLATE text/css text/javascript application/x-javascript text/html text/plain text/xml image/x-icon
+            AddOutputFilterByType DEFLATE text/css text/javascript application/x-javascript text/html text/plain text/xml image/x-icon font/opentype font/truetype font/eot
         </IfModule>
     </FilesMatch>
 </IfModule>
