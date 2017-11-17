@@ -9,6 +9,7 @@ class Administrador {
     private $email;
     private $nome;
     private $permissao;
+    private $cargo;
 
     public function setidAdm($idAdm){
         $this->idAdm = $idAdm;
@@ -65,4 +66,13 @@ class Administrador {
     public function getPermissao(){
         return $this->permissao;
     }
+
+    public function setCargo($cargo){
+        $this->cargo = $cargo;
+    }
+
+    public function getCargo(){
+        return $this->cargo;
+    }
+
 }

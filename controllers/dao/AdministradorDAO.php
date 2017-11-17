@@ -13,13 +13,14 @@ class AdministradorDAO{
 	}	
 
 	public function inserir($adm){
-		$sql = 'INSERT INTO administrador(id_torneio, login, senha, email, nome) VALUES(:torneio, :login, :senha, :email, :nome)';
+		$sql = 'INSERT INTO administrador(id_torneio, login, senha, email, nome, cargo) VALUES(:torneio, :login, :senha, :email, :nome, :cargo)';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $adm->getidTorneio());
 		$prep->bindValue(':login', $adm->getLogin());
 		$prep->bindValue(':senha', $adm->getSenha());
 		$prep->bindValue(':email', $adm->getEmail());
 		$prep->bindValue(':nome', $adm->getNome());
+		$prep->bindValue(':cargo',$adm->getCargo());
 		$prep->execute();
 	}
 
@@ -32,13 +33,14 @@ class AdministradorDAO{
 	}
 
 	public function alterar($adm){
-		$sql = 'UPDATE administrador SET id_torneio = :torneio, login = :login, senha = :senha, email = :email, nome = :nome WHERE id_adm = :id';
+		$sql = 'UPDATE administrador SET id_torneio = :torneio, login = :login, senha = :senha, email = :email, nome = :nome, cargo = :cargo WHERE id_adm = :id';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $adm->getidTorneio());
 		$prep->bindValue(':login', $adm->getLogin());
 		$prep->bindValue(':senha', $adm->getSenha());
 		$prep->bindValue(':email', $adm->getEmail());
 		$prep->bindValue(':nome', $adm->getNome());
+		$prep->bindValue(':cargo', $adm->getCargo());
 		$prep->bindValue(':id', $adm->getidAdm());
 		$prep->execute();
 	}
@@ -57,6 +59,7 @@ class AdministradorDAO{
 	        $adm->setSenha($linha['senha']);
 	        $adm->setEmail($linha['email']);
 	        $adm->setNome($linha['nome']);
+	        $adm->setCargo($linha['cargo']);
         }
         return $adm;
 	}
@@ -134,5 +137,25 @@ class AdministradorDAO{
 		}else{
 			return false;
 		}
+	}
+
+	public function consultarCargoID($id){
+		$sql = "select cargo from administrador where id_adm = :id";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':id', $id);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		foreach($exec as $linha){
+			$cargo = $linha['cargo'];
+		}
+		return $cargo;
+	}
+
+	public function consultarCargo(){
+		$sql = "select cargo from administrador";
+		$prep = $this->con->prepare($sql);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
 	}
 }

@@ -9,6 +9,7 @@ Create table administrador (
 	senha Varchar(32) NOT NULL,
 	email Varchar(70) NOT NULL,
 	nome Varchar(20) NOT NULL,
+	cargo varchar(20) NOT NULL,
  	Primary Key (id_adm)
 );
 
@@ -109,7 +110,7 @@ Create table participacao_esporte (
 );
 
 
-Alter table permissao add Foreign Key (login) references administrador (id_adm) on delete  restrict on update  restrict;
+Alter table permissao add Foreign Key (login) references administrador (login) on delete  restrict on update  restrict;
 Alter table permissao add Foreign Key (id_esporte) references esporte (id_esporte) on delete  restrict on update  restrict;
 Alter table partida add Foreign Key (id_esporte) references esporte (id_esporte) on delete  restrict on update  restrict;
 Alter table selecao_esporte add Foreign Key (id_esporte) references esporte (id_esporte) on delete  restrict on update  restrict;

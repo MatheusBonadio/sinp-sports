@@ -11,6 +11,7 @@
 		echo "Senha: ".$listar['senha']."<br>";
 		echo "email: ".$listar['email']."<br>";
 		echo "nome: ".$listar['nome']."<br>";
+		echo "cargo: ".$listar['cargo']."<br>";
 		echo "Permissões:<br>";
 		$permExec = $dao->consultarPermissao($listar['login']);
 		foreach ($permExec as $listarEsporte) {

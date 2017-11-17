@@ -15,6 +15,7 @@ $adm->setLogin($_POST['adm_login']);
 $adm->setSenha($senha);
 $adm->setEmail($_POST['email']);
 $adm->setNome($_POST['nome']);
+$adm->setCargo($_POST['cargo']);
 $permissao = $_POST['permissao'];
 
 $dao->inserirPermissao($adm, $permissao);
