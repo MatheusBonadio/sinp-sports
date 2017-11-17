@@ -3,8 +3,10 @@
 <?php
 	require_once '../../class/Administrador.php';
 	require_once '../../dao/AdministradorDAO.php';
+	require_once 'Functions.php';
 	$adm = new Administrador();
 	$dao = new AdministradorDAO();
+	$func = new Functions();
 
 	if(!isset($_GET['id'])){
 ?>
@@ -49,7 +51,6 @@
 		$adm = $dao->consultar($id);
 		$exec = $dao->consultarPermissao($adm->getLogin());
 		$idTorneio = $dao->consultarTorneioID($adm->getidTorneio());
-		$cargo  = $dao->consultarCargoID($adm->getCargo());
 			foreach ($exec as $listar) {
 				$arrayChecked[$listar['id_esporte']] = $listar['id_esporte'];
 			}
@@ -79,21 +80,7 @@
 			email<input type="text" name="email" value="<?php echo $adm->getEmail(); ?> "><br>
 			nome<input type="text" name="nome" value="<?php echo $adm->getNome(); ?> "><br>
 			cargo<select name='cargo'>
-					<?php 
-						$exec = $dao->consultarCargo();
-						foreach ($exec as $listar) {
-							if($listar['cargo'] == $cargo){
-					?>
-								<option value="<?php echo $listar['cargo'];?>" selected><?php echo $listar['cargo']; ?></option>
-					<?php
-							}else{
-								//fazer igual o esporte
-					?>
-								<option value="<?php echo $listar['cargo'];?>"><?php echo $listar['cargo']; ?></option>
-					<?php
-							}
-						}
-					?>
+					<?php $func->optionsCargo($adm); ?>
 					</select><br>
 			permissao<br>
 				<?php 

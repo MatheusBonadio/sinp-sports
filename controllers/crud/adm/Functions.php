@@ -4,6 +4,7 @@ require_once '../../conexao.php';
 class Functions{
 
 	private $con;
+	private $arrayCargo = ['gerente','representante','administrador'];
 
 	public function __construct(){
 		$conexao = new Conexao();
@@ -17,4 +18,16 @@ class Functions{
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
  	}	
+
+
+
+	public function optionsCargo($adm){
+		echo "<option selected disabled hidden>Selecione um cargo</option>";
+		for($i=0;$i<count($this->arrayCargo);$i++){
+			if($this->arrayCargo[$i]==$adm->getCargo())
+				echo "<option selected>".$this->arrayCargo[$i]."</option>";
+			else
+				echo "<option>".$this->arrayCargo[$i]."</option>";
+		}
+	}
 }

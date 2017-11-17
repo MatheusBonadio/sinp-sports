@@ -100,6 +100,7 @@ body{
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	background-color: #141414;
 	animation: fadeUp .5s ease both;
 }

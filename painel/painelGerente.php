@@ -1,8 +1,11 @@
 <html>
 	<?php
-		session_start();
-		var_dump($_SESSION);
-		echo $_SESSION['permissao'][0]['esporte'];
+	
+	require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/session/Functions.php";
+
+	$func = new Functions();
+	$func->sessionGerente();
+
 	?>
 	<a href="..\controllers\crud\adm\selectAdm.php">ADM</a><br>
 	<a href="..\controllers\crud\torneio\selectTorneio.php">TORNEIO</a><br>
@@ -11,4 +14,5 @@
 	<a href="..\controllers\crud\equipe\selectEquipe.php">EQUIPE</a><br>
 	<a href="..\controllers\crud\partida\selectPartida.php">PARTIDA</a><br>
 	<a href="..\controllers\crud\destaque\selectDestaque.php">DESTAQUE</a><br>
+	<a href="..\controllers\session\sair.php">Sair</a>
 </html>

@@ -10,8 +10,19 @@ $verifica = $dao->verificarLogin($login, $senha);
 
 if($verifica){
 	$_SESSION['permissao'] = $dao->consultarPermissao($login);
+	$_SESSION['cargo'] = $dao->consultarCargoLogin($login);
 	$_SESSION['login'] = $login;
-	header('location: painel.php');
+
+	if($_SESSION['cargo'] == 'gerente'){
+		header('location: ../../painel/painelGerente.php');
+	}
+	if($_SESSION['cargo'] == 'administrador'){
+		header('location: ../../painel/painelAdm.php');
+	}
+	if($_SESSION['cargo'] == 'representante'){
+		header('location: ../../painel/painelRepresentante.php');
+	}
+
 }else{
 	header('location: ../index.php');
 }

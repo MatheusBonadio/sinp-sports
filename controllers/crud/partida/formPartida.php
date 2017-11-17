@@ -80,6 +80,8 @@
 	else{
 		$id = $_GET['id'];
 		$partida = $dao->consultar($id);
+		//aparecer somente oq o adm pode editar
+		//nao poder acessar o formulario pela url = session de login + confirmação de permissao atraves desse sql:
 		//select * from permissao where id_esporte = $listar['id_esporte'] and login = $_SESSION['login'];
  ?>
 

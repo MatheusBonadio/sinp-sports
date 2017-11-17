@@ -139,23 +139,23 @@ class AdministradorDAO{
 		}
 	}
 
-	public function consultarCargoID($id){
-		$sql = "select cargo from administrador where id_adm = :id";
-		$prep = $this->con->prepare($sql);
-		$prep->bindValue(':id', $id);
-		$prep->execute();
-		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
-		foreach($exec as $linha){
-			$cargo = $linha['cargo'];
-		}
-		return $cargo;
-	}
-
 	public function consultarCargo(){
 		$sql = "select cargo from administrador";
 		$prep = $this->con->prepare($sql);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
+	}
+
+	public function consultarCargoLogin($login){
+		$sql = "select cargo from administrador where login = :login";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':login', $login);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		foreach($exec as $linha){
+			$cargo = $linha['cargo'];
+		}
+		return $cargo;
 	}
 }

@@ -43,6 +43,6 @@
 
     <script>$('#loader').hide();</script>
 
-    <div class='content flex'><?php include($url) ?></div>
+    <div class='content'><?php include($url) ?></div>
 
     <?php include("footer.php");?>

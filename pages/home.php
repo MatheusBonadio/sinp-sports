@@ -34,6 +34,34 @@
 		<div class='arrow flex material-icons' onclick='plusSlides(1)'>keyboard_arrow_right</div>
 		<div class='arrow flex material-icons' onclick='plusSlides(-1)'>keyboard_arrow_left</div>
 	</div>
+	<div class='next_games'>
+		<div class='match flex'>
+			<div class='sport'>cabo de guerra</div>
+			<div class='team flex'>
+				<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/cloud9-gnd9b0gn.png' width='16%'/>
+				<label>1º INF</label>
+				<label>V</label>
+			</div>
+			<div class='team flex'>
+				<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/team-solomid-cg2byxoe.png' width='16%'/>
+				<label>1º ADM</label>
+				<label>D</label>
+			</div>
+		</div>
+		<div class='match flex'>
+			<div class='sport'>vôlei masculino</div>
+			<div class='team flex'>
+				<img src='https://www.festisite.com/static/partylogo/img/logos/fc-barcelona.png' width='16%'/>
+				<label>3º INF</label>
+				<label>D</label>
+			</div>
+			<div class='team flex'>
+				<img src='https://orig00.deviantart.net/996d/f/2015/307/a/d/bayern_munich_lockglyph__request__by_astoldbyalp-d9fd7qm.png' width='16%'/>
+				<label>2º ADM</label>
+				<label>V</label>
+			</div>
+		</div>
+	</div>
 	<script>
 		$('#loader').hide();
 		var slides = document.getElementsByClassName("highlight_img");

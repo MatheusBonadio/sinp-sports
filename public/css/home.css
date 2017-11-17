@@ -135,6 +135,62 @@
 .dots:hover, .active_dots{
 	background-color: #cfcfcf;
 }
+.next_games{
+	width: 20000px;
+	height: 150px;
+	background-color: #1a1a1a;
+	border: 2px solid #2d2d2d;
+	display: flex;
+	-webkit-user-select: none;
+	user-select: none;
+}
+.match{
+	width: 200px;
+	height: 100%;
+	border-right: 1px solid #2d2d2d;
+	flex-direction: column;
+	cursor: pointer;
+	border-left: 4px solid transparent;
+	color: #ccc;
+	box-sizing: border-box;
+	transition: .4s;
+	padding: 10px 10px 10px 18px;
+	overflow: hidden;
+}
+.match:hover{
+	border-left: 4px solid #e2aa00;
+	background-color: #1e1f21;
+}
+.next_games .sport{
+	padding: 12px 0 10px 5px;
+	text-transform: uppercase;
+	font-weight: 500;
+	color: #646464;
+	width: 100%;
+}
+.team{
+	width: 100%;
+	font-weight: 300;
+	flex-grow: 1;
+	justify-content: start;
+}
+.next_games img{
+	//width: 30px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center 10%;
+}
+.team label{
+	width: 70%;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.team label:last-child{
+	text-align: center;
+	width: 30%;
+	font-weight: 500;
+	color: #646464;
+}
 @media screen and (max-width:1025px) {
 	.arrow{
 		opacity: 0;
