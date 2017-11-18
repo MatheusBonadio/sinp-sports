@@ -4,5 +4,5 @@
 
     var_dump($_SESSION);
 
-    header("location: ../../index.php");
+    header("location: ../../");
 ?>

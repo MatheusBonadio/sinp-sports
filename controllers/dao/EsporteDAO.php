@@ -12,8 +12,9 @@ class EsporteDAO{
 	}	
 
 	public function inserir($esporte){
-		$sql = 'INSERT INTO esporte(esporte, genero, tipo, qtd_jogadores, classificacao, imagem) VALUES(:esporte, :genero, :tipo, :qtdJogadores, :classificacao, :imagem)';
+		$sql = 'INSERT INTO esporte(id_torneio, esporte, genero, tipo, qtd_jogadores, classificacao, imagem) VALUES(:torneio, :esporte, :genero, :tipo, :qtdJogadores, :classificacao, :imagem)';
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $esporte->getIdTorneio());
 		$prep->bindValue(':esporte', $esporte->getEsporte());
 		$prep->bindValue(':genero', $esporte->getGenero());
 		$prep->bindValue(':tipo', $esporte->getTipo());
@@ -32,8 +33,9 @@ class EsporteDAO{
 	}
 
 	public function alterarImagem($esporte){
-		$sql = 'UPDATE esporte SET esporte = :esporte, genero = :genero, tipo = :tipo, qtd_jogadores = :qtdJogadores, classificacao = :classificacao, imagem = :imagem WHERE id_esporte = :id';
+		$sql = 'UPDATE esporte SET id_torneio = :torneio, esporte = :esporte, genero = :genero, tipo = :tipo, qtd_jogadores = :qtdJogadores, classificacao = :classificacao, imagem = :imagem WHERE id_esporte = :id';
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $esporte->getIdTorneio());
 		$prep->bindValue(':esporte', $esporte->getEsporte());
 		$prep->bindValue(':genero', $esporte->getGenero());
 		$prep->bindValue(':tipo', $esporte->getTipo());
@@ -45,8 +47,9 @@ class EsporteDAO{
 	}
 
 	public function alterar($esporte){
-		$sql = 'UPDATE esporte SET esporte = :esporte, genero = :genero, tipo = :tipo, qtd_jogadores = :qtdJogadores, classificacao = :classificacao WHERE id_esporte = :id';
+		$sql = 'UPDATE esporte SET id_torneio = :torneio, esporte = :esporte, genero = :genero, tipo = :tipo, qtd_jogadores = :qtdJogadores, classificacao = :classificacao WHERE id_esporte = :id';
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $esporte->getIdTorneio());
 		$prep->bindValue(':esporte', $esporte->getEsporte());
 		$prep->bindValue(':genero', $esporte->getGenero());
 		$prep->bindValue(':tipo', $esporte->getTipo());
@@ -65,6 +68,7 @@ class EsporteDAO{
         $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
         foreach ($exec as $linha) {
         	$esporte->setidEsporte($linha['id_esporte']);
+        	$esporte->setidTorneio($linha['id_torneio']);
 	        $esporte->setEsporte($linha['esporte']);
 	        $esporte->setGenero($linha['genero']);
 	        $esporte->setTipo($linha['tipo']);
@@ -80,5 +84,13 @@ class EsporteDAO{
         $prep = $this->con->prepare($sql);
         $prep->bindValue(':id', $codigo);
         $prep->execute();
+	}
+
+	public function consultarTorneio(){
+		$sql = "select id_torneio, descricao from torneio order by descricao";
+		$prep = $this->con->prepare($sql);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
 	}
 }

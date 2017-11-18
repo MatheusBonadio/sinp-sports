@@ -3,6 +3,7 @@
 class Destaque {
 
     private $idDestaque;
+    private $idTorneio;
     private $idPartida;
     private $texto;
     private $imagem;
@@ -13,6 +14,14 @@ class Destaque {
 
     public function getidDestaque(){
         return $this->idDestaque; 
+    }
+
+    public function setidTorneio($idTorneio){
+        $this->idTorneio = $idTorneio;
+    }
+
+    public function getidTorneio(){
+        return $this->idTorneio; 
     }
 
     public function setidPartida($idPartida){

@@ -1,5 +1,5 @@
 	<div class='model'>
-		<form action='../public_html/painel/verifyLogin.php' method='POST'>
+		<form action='../public_html/controllers/session/verifyLogin.php' method='POST'>
 			<label>login</label>
 			<input type='text' name='login' /><br />
 			<label>senha</label>

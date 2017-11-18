@@ -4,11 +4,9 @@
 	$equipe = new Equipe();
 	$dao = new EquipeDAO();
 
+	$equipe->setidTorneio($_POST['torneio']);
 	$equipe->setNome($_POST['nome']);
-	$equipe->setVitorias($_POST['vitorias']);
-	$equipe->setEmpates($_POST['empates']);
-	$equipe->setDerrotas($_POST['derrotas']);
-	$equipe->setPontos($_POST['pontos']);
+	$equipe->setSigla($_POST['sigla']);
 
 	$dao->inserir($equipe);
 

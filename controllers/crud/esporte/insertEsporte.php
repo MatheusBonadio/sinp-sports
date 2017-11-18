@@ -6,6 +6,7 @@ require_once '../../dao/EsporteDAO.php';
 $esporte = new Esporte();
 $dao = new EsporteDAO();
 
+$esporte->setidTorneio($_POST['torneio']);
 $esporte->setEsporte($_POST['esporte']);
 $esporte->setGenero($_POST['genero']);
 $esporte->setTipo($_POST['tipo']);

@@ -5,6 +5,7 @@
 	$destaque = new Destaque();
 	$dao = new DestaqueDAO();
 
+	$destaque->setidTorneio($_POST['torneio']);
 	$destaque->setidPartida($_POST['partida']);
 	$destaque->setTexto($_POST['texto']);
 	

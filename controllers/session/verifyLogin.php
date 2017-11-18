@@ -13,17 +13,16 @@ if($verifica){
 	$_SESSION['cargo'] = $dao->consultarCargoLogin($login);
 	$_SESSION['login'] = $login;
 
-	if($_SESSION['cargo'] == 'gerente'){
+	if($_SESSION['cargo'] == 'Gerente'){
 		header('location: ../../painel/painelGerente.php');
 	}
-	if($_SESSION['cargo'] == 'administrador'){
+	if($_SESSION['cargo'] == 'Administrador'){
 		header('location: ../../painel/painelAdm.php');
 	}
-	if($_SESSION['cargo'] == 'representante'){
+	if($_SESSION['cargo'] == 'Representante'){
 		header('location: ../../painel/painelRepresentante.php');
 	}
-
 }else{
-	header('location: ../index.php');
+	header('location: /public_html/index.php');
 }
 

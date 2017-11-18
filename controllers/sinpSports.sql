@@ -15,6 +15,7 @@ Create table administrador (
 
 Create table esporte (
 	id_esporte Int NOT NULL AUTO_INCREMENT,
+	id_torneio Int NOT NULL,
 	esporte Varchar(30) NOT NULL,
 	genero Varchar(15) NOT NULL,
 	tipo Varchar(30) NOT NULL,
@@ -26,21 +27,23 @@ Create table esporte (
 
 Create table equipe (
 	id_equipe Int NOT NULL AUTO_INCREMENT,
-	nome Varchar(15) NOT NULL,
-	vitorias Int NOT NULL DEFAULT 0,
-	empates Int NOT NULL DEFAULT 0,
-	derrotas Int NOT NULL DEFAULT 0,
-	pontos Int NOT NULL DEFAULT 0,
+	id_torneio Int NOT NULL,
+	nome Varchar(30) NOT NULL,
+	sigla Varchar(6) NOT NULL,
+	vitorias Int NULL DEFAULT 0,
+	empates Int NULL DEFAULT 0,
+	derrotas Int NULL DEFAULT 0,
+	pontos Int NULL DEFAULT 0,
  	Primary Key (id_equipe)
 );
 
 Create table partida (
 	id_partida Int NOT NULL AUTO_INCREMENT,
+	id_torneio Int NOT NULL,
 	id_equipe_a Int NOT NULL,
 	id_equipe_b Int NOT NULL,
 	id_esporte Int NOT NULL,
 	id_fase Int NOT NULL,
-	id_torneio Int NOT NULL,
 	dia Date NOT NULL,
 	inicio Varchar(15),
 	termino Varchar(15),
@@ -52,11 +55,13 @@ Create table partida (
 
 Create table permissao (
 	login Varchar(20) NOT NULL,
+	id_torneio Int NOT NULL,
 	id_esporte Int NOT NULL
 );
 
 Create table destaque (
 	id_destaque Int NOT NULL AUTO_INCREMENT,
+	id_torneio Int NOT NULL,
 	id_partida Int NOT NULL,
 	texto Varchar(100) NOT NULL,
 	imagem Varchar(50) NOT NULL,
@@ -65,6 +70,7 @@ Create table destaque (
 
 Create table fase (
 	id_fase Int NOT NULL AUTO_INCREMENT,
+	id_torneio Int NOT NULL,
 	fase_descricao Varchar(40),
 	fase_indice Int,
 	Primary Key (id_fase)
@@ -80,7 +86,9 @@ Create table torneio (
 
 Create table partida_log (
 	id_log Int NOT NULL AUTO_INCREMENT,
+	id_torneio Int NOT NULL,
 	id_partida Int NOT NULL,
+	id_fase Int NOT NULL,
 	inicio Varchar(15),
 	termino Varchar(15),
 	placar_equipe_a Int,
@@ -93,6 +101,7 @@ Create table partida_log (
 
 Create table selecao_esporte (
 	id_selecao Char(20) NOT NULL,
+	id_torneio Int NOT NULL,
 	id_equipe Int NOT NULL,
 	id_esporte Int NOT NULL,
  	Primary Key (id_selecao)
@@ -100,12 +109,14 @@ Create table selecao_esporte (
 
 Create table participante (
 	id_participante Char(20) NOT NULL,
+	id_torneio Int NOT NULL,
 	id_equipe Int NOT NULL,
  	Primary Key (id_participante)
 );
 
 Create table participacao_esporte (
 	id_participante Char(20) NOT NULL,
+	id_torneio Int NOT NULL,
 	id_selecao Char(20) NOT NULL
 );
 

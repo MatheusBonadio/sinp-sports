@@ -22,6 +22,17 @@
 			classificacao<select name="classificacao">
 							<?php $func->optionsClassificacao($esporte); ?>
 						</select><br>
+			torneio<select name='torneio'>
+					<option selected disabled hidden>Selecione um torneio</option>
+				<?php 
+					$exec = $dao->consultarTorneio();
+					foreach ($exec as $listar) {
+				?>
+					<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
+				<?php
+					}
+				?>
+			</select><br>
 			imagem<br><input type="file" name="imagem"><br>
 			<input type="submit">
 		</form>
@@ -31,7 +42,6 @@
 	else{
 		$id = $_GET['id'];
 		$esporte = $dao->consultar($id);
-		//$func->optionsGenero($esporte);
  ?>
 
 	<form action="updateEsporte.php" enctype="multipart/form-data" method="POST">
@@ -46,6 +56,22 @@
 		qtdJogadores<input type="text" name="qtdJogadores" value="<?php echo $esporte->getqtdJogadores(); ?> "><br>
 		classificacao<select name="classificacao">
 				<?php $func->optionsClassificacao($esporte); ?>
+				</select><br>
+		torneio<select name='torneio'>
+				<?php 
+					$exec = $dao->consultarTorneio();
+					foreach ($exec as $listar) {
+						if($listar['id_torneio'] == $esporte->getidTorneio()){
+				?>
+							<option value="<?php echo $listar['id_torneio'];?>" selected><?php echo $listar['descricao']; ?></option>
+				<?php
+						}else{
+				?>
+							<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
+				<?php
+						}
+					}
+				?>
 				</select><br>
 		imagem<br>
 				<img src="../../../public/img/esporte/<?php echo $esporte->getImagem(); ?>">

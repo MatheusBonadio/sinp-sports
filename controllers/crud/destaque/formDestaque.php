@@ -19,6 +19,17 @@
 					}
 				?>
 			</select><br>
+			torneio<select name='torneio'>
+					<option selected disabled hidden>Selecione um torneio</option>
+				<?php 
+					$exec = $dao->consultarTorneio();
+					foreach ($exec as $listar) {
+				?>
+					<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
+				<?php
+					}
+				?>
+			</select><br>
 			texto	<textarea name="texto"></textarea><br>
 			imagem<br><input type="file" name="imagem"><br>
 			<input type="submit">
@@ -49,6 +60,22 @@
 					}
 				?>
 			</select><br>
+			torneio<select name='torneio'>
+				<?php 
+					$exec = $dao->consultarTorneio();
+					foreach ($exec as $listar) {
+						if($listar['id_torneio'] == $destaque->getidTorneio()){
+				?>
+							<option value="<?php echo $listar['id_torneio'];?>" selected><?php echo $listar['descricao']; ?></option>
+				<?php
+						}else{
+				?>
+							<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
+				<?php
+						}
+					}
+				?>
+				</select><br>
 		Texto<textarea name="texto"><?php echo $destaque->getTexto();?></textarea><br>
 		imagem<br>
 				<img src="../../../public/img/destaque/<?php echo $destaque->getImagem(); ?>"><br>

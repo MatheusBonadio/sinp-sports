@@ -3,6 +3,7 @@
 class Esporte {
 
     private $idEsporte;
+    private $idTorneio;
     private $esporte;
     private $genero;
     private $tipo;
@@ -15,6 +16,14 @@ class Esporte {
 
     public function getidEsporte(){
         return $this->idEsporte; 
+    }
+
+    public function setidTorneio($idTorneio){
+        $this->idTorneio = $idTorneio;
+    }
+
+    public function getidTorneio(){
+        return $this->idTorneio; 
     }
 
     public function setEsporte($esporte){

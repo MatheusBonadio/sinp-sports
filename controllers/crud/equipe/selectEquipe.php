@@ -4,7 +4,9 @@
 	$exec = $dao->listar();
 	foreach ($exec as $listar) {
 		echo "ID: ".$listar['id_equipe']."<br>";
+		echo "Torneio: ".$listar['id_torneio']."<br>";
 		echo "Nome: ".$listar['nome']."<br>";
+		echo "Sigla: ".$listar['sigla']."<br>";
 		echo "Vitorias: ".$listar['vitorias']."<br>";
 		echo "Empates: ".$listar['empates']."<br>";
 		echo "Derrotas: ".$listar['derrotas']."<br>";

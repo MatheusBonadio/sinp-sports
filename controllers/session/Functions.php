@@ -8,7 +8,7 @@ class Functions{
 			header("refresh:0 url= ../errors/403.php");
 		}
 
-		if($_SESSION['cargo'] != 'gerente'){
+		if($_SESSION['cargo'] != 'Gerente'){
 			header("refresh:0 url= ../errors/403.php");
 		}
 	}
@@ -19,8 +19,8 @@ class Functions{
 			header("refresh:0 url= ../errors/403.php");
 		}
 
-		if($_SESSION['cargo'] != 'administrador'){
-			if($_SESSION['cargo'] != 'gerente'){
+		if($_SESSION['cargo'] != 'Administrador'){
+			if($_SESSION['cargo'] != 'Gerente'){
 				header("refresh:0 url= ../errors/403.php");
 			}
 		}
@@ -32,11 +32,12 @@ class Functions{
 			header("refresh:0 url= ../errors/403.php");
 		}
 
-		if($_SESSION['cargo'] != 'administrador'){
-			if($_SESSION['cargo'] != 'gerente'){
-				if($_SESSION['cargo'] != 'representante')
-				header("refresh:0 url= ../errors/403.php");
+		if($_SESSION['cargo'] != 'Administrador'){
+			if($_SESSION['cargo'] != 'Gerente'){
+				if($_SESSION['cargo'] != 'Representante'){
+					header("refresh:0 url= ../errors/403.php");
 				}
 			}
-		}	
+		}
+	}
 }

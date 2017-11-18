@@ -5,7 +5,9 @@
 	$dao = new EquipeDAO();
 
 	$equipe->setidEquipe($_POST['id']);
+	$equipe->setidTorneio($_POST['torneio']);
 	$equipe->setNome($_POST['nome']);
+	$equipe->setSigla($_POST['sigla']);
 	$equipe->setVitorias($_POST['vitorias']);
 	$equipe->setEmpates($_POST['empates']);
 	$equipe->setDerrotas($_POST['derrotas']);

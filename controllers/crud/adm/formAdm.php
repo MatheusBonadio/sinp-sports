@@ -27,10 +27,10 @@
 			nome<input type="text" name="nome"><br>
 			cargo<select type="text" name="cargo">
 					<option selected disabled hidden>Selecione um cargo</option>
-					<option value="gerente">Gerente</option>
-					<option value="adm">Administrador</option>
-					<option value="representante">Representante</option>
-				</select>
+					<option>Gerente</option>
+					<option>Administrador</option>
+					<option>Representante</option>
+				</select><br>
 			permissao<br>
 					<?php 
 						$exec = $dao->consultarEsporte();
@@ -80,7 +80,7 @@
 			email<input type="text" name="email" value="<?php echo $adm->getEmail(); ?> "><br>
 			nome<input type="text" name="nome" value="<?php echo $adm->getNome(); ?> "><br>
 			cargo<select name='cargo'>
-					<?php $func->optionsCargo($adm); ?>
+					<?php echo $func->optionsCargo($adm); ?>
 					</select><br>
 			permissao<br>
 				<?php 

@@ -5,7 +5,7 @@ require_once 'class.phpmailer.php';
 class Mail{
 
 	public function gerarSenha(){
-	    $elementos = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+	    $elementos = 'abcdefghijklmnopqrstuvwxyz0123456789';
 	    $max = strlen($elementos) - 1;
 	    $senha = null;
 	    for($i=0;$i < 8; $i++)

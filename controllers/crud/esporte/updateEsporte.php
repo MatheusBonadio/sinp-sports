@@ -7,6 +7,7 @@ $esporte = new Esporte();
 $dao = new EsporteDAO();
 
 $esporte->setidEsporte($_POST['id']);
+$esporte->setidTorneio($_POST['torneio']);
 $esporte->setEsporte($_POST['esporte']);
 $esporte->setGenero($_POST['genero']);
 $esporte->setTipo($_POST['tipo']);

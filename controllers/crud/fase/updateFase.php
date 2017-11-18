@@ -5,6 +5,7 @@
 	$dao = new FaseDAO();
 
 	$fase->setidFase($_POST['id']);
+	$fase->setidTorneio($_POST['torneio']);
 	$fase->setDescricao($_POST['descricao']);
 	$fase->setIndice($_POST['indice']);
 

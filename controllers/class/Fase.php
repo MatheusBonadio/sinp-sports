@@ -3,6 +3,7 @@
 class Fase {
 
     private $idFase;
+    private $idTorneio;
     private $descricao;
     private $indice;
 
@@ -12,6 +13,14 @@ class Fase {
 
     public function getidFase(){
         return $this->idFase;
+    }
+
+    public function setidTorneio($idTorneio){
+        $this->idTorneio = $idTorneio;
+    }
+
+    public function getidTorneio(){
+        return $this->idTorneio;
     }
 
     public function setDescricao($descricao){

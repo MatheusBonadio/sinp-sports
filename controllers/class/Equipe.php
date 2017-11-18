@@ -3,7 +3,9 @@
 class Equipe {
 
     private $idEquipe;
+    private $idTorneio;
     private $nome;
+    private $sigla;
     private $vitorias;
     private $empates;
     private $derrotas;
@@ -17,12 +19,28 @@ class Equipe {
         return $this->idEquipe;
     }
 
+    public function setidTorneio($idTorneio){
+        $this->idTorneio = $idTorneio;
+    }
+
+    public function getidTorneio(){
+        return $this->idTorneio;
+    }
+
     public function setNome($nome){
         $this->nome = $nome;
     }
 
     public function getNome(){
         return $this->nome;
+    }
+
+    public function setSigla($sigla){
+        $this->sigla = $sigla;
+    }
+
+    public function getSigla(){
+        return $this->sigla;
     }
 
     public function setVitorias($vitorias){

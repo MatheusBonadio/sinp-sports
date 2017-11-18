@@ -12,13 +12,11 @@ class EquipeDAO{
 	}	
 
 	public function inserir($equipe){
-		$sql = 'INSERT INTO equipe(nome, vitorias, empates, derrotas, pontos) VALUES(:nome, :vitorias, :empates, :derrotas, :pontos)';
+		$sql = 'INSERT INTO equipe(id_torneio, nome, sigla) VALUES(:torneio, :nome, :sigla)';
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $equipe->getidTorneio());
 		$prep->bindValue(':nome', $equipe->getNome());
-		$prep->bindValue(':vitorias', $equipe->getVitorias());
-		$prep->bindValue(':empates', $equipe->getEmpates());
-		$prep->bindValue(':derrotas', $equipe->getDerrotas());
-		$prep->bindValue(':pontos', $equipe->getPontos());
+		$prep->bindValue(':sigla', $equipe->getSigla());
 		$prep->execute();
 	}
 
@@ -31,9 +29,11 @@ class EquipeDAO{
 	}
 
 	public function alterar($equipe){
-		$sql = 'UPDATE equipe SET nome = :nome, vitorias = :vitorias, empates = :empates, derrotas = :derrotas, pontos = :pontos WHERE id_equipe = :id';
+		$sql = 'UPDATE equipe SET id_torneio = :torneio, nome = :nome, sigla = :sigla, vitorias = :vitorias, empates = :empates, derrotas = :derrotas, pontos = :pontos WHERE id_equipe = :id';
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $equipe->getidTorneio());
 		$prep->bindValue(':nome', $equipe->getNome());
+		$prep->bindValue(':sigla', $equipe->getSigla());
 		$prep->bindValue(':vitorias', $equipe->getVitorias());
 		$prep->bindValue(':empates', $equipe->getEmpates());
 		$prep->bindValue(':derrotas', $equipe->getDerrotas());
@@ -51,7 +51,9 @@ class EquipeDAO{
         $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
         foreach ($exec as $linha) {
 	        $equipe->setidEquipe($linha['id_equipe']);
+        	$equipe->setidTorneio($linha['id_torneio']);
 	        $equipe->setNome($linha['nome']);
+	        $equipe->setSigla($linha['sigla']);
 	        $equipe->setVitorias($linha['vitorias']);
 	        $equipe->setEmpates($linha['empates']);
 	        $equipe->setDerrotas($linha['derrotas']);
@@ -65,5 +67,13 @@ class EquipeDAO{
         $prep = $this->con->prepare($sql);
         $prep->bindValue(':id', $codigo);
         $prep->execute();
+	}
+
+	public function consultarTorneio(){
+		$sql = "select id_torneio, descricao from torneio order by descricao";
+		$prep = $this->con->prepare($sql);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
 	}
 }

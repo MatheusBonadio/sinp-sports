@@ -92,9 +92,11 @@ class AdministradorDAO{
 
 	public function inserirPermissao($adm, $permissao){
 		for($i=0;$i<count($permissao);$i++){
-			$sql = "insert into permissao(login, id_esporte) values(:login,".$permissao[$i].");";
+			$sql = "insert into permissao(login, id_torneio, id_esporte) values(:login, :torneio, :permissao);";
 			$prep = $this->con->prepare($sql);
 			$prep->bindValue(':login', $adm->getLogin());
+			$prep->bindValue(':torneio', $adm->getidTorneio());
+			$prep->bindValue(':permissao', $permissao[$i]);
 	        $prep->execute();
 		}
 	}

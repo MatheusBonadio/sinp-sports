@@ -2,8 +2,6 @@
 	require_once '../../dao/PartidaDAO.php';
 	$dao = new PartidaDAO();
 	$exec = $dao->listar();
-
-	
 	foreach ($exec as $listar) {
 		echo "ID: ".$listar['id_partida']."<br>";
 		echo "EquipeA: ".$listar['id_equipe_a']."<br>";
