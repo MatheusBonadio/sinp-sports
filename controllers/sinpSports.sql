@@ -99,27 +99,19 @@ Create table partida_log (
     Primary Key (id_log)
 );
 
-Create table selecao_esporte (
-	id_selecao Char(20) NOT NULL,
-	id_torneio Int NOT NULL,
-	id_equipe Int NOT NULL,
-	id_esporte Int NOT NULL,
- 	Primary Key (id_selecao)
-);
-
 Create table participante (
-	id_participante Char(20) NOT NULL,
+	id_participante Int NOT NULL AUTO_INCREMENT,
 	id_torneio Int NOT NULL,
 	id_equipe Int NOT NULL,
+	nome char(50) NOT NULL,
  	Primary Key (id_participante)
 );
 
 Create table participacao_esporte (
-	id_participante Char(20) NOT NULL,
+	id_participante Int NOT NULL,
 	id_torneio Int NOT NULL,
-	id_selecao Char(20) NOT NULL
+	id_esporte Int NOT NULL
 );
-
 
 Alter table permissao add Foreign Key (login) references administrador (login) on delete  restrict on update  restrict;
 Alter table permissao add Foreign Key (id_esporte) references esporte (id_esporte) on delete  restrict on update  restrict;

@@ -6,6 +6,7 @@
 	$equipe = new Equipe();
 	$dao = new EquipeDAO();
 
+
 	if(!isset($_GET['id'])){
 ?>
 	
@@ -27,6 +28,7 @@
 			empates<input type="number" name="empates" value="0" disabled><br>
 			derrotas<input type="number" name="derrotas" value="0" disabled><br>
 			pontos<input type="number" name="pontos" value="0" disabled><br>
+
 			<input type="submit">
 		</form>
 	

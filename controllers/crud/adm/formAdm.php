@@ -8,7 +8,14 @@
 	$dao = new AdministradorDAO();
 	$func = new Functions();
 
+	if(!isset($_GET['cargo'])){
+		header('location: index.php');
+	}else{
+		$cargoSel = $_GET['cargo'];
+	}
+
 	if(!isset($_GET['id'])){
+		if($cargoSel == 'gerente' || $cargoSel == 'adm'){
 ?>
 		<form action="insertAdm.php" method="POST">
 			torneio<select name='torneio'>
@@ -25,12 +32,7 @@
 			login<input type="text" name="adm_login"><br>
 			email<input type="text" name="email"><br>
 			nome<input type="text" name="nome"><br>
-			cargo<select type="text" name="cargo">
-					<option selected disabled hidden>Selecione um cargo</option>
-					<option>Gerente</option>
-					<option>Administrador</option>
-					<option>Representante</option>
-				</select><br>
+			cargo<input type="text" name="cargo" value="<?php echo $cargoSel; ?>"><br>
 			permissao<br>
 					<?php 
 						$exec = $dao->consultarEsporte();
@@ -45,6 +47,29 @@
 		</form>
 
 <?php 
+		}else if($cargoSel == 'representante'){
+
+?>
+		<form action="insertAdm.php" method="POST">
+			torneio<select name='torneio'>
+						<option selected disabled hidden>Selecione um torneio</option>
+					<?php 
+						$exec = $dao->consultarTorneio();
+						foreach ($exec as $listar) {
+					?>
+						<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
+					<?php
+						}
+					?>
+					</select><br>
+			login<input type="text" name="adm_login"><br>
+			email<input type="text" name="email"><br>
+			nome<input type="text" name="nome"><br>
+			cargo<input type="text" name="cargo" value="<?php echo $cargoSel; ?>"><br>
+			<input type="submit">
+		</form>
+<?php
+		}
 	}
 	else{
 		$id = $_GET['id'];

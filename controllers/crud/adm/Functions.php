@@ -26,6 +26,6 @@ class Functions{
 				echo "<option selected>".$this->arrayCargo[$i]."</option>";
 			else
 				echo "<option>".$this->arrayCargo[$i]."</option>";
-		}
+		}	
 	}
 }

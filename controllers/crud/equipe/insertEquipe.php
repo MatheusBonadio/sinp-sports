@@ -7,7 +7,9 @@
 	$equipe->setidTorneio($_POST['torneio']);
 	$equipe->setNome($_POST['nome']);
 	$equipe->setSigla($_POST['sigla']);
-
+	$selecaoEsporte = $_POST['selecaoEsporte'];
+													//passar por sessao
+	//$dao->inserirSelecao($equipe, $selecaoEsporte, $_POST['torneio']);
 	$dao->inserir($equipe);
 
 	header('location:selectEquipe.php');
