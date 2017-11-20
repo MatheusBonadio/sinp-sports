@@ -12,6 +12,7 @@ $esporte->setEsporte($_POST['esporte']);
 $esporte->setGenero($_POST['genero']);
 $esporte->setTipo($_POST['tipo']);
 $esporte->setqtdJogadores($_POST['qtdJogadores']);
+$esporte->setqtdTimes($_POST['qtdTimes']);
 $esporte->setClassificacao($_POST['classificacao']);
 
 if($_FILES['imagem']['error']==0){

@@ -19,6 +19,7 @@
 					<?php $func->optionsTipo($esporte); ?>
 				</select><br>
 			qtdJogadores<input type="text" name="qtdJogadores"><br>
+			qtdTimes<input type="text" name="qtdTimes"><br>
 			classificacao<select name="classificacao">
 							<?php $func->optionsClassificacao($esporte); ?>
 						</select><br>
@@ -54,6 +55,7 @@
 				<?php $func->optionsTipo($esporte); ?>
 				</select><br>
 		qtdJogadores<input type="text" name="qtdJogadores" value="<?php echo $esporte->getqtdJogadores(); ?> "><br>
+		qtdTimes<input type="text" name="qtdTimes" value="<?php echo $esporte->getqtdTimes(); ?> "><br>
 		classificacao<select name="classificacao">
 				<?php $func->optionsClassificacao($esporte); ?>
 				</select><br>

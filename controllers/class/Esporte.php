@@ -8,6 +8,7 @@ class Esporte {
     private $genero;
     private $tipo;
     private $qtdJogadores;
+    private $qtdTimes;
     private $classificacao;
 
     public function setidEsporte($idEsporte){
@@ -56,6 +57,14 @@ class Esporte {
 
     public function getqtdJogadores(){
         return $this->qtdJogadores;
+    }
+
+    public function setqtdTimes($qtdTimes){
+        $this->qtdTimes = $qtdTimes;
+    }
+
+    public function getqtdTimes(){
+        return $this->qtdTimes;
     }
 
     public function setClassificacao($classificacao){

@@ -12,13 +12,14 @@ class EsporteDAO{
 	}	
 
 	public function inserir($esporte){
-		$sql = 'INSERT INTO esporte(id_torneio, esporte, genero, tipo, qtd_jogadores, classificacao, imagem) VALUES(:torneio, :esporte, :genero, :tipo, :qtdJogadores, :classificacao, :imagem)';
+		$sql = 'INSERT INTO esporte(id_torneio, esporte, genero, tipo, qtd_jogadores, qtd_times, classificacao, imagem) VALUES(:torneio, :esporte, :genero, :tipo, :qtdJogadores, :qtdTimes, :classificacao, :imagem)';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $esporte->getIdTorneio());
 		$prep->bindValue(':esporte', $esporte->getEsporte());
 		$prep->bindValue(':genero', $esporte->getGenero());
 		$prep->bindValue(':tipo', $esporte->getTipo());
 		$prep->bindValue(':qtdJogadores', $esporte->getqtdJogadores());
+		$prep->bindValue(':qtdTimes', $esporte->getqtdTimes());
 		$prep->bindValue(':classificacao', $esporte->getClassificacao());
 		$prep->bindValue(':imagem', $esporte->getImagem());
 		$prep->execute();
@@ -33,13 +34,14 @@ class EsporteDAO{
 	}
 
 	public function alterarImagem($esporte){
-		$sql = 'UPDATE esporte SET id_torneio = :torneio, esporte = :esporte, genero = :genero, tipo = :tipo, qtd_jogadores = :qtdJogadores, classificacao = :classificacao, imagem = :imagem WHERE id_esporte = :id';
+		$sql = 'UPDATE esporte SET id_torneio = :torneio, esporte = :esporte, genero = :genero, tipo = :tipo, qtd_jogadores = :qtdJogadores, qtd_times = :qtdTimes, classificacao = :classificacao, imagem = :imagem WHERE id_esporte = :id';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $esporte->getIdTorneio());
 		$prep->bindValue(':esporte', $esporte->getEsporte());
 		$prep->bindValue(':genero', $esporte->getGenero());
 		$prep->bindValue(':tipo', $esporte->getTipo());
 		$prep->bindValue(':qtdJogadores', $esporte->getqtdJogadores());
+		$prep->bindValue(':qtdTimes', $esporte->getqtdTimes());
 		$prep->bindValue(':classificacao', $esporte->getClassificacao());
 		$prep->bindValue(':imagem', $esporte->getImagem());
 		$prep->bindValue(':id', $esporte->getidEsporte());
@@ -47,13 +49,14 @@ class EsporteDAO{
 	}
 
 	public function alterar($esporte){
-		$sql = 'UPDATE esporte SET id_torneio = :torneio, esporte = :esporte, genero = :genero, tipo = :tipo, qtd_jogadores = :qtdJogadores, classificacao = :classificacao WHERE id_esporte = :id';
+		$sql = 'UPDATE esporte SET id_torneio = :torneio, esporte = :esporte, genero = :genero, tipo = :tipo, qtd_jogadores = :qtdJogadores, qtd_times = :qtdTimes, classificacao = :classificacao WHERE id_esporte = :id';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $esporte->getIdTorneio());
 		$prep->bindValue(':esporte', $esporte->getEsporte());
 		$prep->bindValue(':genero', $esporte->getGenero());
 		$prep->bindValue(':tipo', $esporte->getTipo());
 		$prep->bindValue(':qtdJogadores', $esporte->getqtdJogadores());
+		$prep->bindValue(':qtdTimes', $esporte->getqtdTimes());
 		$prep->bindValue(':classificacao', $esporte->getClassificacao());
 		$prep->bindValue(':id', $esporte->getidEsporte());
 		$prep->execute();
@@ -73,6 +76,7 @@ class EsporteDAO{
 	        $esporte->setGenero($linha['genero']);
 	        $esporte->setTipo($linha['tipo']);
 	        $esporte->setqtdJogadores($linha['qtd_jogadores']);
+	        $esporte->setqtdTimes($linha['qtd_times']);
 	        $esporte->setClassificacao($linha['classificacao']);
 	        $esporte->setImagem($linha['imagem']);
         }
