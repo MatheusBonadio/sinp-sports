@@ -1,4 +1,5 @@
 var currentHead;
+var pagina;
 
 function select_head(n){
     if(currentHead!=n){

@@ -1,0 +1,196 @@
+.container{
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+	width: 100%;
+}
+.container_filter{
+	background-color: #0c0c0c;
+	width: 280px;
+	color: #fff;
+	height: calc(100vh - 70px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 70px;
+	box-sizing: border-box;
+	box-shadow: 0 2px 15px 2px rgba(0,0,0,.4);
+	font: 300 16px Roboto;
+	letter-spacing: -1px;
+	position: fixed;
+	top: 0;
+	overflow-x: hidden;
+	user-select: none;
+	-webkit-user-select: none;
+	cursor: default;
+}
+.filter_header{
+	padding: 22px 26px;
+	width: 100%;
+	box-sizing: border-box;
+}
+.filter_header:first-child{
+	font-weight: 400;
+	padding: 42px 0 22px 26px;
+	background-color: #e2aa00;
+}
+.filter{
+	width: 100%;
+	box-sizing: border-box;
+	padding: 22px;
+	cursor: pointer;
+	color: #646464;
+	border-radius: 3px 0 0 3px;
+	border-left: 4px solid transparent;
+	transition: .4s;
+}
+.filter:hover{
+	border-left: 4px solid #e2aa00;
+	background-color: #1f1f1c;
+}
+.filter_line{
+	width: 90%;
+	height: 1px;
+	background-color: #252525;
+}
+.absolute{
+	position: absolute;
+	top: auto;
+	left: 0;
+	bottom: 0;
+}
+.container_match{
+	width: 100%;
+	min-height: calc(100vh - 90px);
+	margin-left: 280px;
+	margin-top: 90px;
+	//display: flex;
+	flex-direction: column;
+}
+.container_stage{
+	display: flex;
+	width: 100%;
+	background-color: #0c0c0c;
+	box-sizing: border-box;
+	flex-wrap: wrap;
+}
+.stage{
+	min-width: 160px;
+	cursor: pointer;
+	font-weight: 300;
+	font-size: 15px;
+	color: #646464;
+	text-align: center;
+	flex-grow: 1;
+	transition: .4s;
+	box-sizing: border-box;
+	border-bottom: 2px solid #252525;
+	padding: 22px 0;
+	text-decoration: none;
+}
+.stage:hover{
+	color: #fff;
+	border-bottom: 2px solid #e2aa00;
+}
+.matchs{
+	width: 100%;
+	height: 100%;
+	padding: 0px 50px 20px 40px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+}
+.match{
+	width: 100%;
+	height: 135px;
+	border-bottom: 1px solid #252525;
+	border-top: 1px solid #252525;
+	display: flex;
+	cursor: pointer;
+	transition: .4s;
+}
+.match:hover{
+	opacity: .85;
+}
+.date{
+	color: #fff;
+	font-weight: 300;
+	text-transform: uppercase;
+	padding: 20px 0;
+}
+.time{
+	background-color: #0c0c0c;
+	width: 25%;
+	height: 100%;
+	flex-direction: column;
+	box-sizing: border-box;
+	text-align: center;
+}
+.time span:first-child, .team_name{
+	color: #fff;
+	font-weight: 300;
+	font-size: 17px;
+	margin-bottom: 5px;
+}
+.time span:last-child{
+	color: #646464;
+	font-weight: 500;
+}
+.teams{
+	flex-grow: 1;
+	display: flex;
+}
+.team_a, .team_b{
+	width: 46%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.team_b{
+	justify-content: flex-start;
+}
+.team_name{
+	font-weight: 300;
+	font-size: 20px;
+	display: flex;
+	flex-direction: column;
+	text-align: right;
+}
+.team_name:last-child{
+	text-align: left;
+}
+.team_name span:last-child{
+	margin-top: 7px;
+	font-size: 17px;
+	font-weight: 400;
+}
+.team_img{
+	width: 100px;
+	height: 100%;
+	padding: 0 15px 0 0;
+}
+.team_img:last-child{
+	padding: 0 0 0 15px;
+}
+.versus{
+	flex-grow: 1;
+	height: 100%;
+	font-weight: 400;
+	color: #646464;
+}
+.defeat{
+	color: #a65f46;
+}
+.victory{
+	color: #bea152;
+}
+@media screen and (max-width:1025px) {
+	.container_filter{
+		display: none;
+	}
+	.container_match{
+		margin-left: 0px;
+		//margin-top: 0px;
+	}
+}

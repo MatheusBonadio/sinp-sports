@@ -23,7 +23,10 @@ var touchMove = 0, touchStart = 0;
 }*/
 
 function plusSlides(n) {
-  showSlides(slideIndex += n);
+  if(!document.getElementsByClassName("highlight_img").length)
+    window.clearInterval(timer);
+  else
+    showSlides(slideIndex += n);
 }
 
 function currentSlide(n) {

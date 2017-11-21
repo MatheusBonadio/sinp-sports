@@ -40,9 +40,9 @@ body{
 	z-index: 99;
 	box-shadow: 0 2px 15px 2px rgba(0,0,0,.4);
 	transition: .4s;
+	background-color: #1b1b1b;
 }
 .header a{
-	background-color: rgba(20,20,20,.95);
 	color: #646464;
 	cursor: pointer;
 	display: flex;
@@ -58,7 +58,7 @@ body{
 	transition: border .2s, background-color .4s;
 }
 .header a:hover{
-	background-color: #0a0a0a;
+	background-color: #141414;
 	color: #fff;
 }
 .header a:last-child{
@@ -66,7 +66,8 @@ body{
 }
 .header a:first-child{
 	cursor: default;
-	width: 150px;
+	max-width: 280px;
+	min-width: 280px;
 }
 .header a:first-child:hover{
 	background-color: #141414;
@@ -74,9 +75,9 @@ body{
 .header .img{
 	cursor: pointer;
 	position: absolute;
-	bottom: -50px;
-	width: 130px;
-	height: 125px;
+	bottom: -40px;
+	width: 120px;
+	height: 115px;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -98,10 +99,10 @@ body{
 .content{
 	width: 100vw;
 	min-height: 100vh;
-	display: flex;
+	/*display: flex;
 	flex-direction: column;
 	justify-content: center;
-	background-color: #141414;
+	background-color: #141414;*/
 	animation: fadeUp .5s ease both;
 }
 @keyframes fadeUp{
@@ -163,6 +164,12 @@ a[title="Hosted on free web hosting 000webhost.com. Host your own website for FR
 		bottom: -15px;
 		width: 100px;
 		height: 95px;
+	}
+	.header a:first-child{
+		min-width: 100%;
+	}
+	.header a:first-child:hover{
+		background-color: #1b1b1b;
 	}
 	.small{
 		height: 90px;

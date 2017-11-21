@@ -5,7 +5,7 @@ use sinpSports;
 Create table administrador (
 	id_adm Int NOT NULL AUTO_INCREMENT,
 	id_torneio Int NOT NULL,
-	login Varchar(20) NOT NULL,
+	login Varchar(30) NOT NULL,
 	senha Varchar(32) NOT NULL,
 	email Varchar(70) NOT NULL,
 	nome Varchar(20) NOT NULL,
@@ -20,6 +20,7 @@ Create table esporte (
 	genero Varchar(15) NOT NULL,
 	tipo Varchar(30) NOT NULL,
 	qtd_jogadores Int NOT NULL,
+	qtd_times Int NOT NULL,
 	classificacao Varchar(20) NOT NULL,
 	imagem Varchar(50) NULL,
  	Primary Key (id_esporte)
