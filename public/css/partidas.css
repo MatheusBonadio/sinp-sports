@@ -1,3 +1,6 @@
+a{
+	text-decoration: none;
+}
 .container{
 	display: flex;
 	flex-wrap: wrap;
@@ -23,6 +26,7 @@
 	user-select: none;
 	-webkit-user-select: none;
 	cursor: default;
+	z-index: 1;
 }
 .filter_header{
 	padding: 22px 26px;
@@ -64,8 +68,23 @@
 	min-height: calc(100vh - 90px);
 	margin-left: 280px;
 	margin-top: 90px;
-	//display: flex;
+	position: relative;
+	animation: fadeUp .5s ease both;
+}
+.container_match .load{
+	position: absolute;
+	top: 50%;
+	left: 50%;
 	flex-direction: column;
+	transform: translate(-50%,-50%);
+}
+.container_match .load label{
+	font: 300 16px Roboto;
+	margin-top: 10px;
+	color: #cfcfcf;
+}
+.container_match .loader{
+	//border-top-color: red;
 }
 .container_stage{
 	display: flex;
@@ -108,6 +127,11 @@
 	display: flex;
 	cursor: pointer;
 	transition: .4s;
+	animation: fade .5s ease both;
+}
+@keyframes fade{
+	from{opacity: .3;margin-top: 3vh;}
+	to{opacity: 1;}
 }
 .match:hover{
 	opacity: .85;
@@ -185,12 +209,21 @@
 .victory{
 	color: #bea152;
 }
+.error{
+	width: 100%;
+	height: calc(100vh - 70px);
+	font: 200 30px Roboto;
+	text-align: center;
+	color: #fff;
+	z-index: 0;
+	background-color: #141414;
+	animation: fadeUp .3s ease both;
+}
 @media screen and (max-width:1025px) {
 	.container_filter{
 		display: none;
 	}
 	.container_match{
 		margin-left: 0px;
-		//margin-top: 0px;
 	}
 }

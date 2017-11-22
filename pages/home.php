@@ -15,7 +15,7 @@
 					<div class='highlight_date'>
 						<?php echo $listar['dia']." - ".$listar['tipo']; ?>
 					</div>
-					<div class='highlight_sport'>~ <?php echo $listar['esporte']; ?> ~</div>
+					<div class='highlight_sport'><?php echo $listar['esporte']; ?></div>
 					<div class='highlight_line'></div>
 					<div class='highlight_text'>
 						<?php echo $listar['texto']; ?>

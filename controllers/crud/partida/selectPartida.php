@@ -1,11 +1,11 @@
 <?php
 	require_once '../../dao/PartidaDAO.php';
 	$dao = new PartidaDAO();
-	$exec = $dao->listar();
+	$exec = $dao->listar(1);
 	foreach ($exec as $listar) {
 		echo "ID: ".$listar['id_partida']."<br>";
-		echo "EquipeA: ".$listar['id_equipe_a']."<br>";
-		echo "EquipeB: ".$listar['id_equipe_b']."<br>";
+		echo "EquipeA: ".$listar['nome_equipe_a']."<br>";
+		echo "EquipeB: ".$listar['nome_equipe_b']."<br>";
 		echo "Esporte: ".$listar['id_esporte']."<br>";
 		echo "Fase: ".$listar['id_fase']."<br>";
 		echo "Torneio: ".$listar['id_torneio']."<br>";

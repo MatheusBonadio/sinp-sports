@@ -25,12 +25,59 @@ class PartidaDAO{
 		$prep->execute();
 	}
 
-	public function listar(){
-		$sql = 'SELECT id_partida, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as id_equipe_a, 
-		(select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as id_equipe_b, 
+	public function listar($torneio){
+		$sql = 'SELECT id_partida, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as nome_equipe_a, 
+		(select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as nome_equipe_b, 
 		(select esporte from esporte where esporte.id_esporte = partida.id_esporte) as id_esporte,
 		(select fase_descricao from fase where fase.fase_indice = partida.id_fase) as id_fase,
-		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio, dia, inicio, termino, placar_equipe_a, placar_equipe_b, vencedor FROM partida ORDER BY dia';
+		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio, dia, inicio, termino, placar_equipe_a, placar_equipe_b, vencedor FROM partida where id_torneio = :torneio ORDER BY dia';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
+	}
+
+	public function listarEsporte($idEsporte, $torneio){
+		$sql = 'SELECT id_partida, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as nome_equipe_a, 
+		(select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as nome_equipe_b, 
+		(select esporte from esporte where esporte.id_esporte = partida.id_esporte) as id_esporte,
+		(select fase_descricao from fase where fase.fase_indice = partida.id_fase) as id_fase,
+		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio, dia, inicio, termino, placar_equipe_a, placar_equipe_b, vencedor FROM partida where id_torneio = :torneio AND id_esporte = :idEsporte ORDER BY dia';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->bindValue(':idEsporte', $idEsporte);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
+	}
+
+	public function listarEsportePartida(){
+		$sql = 'select distinct id_esporte, (select esporte from esporte where esporte.id_esporte = partida.id_esporte) as esporte from partida order by esporte;';
+		$prep = $this->con->prepare($sql);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
+	}
+
+	public function listarEquipe($idEquipe, $torneio){
+		$sql = 'SELECT id_partida, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as nome_equipe_a, 
+		(select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as nome_equipe_b, 
+		(select id_equipe from equipe where equipe.id_equipe = partida.id_equipe_a) as id_equipe_a, 
+		(select id_equipe from equipe where equipe.id_equipe = partida.id_equipe_b) as id_equipe_b, 
+		(select esporte from esporte where esporte.id_esporte = partida.id_esporte) as id_esporte,
+		(select fase_descricao from fase where fase.fase_indice = partida.id_fase) as id_fase,
+		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio, dia, inicio, termino, placar_equipe_a, placar_equipe_b, vencedor FROM partida where id_torneio = :torneio and id_equipe_a = :idEquipe or id_equipe_b = :idEquipe ORDER BY dia';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->bindValue(':idEquipe', $idEquipe);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
+	}
+
+	public function listarEquipePartida(){
+		$sql = 'select distinct id_equipe_a, (select nome from equipe where partida.id_equipe_a = equipe.id_equipe) as nome from partida union select distinct id_equipe_b, (select nome from equipe where partida.id_equipe_b = equipe.id_equipe) as nome from partida order by nome;';
 		$prep = $this->con->prepare($sql);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
@@ -128,7 +175,5 @@ class PartidaDAO{
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
 	}
-
-	
 
 }

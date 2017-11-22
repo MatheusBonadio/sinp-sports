@@ -34,15 +34,13 @@
 
     <?php
         $url = (isset($_GET["url"])) ? $_GET["url"]:"home";
-        //$url = array_filter(explode("/",$url));
         $url = $_SERVER['DOCUMENT_ROOT']."/public_html/pages/".$url.".php";
         if(!file_exists($url)) 
             $url = $_SERVER['DOCUMENT_ROOT']."/public_html/errors/404.php";
-        //echo "<script>console.log('".$url."')</script>";
     ?>
 
     <script>$('#loader').hide();</script>
 
     <div class='content'><?php include($url) ?></div>
-
+    
     <?php include("footer.php");?>

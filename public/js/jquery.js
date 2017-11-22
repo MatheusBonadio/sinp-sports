@@ -8,6 +8,7 @@ function select_head(n){
         $.ajax({
             url: url,
             beforeSend: function() {
+                $('html, body').animate({scrollTop:0}, 400);
                 $('#loader').show();
                 $('.content').hide();
             },

@@ -38,7 +38,8 @@
     src: url(../../fonts/caligrafia.ttf)
 }
 .highlight_sport{
-	font: 600 50px Caligrafia;
+	//font: 600 50px Caligrafia;
+	font: 600 45px Main;
 	letter-spacing: 0px;
 }
 .highlight_line{
