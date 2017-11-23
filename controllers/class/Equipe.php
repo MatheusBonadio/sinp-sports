@@ -10,6 +10,8 @@ class Equipe {
     private $empates;
     private $derrotas;
     private $pontos;
+    private $representante;
+    private $logo;
 
     public function setidEquipe($idEquipe){
         $this->idEquipe = $idEquipe;
@@ -73,5 +75,21 @@ class Equipe {
 
     public function getPontos(){
         return $this->pontos;
+    }
+
+    public function setRepresentante($representante){
+        $this->representante = $representante;
+    }
+
+    public function getRepresentante(){
+        return $this->representante;
+    }
+
+    public function setLogo($logo){
+        $this->logo = $logo;
+    }
+
+    public function getLogo(){
+        return $this->logo;
     }
 }

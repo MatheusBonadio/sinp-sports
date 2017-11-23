@@ -33,7 +33,9 @@ class PartidaDAO{
 		(select esporte from esporte where esporte.id_esporte = partida.id_esporte) as id_esporte,
 		(select fase_descricao from fase where fase.fase_indice = partida.id_fase) as id_fase,
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
-		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio ORDER BY dia';
+		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor,
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_a) as logo_a,
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio ORDER BY dia';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
@@ -51,6 +53,8 @@ class PartidaDAO{
 		(select fase_descricao from fase where fase.fase_indice = partida.id_fase) as id_fase,
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
 		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor,
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_a) as logo_a,
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b,
 		date_format(dia, "%d/%m/%Y") as dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio and id_partida = :id';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
@@ -68,7 +72,9 @@ class PartidaDAO{
 		(select esporte from esporte where esporte.id_esporte = partida.id_esporte) as id_esporte,
 		(select fase_descricao from fase where fase.fase_indice = partida.id_fase) as id_fase,
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
-		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio AND id_esporte = :idEsporte ORDER BY dia';
+		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor,
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_a) as logo_a,
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio AND id_esporte = :idEsporte ORDER BY dia';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->bindValue(':idEsporte', $idEsporte);
@@ -87,7 +93,9 @@ class PartidaDAO{
 		(select esporte from esporte where esporte.id_esporte = partida.id_esporte) as id_esporte,
 		(select fase_descricao from fase where fase.fase_indice = partida.id_fase) as id_fase,
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
-		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio and id_equipe_a = :idEquipe or id_equipe_b = :idEquipe ORDER BY dia';
+		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor,
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_a) as logo_a,
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio and id_equipe_a = :idEquipe or id_equipe_b = :idEquipe ORDER BY dia';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->bindValue(':idEquipe', $idEquipe);
@@ -96,20 +104,26 @@ class PartidaDAO{
 		return $exec;
 	}
 
-	public function listarEsportePartida(){
-		$sql = 'select distinct id_esporte, (select esporte from esporte where esporte.id_esporte = partida.id_esporte) as esporte from partida order by esporte;';
+	public function listarEsportePartida($torneio){
+		$sql = 'select distinct id_esporte, (select esporte from esporte where esporte.id_esporte = partida.id_esporte) as esporte from partida where id_torneio = :torneio order by esporte;';
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
 	}
 
-	public function listarEquipePartida(){
-		$sql = 'select distinct id_equipe_a, (select nome from equipe where partida.id_equipe_a = equipe.id_equipe) as nome from partida union select distinct id_equipe_b, (select nome from equipe where partida.id_equipe_b = equipe.id_equipe) as nome from partida order by nome;';
+	public function listarEquipePartida($torneio){
+		$sql = 'select distinct id_equipe_a, (select nome from equipe where partida.id_equipe_a = equipe.id_equipe) as nome from partida where id_torneio = :torneio union select distinct id_equipe_b, (select nome from equipe where partida.id_equipe_b = equipe.id_equipe) as nome from partida where id_torneio = :torneio order by nome;';
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
+	}
+
+	public function listarEquipePartida($torneio){
+		
 	}
 
 	public function alterar($partida){
@@ -132,10 +146,11 @@ class PartidaDAO{
 		$prep->execute();
 	}
 
-	public function consultar($codigo){
-		$sql = "SELECT * FROM partida WHERE id_partida = :id";
+	public function consultar($codigo, $torneio){
+		$sql = "SELECT * FROM partida WHERE id_partida = :id AND id_torneio = :torneio";
         $prep = $this->con->prepare($sql);
         $prep->bindValue(':id', $codigo);
+        $prep->bindValue(':torneio', $torneio);
         $prep->execute();
         $partida = new Partida();
         $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
@@ -163,42 +178,47 @@ class PartidaDAO{
         $prep->execute();
 	}
 
-	public function consultarEquipe(){
-		$sql = "select id_equipe, nome from equipe order by nome";
+	public function consultarEquipe($torneio){
+		$sql = "select id_equipe, nome from equipe where id_torneio = :torneio order by nome";
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
 	}
 
-	public function consultarEsporte(){
-		$sql = "select id_esporte, esporte from esporte order by tipo,esporte";
+	public function consultarEsporte($torneio){
+		$sql = "select id_esporte, esporte from esporte where id_torneio = :torneio order by tipo,esporte";
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
 	}
 
-	public function consultarFase(){
-		$sql = "select fase_indice, fase_descricao from fase order by fase_indice";
+	public function consultarFase($torneio){
+		$sql = "select fase_indice, fase_descricao from fase where id_torneio = :torneio order by fase_indice";
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
 	}
 
-	public function consultarTorneio(){
-		$sql = "select id_torneio, descricao from torneio order by descricao";
+	public function consultarTorneio($torneio){
+		$sql = "select id_torneio, descricao from torneio where id_torneio = :torneio order by descricao";
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
 	}
 
-	public function consultarVencedor($id){
-		$sql = "select id_equipe_a, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as nomeA, id_equipe_b, (select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as nomeB from partida where id_partida = :id";
+	public function consultarVencedor($id, $torneio){
+		$sql = "select id_equipe_a, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a and equipe.id_torneio = :torneio) as nomeA, id_equipe_b, (select nome from equipe where equipe.id_equipe = partida.id_equipe_b and equipe.id_torneio = :torneio) as nomeB from partida where id_partida = :id and partida.id_torneio = :torneio";
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':id', $id);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;

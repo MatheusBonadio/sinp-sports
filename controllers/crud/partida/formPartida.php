@@ -7,13 +7,24 @@
 	$partida = new Partida();
 	$dao = new PartidaDAO();
 
+	session_start();
+
+	if($_SESSION['cargo'] == 'Representante'){
+		header('location: ../../../errors/403.php');
+	}
+
+	if(!isset($_SESSION['cargo'])){
+		header('location: ../../../errors/403.php');
+	}
+
 	if(!isset($_GET['id'])){
+		if($_SESSION['cargo'] == 'Gerente'){
 ?>
 		<form action="insertPartida.php" method="POST">
 			equipeA<select name='equipeA'>
 						<option selected disabled hidden>Selecione uma equipe</option>
 					<?php 
-						$exec = $dao->consultarEquipe();
+						$exec = $dao->consultarEquipe($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 					?>
 						<option value="<?php echo $listar['id_equipe'];?>"><?php echo $listar['nome']; ?></option>
@@ -24,7 +35,7 @@
 			equipeB<select name='equipeB'>
 						<option selected disabled hidden>Selecione uma equipe</option>
 					<?php 
-						$exec = $dao->consultarEquipe();
+						$exec = $dao->consultarEquipe($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 					?>
 						<option value="<?php echo $listar['id_equipe'];?>"><?php echo $listar['nome']; ?></option>
@@ -35,7 +46,7 @@
 			esporte<select name='esporte'>
 						<option selected disabled hidden>Selecione um esporte</option>
 					<?php 
-						$exec = $dao->consultarEsporte();
+						$exec = $dao->consultarEsporte($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 					?>
 						<option value="<?php echo $listar['id_esporte'];?>"><?php echo $listar['esporte']; ?></option>
@@ -46,21 +57,10 @@
 			fase<select name='fase'>
 						<option selected disabled hidden>Selecione uma fase</option>
 					<?php 
-						$exec = $dao->consultarFase();
+						$exec = $dao->consultarFase($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 					?>
 						<option value="<?php echo $listar['fase_indice'];?>"><?php echo $listar['fase_descricao']; ?></option>
-					<?php
-						}
-					?>
-					</select><br>
-			torneio<select name='torneio'>
-						<option selected disabled hidden>Selecione um torneio</option>
-					<?php 
-						$exec = $dao->consultarTorneio();
-						foreach ($exec as $listar) {
-					?>
-						<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
 					<?php
 						}
 					?>
@@ -76,10 +76,31 @@
 		</form>
 
 <?php 
-	}
-	else{
+		}else{
+			header('location: ../../../errors/403.php');
+		}
+	}else{
 		$id = $_GET['id'];
 		$partida = $dao->consultar($id);
+
+		$i = 0;
+		foreach($_SESSION['permissao'] as $value){
+  			foreach($value as $v_key){
+	        	$idEsporte[$i] = $v_key;
+	        	$i++;
+   			}
+		}
+
+		for ($i=0; $i < count($idEsporte); $i++) { 
+			if($id == $idEsporte[$i]){
+				$permitido = true;
+			}
+		}
+
+		if(!$permitido){
+			header('location: ../../../errors/403.php');
+		}else{
+
 		//aparecer somente oq o adm pode editar
 		//nao poder acessar o formulario pela url = session de login + confirmação de permissao atraves desse sql:
 		//select * from permissao where id_esporte = $listar['id_esporte'] and login = $_SESSION['login'];
@@ -90,7 +111,7 @@
 			id<input type="text" name="id" value="<?php echo $partida->getidPartida(); ?> "><br>
 			equipeA<select name='equipeA'>
 					<?php 
-						$exec = $dao->consultarEquipe();
+						$exec = $dao->consultarEquipe($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 							if($listar['id_equipe'] == $partida->getidEquipeA()){
 					?>
@@ -107,7 +128,7 @@
 
 			equipeB<select name='equipeB'>
 					<?php 
-						$exec = $dao->consultarEquipe();
+						$exec = $dao->consultarEquipe($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 							if($listar['id_equipe'] == $partida->getidEquipeB()){
 					?>
@@ -124,7 +145,7 @@
 
 			esporte<select name='esporte'>
 					<?php 
-						$exec = $dao->consultarEsporte();
+						$exec = $dao->consultarEsporte($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 							if($listar['id_esporte'] == $partida->getidEsporte()){
 					?>
@@ -141,7 +162,7 @@
 
 			fase<select name='fase'>
 					<?php 
-						$exec = $dao->consultarFase();
+						$exec = $dao->consultarFase($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 							if($listar['fase_indice'] == $partida->getidFase()){
 					?>
@@ -156,23 +177,6 @@
 					?>
 					</select><br>
 
-			torneio<select name='torneio'>
-					<?php 
-						$exec = $dao->consultarTorneio();
-						foreach ($exec as $listar) {
-							if($listar['id_torneio'] == $partida->getidTorneio()){
-					?>
-								<option value="<?php echo $listar['id_torneio'];?>" selected><?php echo $listar['descricao']; ?></option>
-					<?php
-							}else{
-					?>
-								<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
-					<?php
-							}
-						}
-					?>
-					</select><br>
-
 			dia<input id="inicio" type="text" name="dia" value="<?php echo $partida->getDia();?>"><br>
 			inicio<input type="text" name="inicio" value="<?php echo $partida->getInicio();?>"><br>
 			termino<input type="text" name="termino" value="<?php echo $partida->getTermino();?>"><br>
@@ -180,7 +184,7 @@
 			placarB<input type="text" name="placarB" value="<?php echo $partida->getPlacarB();?>"><br>
 			vencedor<select name='vencedor'>
 					<?php 
-						$exec = $dao->consultarVencedor($id);
+						$exec = $dao->consultarVencedor($id, $_SESSION['torneio']);
 						foreach ($exec as $listar) {
 							if($listar['id_equipe_a'] == $partida->getVencedor()){
 					?>
@@ -208,6 +212,7 @@
 
 <?php
 	}
+}
 ?>
 </body>
 </html>

@@ -21,9 +21,10 @@ class ParticipanteDAO{
 		$prep->execute();
 	}
 
-	public function listar(){
-		$sql = 'SELECT * FROM participante';
+	public function listar($torneio){
+		$sql = 'SELECT * FROM participante WHERE id_torneio = :torneio';
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
@@ -70,17 +71,20 @@ class ParticipanteDAO{
 		return $exec;
 	}
 
-	public function consultarEquipe(){
-		$sql = "select id_equipe, nome from equipe order by nome";
+	public function consultarEsporte($torneio){
+ 		$sql = "select id_esporte, esporte from esporte where id_torneio = :torneio order by tipo,esporte";
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
-	}
+ 	}
 
-	public function consultarEsporte(){
- 		$sql = "select id_esporte, esporte from esporte order by tipo,esporte";
+ 	public function consultarEsporteID($torneio, $idEsporte){
+ 		$sql = "select id_esporte, esporte from esporte where id_torneio = :torneio and id_esporte = :idEsporte order by tipo,esporte";
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->bindValue(':idEsporte', $idEsporte);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
@@ -95,13 +99,22 @@ class ParticipanteDAO{
 		return $exec;
  	}
 
- 	public function inserirParticipacao($participante, $participacao){
-		for($i=0;$i<count($participacao);$i++){
-			$sql = "insert into participacao_esporte(id_participante, id_torneio, id_esporte) values(:id_participante, :torneio, :participacao);";
+ 	public function inserirParticipacao($participante, $esporte){
+		for($i=0;$i<count($participante);$i++){
+			$sql = "insert into participacao_esporte(id_participante, id_esporte) values(:id_participante, :esporte);";
 			$prep = $this->con->prepare($sql);
-			$prep->bindValue(':id_participante', $participante->getidParticipante());
-			$prep->bindValue(':torneio', $participante->getidTorneio());
-			$prep->bindValue(':participacao', $participacao[$i]);
+			$prep->bindValue(':id_participante', $participante[$i]);
+			$prep->bindValue(':esporte', $esporte);
+	        $prep->execute();
+		}
+	}
+
+	public function inserirParticipacaoEsporte($participante, $esporte){
+		for($i=0;$i<count($esporte);$i++){
+			$sql = "insert into participacao_esporte(id_participante, id_esporte) values(:id_participante, :esporte);";
+			$prep = $this->con->prepare($sql);
+			$prep->bindValue(':id_participante', $participante);
+			$prep->bindValue(':esporte', $esporte[$i]);
 	        $prep->execute();
 		}
 	}
@@ -112,4 +125,73 @@ class ParticipanteDAO{
         $prep->bindValue(':idParticipante', $idParticipante);
         $prep->execute();
 	}
+
+	public function excluirParticipacaoEsporte($idParticipante, $idEsporte){
+		$sql = "DELETE FROM participacao_esporte WHERE id_participante = :idParticipante and id_esporte = :idEsporte";
+        $prep = $this->con->prepare($sql);
+        $prep->bindValue(':idParticipante', $idParticipante);
+        $prep->bindValue(':idParticipante', $idEsporte);
+        $prep->execute();
+	}
+
+	public function consultarEquipeRepre($representante, $torneio){
+		$sql = "SELECT * FROM equipe WHERE representante = :id and id_torneio = :torneio";
+        $prep = $this->con->prepare($sql);
+        $prep->bindValue(':id', $representante);
+        $prep->bindValue(':torneio', $torneio);
+        $prep->execute();
+        $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($exec as $linha) {
+	        $idEquipe = $linha['id_equipe'];
+        }
+        return $idEquipe;
+	}
+
+	public function consultarQtdJogadores($torneio, $idEsporte){
+		$sql = "SELECT qtd_jogadores FROM esporte WHERE id_esporte = :idEsporte and id_torneio = :torneio";
+        $prep = $this->con->prepare($sql);
+        $prep->bindValue(':idEsporte', $idEsporte);
+        $prep->bindValue(':torneio', $torneio);
+        $prep->execute();
+        $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($exec as $linha) {
+	        $qtdJogadores = $linha['qtd_jogadores'];
+        }
+        return $qtdJogadores;
+	}
+
+	public function consultarQtdTimes($torneio, $idEsporte){
+		$sql = "SELECT qtd_times FROM esporte WHERE id_esporte = :idEsporte and id_torneio = :torneio";
+        $prep = $this->con->prepare($sql);
+        $prep->bindValue(':idEsporte', $idEsporte);
+        $prep->bindValue(':torneio', $torneio);
+        $prep->execute();
+        $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($exec as $linha) {
+	        $qtdTimes = $linha['qtd_times'];
+        }
+        return $qtdTimes;
+	}
+
+	public function consultarRegistrosEsporte($torneio, $idEsporte){
+		$sql = "SELECT * FROM participacao_esporte WHERE id_esporte = :idEsporte";
+        $prep = $this->con->prepare($sql);
+        $prep->bindValue(':idEsporte', $idEsporte);
+        $prep->execute();
+        if(($prep->rowCount()) > 0){
+        	return true;
+        }else{
+        	return false;
+        }  
+	}
+
+	public function consultarEquipe($torneio){
+		$sql = "select id_equipe, nome from equipe where id_torneio = :torneio order by nome";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
+	}
+
 }

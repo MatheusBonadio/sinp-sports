@@ -13,11 +13,15 @@
 		header('location: ../../../errors/403.php');
 	}
 
-	$participante->setidTorneio($_SESSION['torneio']);
-	$participante->setNome($_POST['nome']);
-	$participante->setidEquipe($_POST['equipe']);
+	$exec = $dao->consultarEsporte($_SESSION['torneio']);
 
-	$dao->inserir($participante);
-
-	header('location:formParticipante.php');
+	foreach ($exec as $listar) {
+		//$registros = $dao->consultarRegistrosEsporte($_SESSION['torneio'], $listar['id_esporte']);
+		//if (!$registros) {
 ?>
+	<a href="formParticipacao.php?idEsporte=<?php echo $listar['id_esporte']; ?>"><?php echo $listar['esporte']; ?></a><br>
+<?php
+		//}
+	}
+?>
+

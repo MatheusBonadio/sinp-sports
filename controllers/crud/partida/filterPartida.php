@@ -1,10 +1,11 @@
 <?php
 	require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/PartidaDAO.php";
 	$dao = new PartidaDAO();
+	session_start();
 	$backup = 0;
 	$arraySemana = Array(
-		0=>"Domingo", 		1=>"Segunda-feira",	2=>"Terça-feira",	3=>"Quarta-feira",
-		4=>"Quinta-feira",	5=>"Sexta-feira",	6=>"Sábado"
+		1=>"Segunda-feira",	2=>"Terça-feira",	3=>"Quarta-feira", 4=>"Quinta-feira",
+		5=>"Sexta-feira",	6=>"Sábado", 		7=>"Domingo"
 	);
 	$arrayMes = Array(
 		1=>"Janeiro",	2=>"Fevereiro",		3=>"Março",
@@ -12,15 +13,17 @@
 		7=>"Julho",		8=>"Agosto",		9=>"Setembro",
 		10=>"Outubro",	11=>"Novembro",		12=>"Dezembro"
 	);
+
 	if(isset($_GET['id'])){
 		$id = $_GET['id'];
 		if($_GET['acao']=='esporte')
-			$exec = $dao->listarEsporte($id, 1);
+			$exec = $dao->listarEsporte($id, $_SESSION['torneio']);
 		else
-			$exec = $dao->listarEquipe($id, 1);
+			$exec = $dao->listarEquipe($id, $_SESSION['torneio']);
 	}else{
-		$exec = $dao->listar(1);
+		$exec = $dao->listar($_SESSION['torneio']);
 	}
+
 ?>
 	<div class='container_stage'>
 <?php
@@ -77,13 +80,13 @@
 							<span class='<?php echo $listar['equipe_a'] ?>'><?php echo $listar['equipe_a'] ?></span>
 						</div>
 						<div class='team_img flex'>
-							<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/cloud9-gnd9b0gn.png' width='90%'>
+							<img src='/public/img/equipe/<?php echo $listar['logo_a'] ?>' width='90%'>
 						</div>
 					</div>
 					<div class='versus flex'>VS</div>
 					<div class='team_b'>
 						<div class='team_img flex'>
-							<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/fnatic-i09wrkpf.png' width='90%'>
+							<img src='/public/img/equipe/<?php echo $listar['logo_b'] ?>' width='90%'>
 						</div>
 						<div class='team_name'>
 							<span><?php echo $listar['sigla_b'] ?></span>

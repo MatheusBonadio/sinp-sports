@@ -16,9 +16,12 @@ $adm->setSenha($senha);
 $adm->setEmail($_POST['email']);
 $adm->setNome($_POST['nome']);
 $adm->setCargo($_POST['cargo']);
-$permissao = $_POST['permissao'];
 
-$dao->inserirPermissao($adm, $permissao);
+if(isset($_POST['permissao'])){
+	$permissao = $_POST['permissao'];
+	$dao->inserirPermissao($adm, $permissao);
+}
+
 $dao->inserir($adm);
 
 

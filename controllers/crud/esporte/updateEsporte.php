@@ -15,14 +15,16 @@ $esporte->setqtdJogadores($_POST['qtdJogadores']);
 $esporte->setqtdTimes($_POST['qtdTimes']);
 $esporte->setClassificacao($_POST['classificacao']);
 
+$diretorio = $_SERVER['DOCUMENT_ROOT'].'/public/img/esporte/';
+
 if($_FILES['imagem']['error']==0){
 	$espImg = $dao->consultar($_POST['id']);
 	$imagem = $espImg->getImagem();
-	unlink('../../../public/img/esporte/'.$imagem);
+	unlink($diretorio.$imagem);
 
 	$ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
 	$nome = sha1(microtime()).".".$ext;
-	move_uploaded_file($_FILES['imagem']['tmp_name'], '../../../public/img/esporte/'.$nome);
+	move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$nome);
 	$esporte->setImagem($nome);
 	$dao->alterarImagem($esporte);
 }else

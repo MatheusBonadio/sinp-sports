@@ -1,7 +1,6 @@
 <?php
 	require_once '../../class/Participante.php';
 	require_once '../../dao/ParticipanteDAO.php';
-	$participante = new Participante();
 	$dao = new ParticipanteDAO();
 	session_start();
 
@@ -13,11 +12,8 @@
 		header('location: ../../../errors/403.php');
 	}
 
-	$participante->setidTorneio($_SESSION['torneio']);
-	$participante->setNome($_POST['nome']);
-	$participante->setidEquipe($_POST['equipe']);
+	var_dump($_POST['participacao']);
+	$dao->inserirParticipacao($_POST['participacao'], $_POST['esporte']);
 
-	$dao->inserir($participante);
-
-	header('location:formParticipante.php');
+	header('location:selectParticipante.php');
 ?>

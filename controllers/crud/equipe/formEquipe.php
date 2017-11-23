@@ -5,30 +5,33 @@
 	require_once '../../dao/EquipeDAO.php';
 	$equipe = new Equipe();
 	$dao = new EquipeDAO();
+	session_start();
+
+	if($_SESSION['cargo'] == 'Administrador'){
+		header('location: ../../../errors/403.php');
+	}
+
+	if(!isset($_SESSION['cargo'])){
+		header('location: ../../../errors/403.php');
+	}
 
 
-	if(!isset($_GET['id'])){
+	if(!isset($_GET['id']) && $_SESSION['cargo'] != 'Representante'){
 ?>
 	
-		<form action="insertEquipe.php" method="POST">
+		<form action="insertEquipe.php" method="POST" enctype="multipart/form-data">
 			nome<input type="text" name="nome"><br>
 			sigla<input type="text" name="sigla" maxlength="6" style='text-transform: uppercase;'><br>
-			torneio<select name='torneio'>
-					<option selected disabled hidden>Selecione um torneio</option>
-				<?php 
-					$exec = $dao->consultarTorneio();
-					foreach ($exec as $listar) {
+			representante: <select name="representante">
+				<?php
+					$exec = $dao->consultarRepresentantes($_SESSION['torneio']);
+					foreach ($exec as $listar) {				
 				?>
-					<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
+					<option value="<?php echo $listar['login'];?>"><?php echo $listar['nome']; ?></option>
 				<?php
 					}
 				?>
 			</select><br>
-			vitorias<input type="number" name="vitorias" value="0" disabled><br>
-			empates<input type="number" name="empates" value="0" disabled><br>
-			derrotas<input type="number" name="derrotas" value="0" disabled><br>
-			pontos<input type="number" name="pontos" value="0" disabled><br>
-
 			<input type="submit">
 		</form>
 	
@@ -36,36 +39,48 @@
 	}
 	else{
 		$id = $_GET['id'];
-		$equipe = $dao->consultar($id);
-
+		$equipe = $dao->consultar($id, $_SESSION['torneio']);
+		if($_SESSION['cargo'] == 'Representante'){
  ?>
-		<form action="updateEquipe.php" method="POST">
-			id<input type="text" name="id" value="<?php echo $equipe->getidEquipe(); ?>"><br>
+		<form action="updateEquipe.php" method="POST" enctype="multipart/form-data">
+			<input type="text" name="id" value="<?php echo $equipe->getidEquipe(); ?>" hidden><br>
 			nome<input type="text" name="nome" value="<?php echo $equipe->getNome(); ?>"><br>
 			sigla<input type="text" name="sigla" value="<?php echo $equipe->getSigla(); ?>"><br>
-			torneio<select name='torneio'>
-				<?php 
-					$exec = $dao->consultarTorneio();
-					foreach ($exec as $listar) {
-						if($listar['id_torneio'] == $equipe->getidTorneio()){
-				?>
-							<option value="<?php echo $listar['id_torneio'];?>" selected><?php echo $listar['descricao']; ?></option>
-				<?php
-						}else{
-				?>
-							<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
-				<?php
-						}
-					}
-				?>
-				</select><br>
-			vitorias<input type="number" name="vitorias" value="<?php echo $equipe->getVitorias(); ?>"><br>
-			empates<input type="number" name="empates" value="<?php echo $equipe->getEmpates(); ?>"><br>
-			derrotas<input type="number" name="derrotas" value="<?php echo $equipe->getDerrotas(); ?>"><br>
-			pontos<input type="number" name="pontos" value="<?php echo $equipe->getPontos(); ?>"><br>
+			representante: <label><?php echo $_SESSION['login']; ?></label><br>
+			<img src="../../../public/img/equipe/<?php echo $equipe->getLogo(); ?>">
+			Logo<br><input type="file" name="logo"><br>
 			<input type="submit">
 		</form>
 <?php
+		}else if($_SESSION['cargo'] == 'Gerente'){
+?>
+		<form action="updateEquipe.php" method="POST" enctype="multipart/form-data">
+			<input type="text" name="id" value="<?php echo $equipe->getidEquipe(); ?>" hidden>
+			nome<input type="text" name="nome" value="<?php echo $equipe->getNome(); ?>"><br>
+			sigla<input type="text" name="sigla" value="<?php echo $equipe->getSigla(); ?>"><br>
+			Representante: <select name='representante'>
+					<?php 
+
+						$exec = $dao->consultarRepresentantes($_SESSION['torneio']);
+						foreach ($exec as $listar) {
+							if($listar['login'] == $equipe->getRepresentante()){
+					?>
+								<option value="<?php echo $listar['login'];?>" selected><?php echo $listar['nome']; ?></option>
+					<?php
+							}else{
+					?>
+								<option value="<?php echo $listar['login'];?>"><?php echo $listar['nome']; ?></option>
+					<?php
+							}
+						}
+					?>
+					</select><br>
+			<img src="../../../public/img/equipe/<?php echo $equipe->getLogo(); ?>">
+			Logo<br><input type="file" name="logo"><br>
+			<input type="submit">
+		</form>
+<?php
+		}
 	}
 ?>
 </body>

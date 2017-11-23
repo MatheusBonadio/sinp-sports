@@ -1,8 +1,9 @@
 	<link rel="stylesheet" href="/public/css/partida.css" type="text/css">
 	<?php
+		session_start();
 		require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/PartidaDAO.php";
 		$dao = new PartidaDAO();
-		$exec = $dao->listarID(1, $_GET['id']);
+		$exec = $dao->listarID($_SESSION['torneio'], $_GET['id']);
 		if(count($exec)>0){
 		foreach ($exec as $listar) {
 			if($listar['nome_equipe_a'] == $listar['vencedor']){
@@ -29,13 +30,13 @@
 					<span class='<?php echo $listar['equipe_a'] ?>'><?php echo $listar['equipe_a'] ?></span>
 				</div>
 				<div class='team_img flex'>
-					<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/cloud9-gnd9b0gn.png' width='100%'>
+					<img src='../public/img/equipe/<?php echo $listar['logo_a']; ?>' width='100%'>
 				</div>
 			</div>
 			<div class='versus flex'><?php echo $listar['placar_equipe_a']?> - <?php echo $listar['placar_equipe_b']?></div>
 			<div class='team_b'>
 				<div class='team_img flex'>
-					<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/fnatic-i09wrkpf.png' width='100%'>
+					<img src='../public/img/equipe/<?php echo $listar['logo_b']; ?>' width='100%'>
 				</div>
 				<div class='team_name'>
 					<span><?php echo $listar['nome_equipe_b']?></span>

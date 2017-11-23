@@ -24,14 +24,15 @@ class AdministradorDAO{
 		$prep->execute();
 	}
 
-	public function listar(){
-		$sql = 'SELECT * FROM administrador';
+	public function listar($torneio){
+		$sql = 'SELECT * FROM administrador WHERE id_torneio = :torneio';
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
 	}
-
+	
 	public function alterar($adm){
 		$sql = 'UPDATE administrador SET id_torneio = :torneio, login = :login, senha = :senha, email = :email, nome = :nome, cargo = :cargo WHERE id_adm = :id';
 		$prep = $this->con->prepare($sql);
@@ -45,10 +46,39 @@ class AdministradorDAO{
 		$prep->execute();
 	}
 
+	public function trocarSenha($senha, $login, $torneio){
+		$sql = 'UPDATE administrador SET senha = :senha WHERE id_torneio = :torneio and login = :login';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->bindValue(':login', $login);
+		$prep->bindValue(':senha', $senha);
+		$prep->execute();
+	}
+
 	public function consultar($codigo){
 		$sql = "SELECT * FROM administrador WHERE id_adm = :id";
         $prep = $this->con->prepare($sql);
         $prep->bindValue(':id', $codigo);
+        $prep->execute();
+        $adm = new Administrador();
+        $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($exec as $linha) {
+        	$adm->setidAdm($linha['id_adm']);
+	        $adm->setidTorneio($linha['id_torneio']);
+	        $adm->setLogin($linha['login']);
+	        $adm->setSenha($linha['senha']);
+	        $adm->setEmail($linha['email']);
+	        $adm->setNome($linha['nome']);
+	        $adm->setCargo($linha['cargo']);
+        }
+        return $adm;
+	}
+
+	public function consultarLogin($login, $torneio){
+		$sql = "SELECT * FROM administrador WHERE login = :login and id_torneio = :torneio";
+        $prep = $this->con->prepare($sql);
+        $prep->bindValue(':login', $login);
+        $prep->bindValue(':torneio', $torneio);
         $prep->execute();
         $adm = new Administrador();
         $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
@@ -82,12 +112,20 @@ class AdministradorDAO{
  	}
 
  	public function consultarPermissao($login){
- 		$sql = "select esporte, permissao.id_esporte from esporte, permissao where permissao.login = :login and permissao.id_esporte = esporte.id_esporte order by tipo,esporte;";
+ 		$sql = "select permissao.id_esporte from esporte, permissao where permissao.login = :login and permissao.id_esporte = esporte.id_esporte order by tipo,esporte;";
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':login', $login);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
+ 	}
+
+ 	public function consultarNumPermissao($login){
+ 		$sql = "select permissao.id_esporte from esporte, permissao where permissao.login = :login and permissao.id_esporte = esporte.id_esporte order by tipo,esporte;";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':login', $login);
+		$prep->execute();
+		return $prep->rowCount();
  	}
 
 	public function inserirPermissao($adm, $permissao){

@@ -5,27 +5,26 @@
 	require_once '../../dao/ParticipanteDAO.php';
 	$participante = new Participante();
 	$dao = new ParticipanteDAO();
+	session_start();
+
+	if($_SESSION['cargo'] == 'Administrador'){
+		header('location: ../../../errors/403.php');
+	}
+
+	if(!isset($_SESSION['cargo'])){
+		header('location: ../../../errors/403.php');
+	}
 
 	if(!isset($_GET['id'])){
+		if($_SESSION['cargo'] == 'Gerente'){
 ?>
 
 	<form action="insertParticipante.php" method="POST">
 				nome<input type="text" name="nome"><br>
-				torneio<select name='torneio'>
-					<option selected disabled hidden>Selecione um torneio</option>
-				<?php 
-					$exec = $dao->consultarTorneio();
-					foreach ($exec as $listar) {
-				?>
-					<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
-				<?php
-					}
-				?>
-			</select><br>
 				equipe<select name='equipe'>
 						<option selected disabled hidden>Selecione uma equipe</option>
 					<?php 
-						$exec = $dao->consultarEquipe();
+						$exec = $dao->consultarEquipe($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 					?>
 						<option value="<?php echo $listar['id_equipe'];?>"><?php echo $listar['nome']; ?></option>
@@ -34,10 +33,20 @@
 					?>
 					</select><br>
 				<input type="submit">
+				<a href="selectParticipante.php">Finalizar</a>
 	</form>
 <?php 
+	}if($_SESSION['cargo'] == 'Representante'){
+		$idEquipe = $dao->consultarEquipeRepre($_SESSION['login'], $_SESSION['torneio']);
+?>
+	<form action="insertParticipante.php" method="POST">
+				nome<input type="text" name="nome"><br>
+				<input type="text" name="equipe" value="<?php echo $idEquipe; ?>" hidden>
+				<input type="submit">
+				<a href="selectParticipante.php">Finalizar</a>
+<?php
 	}
-	else{
+	}else{
 		$id = $_GET['id'];
 		$participante = $dao->consultar($id);
 		$exec = $dao->consultarParticipacao($participante->getidParticipante());
@@ -45,28 +54,12 @@
 			$arrayChecked[$listar['id_esporte']] = $listar['id_esporte'];
 		}
 
+	if($_SESSION['cargo'] == 'Gerente'){
  ?>
 
  	<form action="updateParticipante.php" method="POST">
- 				id<input type="text" name="id" value='<?php echo $participante->getidParticipante();?>'><br>
+ 				<input type="text" name="id" value='<?php echo $participante->getidParticipante();?>' hidden>
 				nome<input type="text" name="nome" value='<?php echo $participante->getNome();?>'><br>
-				torneio<select name='torneio'>
-				<?php 
-					$exec = $dao->consultarTorneio();
-					foreach ($exec as $listar) {
-						if($listar['id_torneio'] == $participante->getidTorneio()){
-				?>
-							<option value="<?php echo $listar['id_torneio'];?>" selected><?php echo $listar['descricao']; ?></option>
-				<?php
-						}else{
-				?>
-							<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
-				<?php
-						}
-					}
-				?>
-				</select><br>
-
 				equipe<select name='equipe'>
 					<?php 
 						$exec = $dao->consultarEquipe();
@@ -83,18 +76,18 @@
 						}
 					?>
 					</select><br>
-				Selecao de esporte<br>
+				Selecao de esporte: <br>
 				<?php 
-					$exec = $dao->consultarEsporte();
+					$exec = $dao->consultarEsporte($_SESSION['torneio']);
 					foreach ($exec as $listar) {
 						if(isset($arrayChecked[$listar['id_esporte']]) && $listar['id_esporte'] == $arrayChecked[$listar['id_esporte']]){
 					?>
-						<input type='checkbox' name='participacao[]' value='<?php echo $listar['id_esporte']; ?>' checked>
+						<input type='checkbox' name='idEsporte[]' value='<?php echo $listar['id_esporte']; ?>' checked>
 						<label><?php echo $listar['esporte']; ?></label><br>
 					<?php
 						}else{
 					?>
-						<input type='checkbox' name='participacao[]' value='<?php echo $listar['id_esporte']; ?>'>
+						<input type='checkbox' name='idEsporte[]' value='<?php echo $listar['id_esporte']; ?>'>
 						<label><?php echo $listar['esporte']; ?></label><br>
 					<?php
 						}
@@ -104,6 +97,37 @@
 				<input type="submit">
 	</form>
 <?php
+		}
+
+	if($_SESSION['cargo'] == 'Representante'){
+?>
+	<form action="updateParticipante.php" method="POST">
+ 				<input type="text" name="id" value='<?php echo $participante->getidParticipante();?>' hidden>
+				nome<input type="text" name="nome" value='<?php echo $participante->getNome();?>'><br>
+				<input type="text" name="equipe" value="<?php echo $participante->getidEquipe(); ?>" hidden>
+				Selecao de esporte: <br>
+				<?php 
+					$exec = $dao->consultarEsporte($_SESSION['torneio']);
+					foreach ($exec as $listar) {
+						if(isset($arrayChecked[$listar['id_esporte']]) && $listar['id_esporte'] == $arrayChecked[$listar['id_esporte']]){
+					?>
+						<input type='checkbox' name='idEsporte[]' value='<?php echo $listar['id_esporte']; ?>' checked>
+						<label><?php echo $listar['esporte']; ?></label><br>
+					<?php
+						}else{
+					?>
+						<input type='checkbox' name='idEsporte[]' value='<?php echo $listar['id_esporte']; ?>'>
+						<label><?php echo $listar['esporte']; ?></label><br>
+					<?php
+						}
+					}
+					?>
+
+				<input type="submit">
+	</form>	
+<?php
+
+	}
 	}
 ?>
 </body>

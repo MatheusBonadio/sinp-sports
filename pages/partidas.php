@@ -1,8 +1,9 @@
 	<link rel="stylesheet" href="/public/css/partidas.css" type="text/css">
 	<?php
+		session_start();
 		require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/PartidaDAO.php";
 		$dao = new PartidaDAO();
-		$exec = $dao->listarEsportePartida();
+		$exec = $dao->listarEsportePartida($_SESSION['torneio']);
 	?>
 	<div class='container'>
 		<div class='container_filter'>
@@ -14,7 +15,7 @@
 			<div class='filter' onclick='select_filter(<?php echo $listar['id_esporte']?>, "esporte")'><?php echo $listar['esporte']?></div>
 			<?php 
 			}
-			$exec = $dao->listarEquipePartida();
+			$exec = $dao->listarEquipePartida($_SESSION['torneio']);
 			?>
 			<div class='filter_header'>EQUIPES</div>
 			<div class='filter_line'></div>
@@ -29,8 +30,9 @@
 			</div>
 			<div class='content_match'>
 				<?php 
+					session_write_close();
 					$url = $_SERVER['DOCUMENT_ROOT']."/controllers/crud/partida/filterPartida.php";
-					require_once($url); 
+					include($url);
 				?>
 			</div>
 		</div>

@@ -8,16 +8,17 @@
 	$dao = new AdministradorDAO();
 	$func = new Functions();
 
-	if(!isset($_GET['cargo'])){
+	if(!isset($_GET['cargo']) && !isset($_GET['id'])){
 		header('location: index.php');
 	}else{
+		if(!isset($_GET['id']))
 		$cargoSel = $_GET['cargo'];
 	}
 
 	if(!isset($_GET['id'])){
-		if($cargoSel == 'Gerente' || $cargoSel == 'Administrador'){
-?>
-		<form action="insertAdm.php" method="POST">
+		if($cargoSel == 'Gerente' || $cargoSel == 'Representante'){
+			?>
+			<form action="insertAdm.php" method="POST">
 			torneio<select name='torneio'>
 						<option selected disabled hidden>Selecione um torneio</option>
 					<?php 
@@ -29,6 +30,16 @@
 						}
 					?>
 					</select><br>
+			login<input type="text" name="adm_login"><br>
+			email<input type="text" name="email"><br>
+			nome<input type="text" name="nome"><br>
+			cargo<input type="text" name="cargo" value="<?php echo $cargoSel; ?>"><br>
+			<input type="submit">
+			<?php
+		}
+		if($cargoSel == 'Administrador'){
+?>
+		<form action="insertAdm.php" method="POST">
 			login<input type="text" name="adm_login"><br>
 			email<input type="text" name="email"><br>
 			nome<input type="text" name="nome"><br>
@@ -45,29 +56,6 @@
 					?>
 			<input type="submit">
 		</form>
-
-<?php 
-		}else if($cargoSel == 'representante'){
-
-?>
-		<form action="insertAdm.php" method="POST">
-			torneio<select name='torneio'>
-						<option selected disabled hidden>Selecione um torneio</option>
-					<?php 
-						$exec = $dao->consultarTorneio();
-						foreach ($exec as $listar) {
-					?>
-						<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
-					<?php
-						}
-					?>
-					</select><br>
-			login<input type="text" name="adm_login"><br>
-			email<input type="text" name="email"><br>
-			nome<input type="text" name="nome"><br>
-			cargo<input type="text" name="cargo" value="<?php echo $cargoSel; ?>"><br>
-			<input type="submit">
-		</form>
 <?php
 		}
 	}
@@ -79,9 +67,40 @@
 			foreach ($exec as $listar) {
 				$arrayChecked[$listar['id_esporte']] = $listar['id_esporte'];
 			}
- ?>
 
-	
+			if($adm->getCargo() == 'Gerente' || $adm->getCargo() == 'Representante'){
+ ?>
+		<form action="updateAdm.php" method="POST">
+			id<input type="text" name="id" value="<?php echo $adm->getidAdm(); ?> "><br>
+			torneio<select name='torneio'>
+					<?php 
+						$exec = $dao->consultarTorneio();
+						foreach ($exec as $listar) {
+							if($listar['id_torneio'] == $idTorneio){
+					?>
+								<option value="<?php echo $listar['id_torneio'];?>" selected><?php echo $listar['descricao']; ?></option>
+					<?php
+							}else{
+					?>
+								<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
+					<?php
+							}
+						}
+					?>
+					</select><br>
+			login<input type="text" name="login" value="<?php echo $adm->getLogin(); ?> "><br>
+			senha<input type="text" name="senha" value="<?php echo $adm->getSenha(); ?> "><br>
+			email<input type="text" name="email" value="<?php echo $adm->getEmail(); ?> "><br>
+			nome<input type="text" name="nome" value="<?php echo $adm->getNome(); ?> "><br>
+			cargo<select name='cargo'>
+					<?php echo $func->optionsCargo($adm); ?>
+					</select><br>
+			<input type="submit">
+		</form>	
+
+<?php
+		}else if($adm->getCargo() == 'Administrador'){
+?>
 		<form action="updateAdm.php" method="POST">
 			id<input type="text" name="id" value="<?php echo $adm->getidAdm(); ?> "><br>
 			torneio<select name='torneio'>
@@ -126,8 +145,8 @@
 					?>
 			<input type="submit">
 		</form>	
-
 <?php
+		}
 	}
 ?>
 </body>

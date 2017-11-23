@@ -8,9 +8,9 @@ class Conexao {
     private $conexao;
     /*
     private $servidor = "localhost";
-    private $usuario = "id3206094_root1";
+    private $usuario = "id3206094_root";
     private $senha = "p13m29m28";
-    private $banco = "id3206094_sinpsports1";
+    private $banco = "id3206094_sinpsports";
     private $conexao;
     */
 

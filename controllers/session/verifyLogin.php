@@ -17,12 +17,12 @@ if($verifica){
 		header('location: ../../painel/painelGerente.php');
 	}
 	if($_SESSION['cargo'] == 'Administrador'){
-		header('location: ../../painel/painelAdm.php');
+		header('location: ../../painel/painelAdministrador.php');
 	}
 	if($_SESSION['cargo'] == 'Representante'){
 		header('location: ../../painel/painelRepresentante.php');
 	}
 }else{
-	header('location: /index.php');
+	header('location: /home.php');
 }
 

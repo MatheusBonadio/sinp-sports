@@ -11,10 +11,14 @@
 	$adm->setEmail($_POST['email']);
 	$adm->setNome($_POST['nome']);
 	$adm->setCargo($_POST['cargo']);
-	$permissao = $_POST['permissao'];
 	
-	$dao->excluirPermissao($adm->getLogin());
-	$dao->inserirPermissao($adm, $permissao);
+
+	if(isset($_POST['permissao'])){
+		$permissao = $_POST['permissao'];
+		$dao->excluirPermissao($adm->getLogin());
+		$dao->inserirPermissao($adm, $permissao);
+	}
+
 	$dao->alterar($adm);
 
 	header('location:selectAdm.php');
