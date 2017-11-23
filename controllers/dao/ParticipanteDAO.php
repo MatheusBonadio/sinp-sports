@@ -1,7 +1,7 @@
  <?php
 
-require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/conexao.php";
-require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/class/Participante.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/controllers/conexao.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/controllers/class/Participante.php";
 
 class ParticipanteDAO{
 

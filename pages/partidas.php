@@ -1,6 +1,6 @@
-	<link rel="stylesheet" href="public/css/partidas.css" type="text/css">
+	<link rel="stylesheet" href="/public/css/partidas.css" type="text/css">
 	<?php
-		require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/dao/PartidaDAO.php";
+		require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/PartidaDAO.php";
 		$dao = new PartidaDAO();
 		$exec = $dao->listarEsportePartida();
 	?>
@@ -29,12 +29,12 @@
 			</div>
 			<div class='content_match'>
 				<?php 
-					$url = $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/crud/partida/filterPartida.php";
+					$url = $_SERVER['DOCUMENT_ROOT']."/controllers/crud/partida/filterPartida.php";
 					require_once($url); 
 				?>
 			</div>
 		</div>
 	</div>
-	<script src="public/js/partidas.js"></script>
+	<script src="/public/js/partidas.js"></script>
 	<script>$('.load').hide();</script>
 	<script>slider($(".header a:eq(2)"))</script>

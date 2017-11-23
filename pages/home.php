@@ -1,6 +1,6 @@
-	<link rel="stylesheet" href="public/css/home.css" type="text/css">
+	<link rel="stylesheet" href="/public/css/home.css" type="text/css">
 	<?php
-		require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/dao/DestaqueDAO.php";
+		require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/DestaqueDAO.php";
 		$dao = new DestaqueDAO();
 		$exec = $dao->listar();
 	?>
@@ -9,7 +9,7 @@
 	<?php
 				foreach ($exec as $listar) {
 	?>
-			<div class='highlight_img' style='background-image: linear-gradient(to bottom, rgba(20,20,20,.45) 0%,rgba(20,20,20,.45) 100%), url(public/img/destaque/<?php echo $listar['imagem'] ?>);'>
+			<div class='highlight_img' style='background-image: linear-gradient(to bottom, rgba(20,20,20,.45) 0%,rgba(20,20,20,.45) 100%), url(/public/img/destaque/<?php echo $listar['imagem'] ?>);'>
 				<div class='shadow'></div>
 				<div class='highlight_position'>
 					<div class='highlight_date'>
@@ -73,5 +73,5 @@
 			ref.appendChild(div);
 		}
 	</script>
-	<script src="public/js/slideshow.js"></script>
+	<script src="/public/js/slideshow.js"></script>
 	<script>slider($(".header a:eq(1)"))</script>

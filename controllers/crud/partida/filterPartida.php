@@ -1,5 +1,5 @@
 <?php
-	require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/dao/PartidaDAO.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/PartidaDAO.php";
 	$dao = new PartidaDAO();
 	$backup = 0;
 	$arraySemana = Array(
@@ -41,6 +41,16 @@
 	<div class='matchs'>
 <?php 
 	foreach ($exec as $listar) {
+		if($listar['nome_equipe_a'] == $listar['vencedor']){
+			$listar['equipe_a'] = "vitória";
+			$listar['equipe_b'] = "derrota";
+		}else if($listar['nome_equipe_b'] == $listar['vencedor']){
+			$listar['equipe_a'] = "derrota";
+			$listar['equipe_b'] = "vitória";
+		}else{
+			$listar['equipe_a'] = "";
+			$listar['equipe_b'] = "";
+		}
 		if($listar['dia']!=$backup){
 			$dia = substr($listar['dia'], -2);
 			$mes = substr($listar['dia'], 5, 2);
@@ -54,7 +64,7 @@
 				$backup = $listar['dia'];
 			}
 			?>
-			<a class='match' href='partida?id=<?php echo $listar['id_partida']?>'>
+			<a class='match' href='/partidas/<?php echo $listar['id_partida']?>'>
 				<div class='time flex'>
 					<span><?php echo $listar['inicio'] ?>h</span>
 					<span><?php echo $listar['id_esporte'] ?></span>
@@ -62,21 +72,23 @@
 				<div class='teams'>
 					<div class='team_a'>
 						<div class='team_name'>
+							<span><?php echo $listar['sigla_a'] ?></span>
 							<span><?php echo $listar['nome_equipe_a'] ?></span>
-							<span class='victory'></span>
+							<span class='<?php echo $listar['equipe_a'] ?>'><?php echo $listar['equipe_a'] ?></span>
 						</div>
 						<div class='team_img flex'>
-							<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/hongkong-esports-40hnvdmn.png' width='90%'>
+							<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/cloud9-gnd9b0gn.png' width='90%'>
 						</div>
 					</div>
 					<div class='versus flex'>VS</div>
 					<div class='team_b'>
 						<div class='team_img flex'>
-							<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/rampage-4caqgbq7.png' width='90%'>
+							<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/fnatic-i09wrkpf.png' width='90%'>
 						</div>
 						<div class='team_name'>
+							<span><?php echo $listar['sigla_b'] ?></span>
 							<span><?php echo $listar['nome_equipe_b'] ?></span>
-							<span class='defeat'></span>
+							<span class='<?php echo $listar['equipe_b'] ?>'><?php echo $listar['equipe_b'] ?></span>
 						</div>
 					</div>
 				</div>

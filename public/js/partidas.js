@@ -14,9 +14,9 @@ document.onscroll = function(){
 function select_filter(id, acao){
 	var url;
 	if(id)
-		url = "/public_html/controllers/crud/partida/filterPartida.php?acao="+acao+"&id="+id;
+		url = "/controllers/crud/partida/filterPartida.php?acao="+acao+"&id="+id;
 	else
-		url = "/public_html/controllers/crud/partida/filterPartida.php";
+		url = "/controllers/crud/partida/filterPartida.php";
     $.ajax({
         url: url,
         beforeSend: function() {

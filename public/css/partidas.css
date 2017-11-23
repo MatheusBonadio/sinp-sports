@@ -69,7 +69,7 @@ a{
 	margin-left: 280px;
 	margin-top: 90px;
 	position: relative;
-	animation: fadeUp .5s ease both;
+	animation: fadeUp .5s ease;
 }
 .container_match .load{
 	position: absolute;
@@ -82,9 +82,6 @@ a{
 	font: 300 16px Roboto;
 	margin-top: 10px;
 	color: #cfcfcf;
-}
-.container_match .loader{
-	//border-top-color: red;
 }
 .container_stage{
 	display: flex;
@@ -127,14 +124,14 @@ a{
 	display: flex;
 	cursor: pointer;
 	transition: .4s;
-	animation: fade .5s ease both;
+	animation: fade .5s ease;
 }
 @keyframes fade{
 	from{opacity: .3;margin-top: 3vh;}
 	to{opacity: 1;}
 }
 .match:hover{
-	opacity: .85;
+	filter: brightness(120%);
 }
 .date{
 	color: #fff;
@@ -184,6 +181,9 @@ a{
 .team_name:last-child{
 	text-align: left;
 }
+.team_name span:nth-child(1){
+	display: none;
+}
 .team_name span:last-child{
 	margin-top: 7px;
 	font-size: 17px;
@@ -203,10 +203,13 @@ a{
 	font-weight: 400;
 	color: #646464;
 }
-.defeat{
+.vitória,.derrota{
+	text-transform: uppercase;
+}
+.derrota{
 	color: #a65f46;
 }
-.victory{
+.vitória{
 	color: #bea152;
 }
 .error{
@@ -217,7 +220,7 @@ a{
 	color: #fff;
 	z-index: 0;
 	background-color: #141414;
-	animation: fadeUp .3s ease both;
+	animation: fadeUp .3s ease;
 }
 @media screen and (max-width:1025px) {
 	.container_filter{
@@ -225,5 +228,11 @@ a{
 	}
 	.container_match{
 		margin-left: 0px;
+	}
+	.team_name span:nth-child(1){
+		display: block;
+	}
+	.team_name span:nth-child(2){
+		display: none;
 	}
 }

@@ -103,7 +103,7 @@ body{
 	flex-direction: column;
 	justify-content: center;
 	background-color: #141414;*/
-	animation: fadeUp .5s ease both;
+	animation: fadeUp .5s ease;
 }
 @keyframes fadeUp{
 	from{opacity: 0;}
@@ -121,7 +121,7 @@ body{
     height: 100vh;
     user-select: none;
     -webkit-user-select: none;
-	animation: fadeUp .5s ease both;
+	animation: fadeUp .5s ease;
 }
 @keyframes fadeUp{
 	from{opacity: 0;}

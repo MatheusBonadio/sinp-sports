@@ -15,7 +15,7 @@
 	}
 
 	if(!isset($_GET['id'])){
-		if($cargoSel == 'gerente' || $cargoSel == 'adm'){
+		if($cargoSel == 'Gerente' || $cargoSel == 'Administrador'){
 ?>
 		<form action="insertAdm.php" method="POST">
 			torneio<select name='torneio'>

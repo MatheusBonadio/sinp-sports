@@ -1,6 +1,6 @@
 	<?php
 	
-	require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/session/Functions.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/controllers/session/Functions.php";
 
 	$func = new Functions();
 	$func->sessionAdm();	

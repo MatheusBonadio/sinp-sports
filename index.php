@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang='pt-br'>
 <head>
-    <?php include("config.php");?>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script src='<?php echo JS; ?>jquery.js'></script>
+    <script src='/public/js/jquery.js'></script>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <meta name='theme-color' content='#141414'>
     <meta charset='UTF-8'>
     <title>Sinp Sports | Gerenciador de competições esportivas</title>
     <meta content='width=device-width, initial-scale=0.6, maximum-scale=0.6, user-scalable=0' name='viewport' />
-    <link rel='shortcut icon' href='<?php echo IMG; ?>/sistema/icon.png' type='image/x-icon'>
-    <link rel='stylesheet' href='<?php echo CSS; ?>index.css' type='text/css'>
+    <link rel='shortcut icon' href='/public/img/sistema/icon.png' type='image/x-icon'>
+    <link rel='stylesheet' href='/public/css/index.css' type='text/css'>
 </head>
 
 <body>
@@ -25,7 +24,7 @@
         <a onclick='select_head(4)'>login</a>
     </div>
 
-    <script src='<?php echo JS; ?>header.js'></script>
+    <script src='/public/js/header.js'></script>
 
     <div id='loader' class='flex'>
         <div class='loader'></div>
@@ -34,9 +33,9 @@
 
     <?php
         $url = (isset($_GET["url"])) ? $_GET["url"]:"home";
-        $url = $_SERVER['DOCUMENT_ROOT']."/public_html/pages/".$url.".php";
+        $url = $_SERVER['DOCUMENT_ROOT']."/pages/".$url.".php";
         if(!file_exists($url)) 
-            $url = $_SERVER['DOCUMENT_ROOT']."/public_html/errors/404.php";
+            $url = $_SERVER['DOCUMENT_ROOT']."/errors/404.php";
     ?>
 
     <script>$('#loader').hide();</script>

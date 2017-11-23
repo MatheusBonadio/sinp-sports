@@ -4,7 +4,7 @@ var pagina;
 function select_head(n){
     if(currentHead!=n){
         var sites = ["home", "partidas", "esportes", "equipes", "login"];
-        var url = "pages/"+sites[n]+".php";
+        var url = "/pages/"+sites[n]+".php";
         $.ajax({
             url: url,
             beforeSend: function() {
@@ -14,7 +14,7 @@ function select_head(n){
             },
             success: function (data){
                 setTimeout(function(){
-                    window.history.pushState("", "", "/public_html/"+sites[n]);
+                    window.history.pushState("", "", "/"+sites[n]);
                     $('#loader').hide();
                     $('.content').show();
                     $(".content").html(data);

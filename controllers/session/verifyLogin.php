@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT']."/public_html/controllers/dao/AdministradorDAO.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/AdministradorDAO.php";
 $dao = new AdministradorDAO();
 
 $login = $_POST['login'];
@@ -23,6 +23,6 @@ if($verifica){
 		header('location: ../../painel/painelRepresentante.php');
 	}
 }else{
-	header('location: /public_html/index.php');
+	header('location: /index.php');
 }
 
