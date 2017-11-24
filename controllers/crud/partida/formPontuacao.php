@@ -30,36 +30,28 @@
 
 	$permitido = false;
 	for ($i=0; $i < count($idEsporte); $i++) { 
-		if($id == $idEsporte[$i]){
+		if($partida->getidEsporte() == $idEsporte[$i]){
 			$permitido = true;
 		}
 	}
 
-	if($permitido){
+	if(!$permitido){
 		header('location: ../../../errors/403.php');
 	}else{
-
-		//aparecer somente oq o adm pode editar
-		//nao poder acessar o formulario pela url = session de login + confirmação de permissao atraves desse sql:
-		//select * from permissao where id_esporte = $listar['id_esporte'] and login = $_SESSION['login'];
+		$exec = $dao->consultarVencedor($id, $_SESSION['torneio']);
+			foreach ($exec as $listar) {
  ?>
 
 	
 		<form action="scorePartida.php" method="POST">
 			<input type="text" name="id" value="<?php echo $partida->getidPartida(); ?> " hidden>
-			<input type="text" name="equipeA" value="<?php echo $partida->getidEquipeA(); ?>" hidden>
-			<input type="text" name="equipeB" value="<?php echo $partida->getidEquipeB(); ?>" hidden>
-			<input type="text" name="Esporte" value="<?php echo $partida->getidEsporte(); ?>" hidden>
-			<input type="text" name="Fase" value="<?php echo $partida->getidFase(); ?>" hidden>
-			<input type="text" name="dia" value="<?php echo $partida->getDia();?>" hidden>
+			<input type="text" name="esporte" value="<?php echo $partida->getidEsporte(); ?> " hidden>
 			Termino<input type="text" name="termino" ><br>
-			placarA<input type="text" name="placarA"><br>
-			placarB<input type="text" name="placarB"><br>
+			Placar: <?php echo $listar['nomeA']; ?><input type="number" name="placarA"><br>
+			Placar: <?php echo $listar['nomeB']; ?><input type="number" name="placarB"><br>
 			vencedor<select name='vencedor'>
 					<option selected disabled hidden>Selecione um vencedor</option>
 					<?php 
-						$exec = $dao->consultarVencedor($id, $_SESSION['torneio']);
-						foreach ($exec as $listar) {
 							if($listar['id_equipe_a'] == $partida->getVencedor()){
 					?>
 								<option value="<?php echo $listar['id_equipe_a'];?>" selected><?php echo $listar['nomeA']; ?></option>

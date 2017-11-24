@@ -1,7 +1,6 @@
 var currentHead;
-var pagina;
 
-function select_head(n){
+function select_head(torneio, n){
     if(currentHead!=n){
         var sites = ["home", "partidas", "esportes", "equipes", "login"];
         var url = "/pages/"+sites[n]+".php";
@@ -14,7 +13,7 @@ function select_head(n){
             },
             success: function (data){
                 setTimeout(function(){
-                    window.history.pushState("", "", "/"+sites[n]);
+                    window.history.pushState("", "", "/"+torneio+"/"+sites[n]);
                     $('#loader').hide();
                     $('.content').show();
                     $(".content").html(data);
@@ -23,4 +22,8 @@ function select_head(n){
         });
     }
     currentHead = n;
+}
+
+window.onpopstate = function (event) {
+  location.reload();
 }

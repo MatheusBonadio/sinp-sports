@@ -67,3 +67,5 @@ if($_SESSION['cargo'] == 'Gerente'){
 		}
 }
 ?>
+
+<a href='../../../painel/painel<?php echo $_SESSION['cargo'] ?>.php'>MENU</a><br>

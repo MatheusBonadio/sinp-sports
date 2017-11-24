@@ -26,10 +26,10 @@ class PartidaDAO{
 	}
 
 	public function listar($torneio){
-		$sql = 'SELECT id_partida, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as nome_equipe_a, 
-		(select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as nome_equipe_b, 
-		(select sigla from equipe where equipe.id_equipe = partida.id_equipe_a) as sigla_a, 
-		(select sigla from equipe where equipe.id_equipe = partida.id_equipe_b) as sigla_b, 
+		$sql = 'SELECT id_partida, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as nome_equipe_a,
+		(select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as nome_equipe_b,
+		(select sigla from equipe where equipe.id_equipe = partida.id_equipe_a) as sigla_a,
+		(select sigla from equipe where equipe.id_equipe = partida.id_equipe_b) as sigla_b,
 		(select esporte from esporte where esporte.id_esporte = partida.id_esporte) as id_esporte,
 		(select fase_descricao from fase where fase.fase_indice = partida.id_fase) as id_fase,
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
@@ -46,9 +46,12 @@ class PartidaDAO{
 	public function listarID($torneio, $id){
 		$sql = 'SELECT id_partida, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as nome_equipe_a, 
 		(select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as nome_equipe_b, 
+		(select id_equipe from equipe where equipe.id_equipe = partida.id_equipe_a) as id_equipe_a, 
+		(select id_equipe from equipe where equipe.id_equipe = partida.id_equipe_b) as id_equipe_b,
 		(select sigla from equipe where equipe.id_equipe = partida.id_equipe_a) as sigla_a, 
 		(select sigla from equipe where equipe.id_equipe = partida.id_equipe_b) as sigla_b, 
-		(select esporte from esporte where esporte.id_esporte = partida.id_esporte) as id_esporte,
+		(select esporte from esporte where esporte.id_esporte = partida.id_esporte) as nome_esporte,
+		(select id_esporte from esporte where esporte.id_esporte = partida.id_esporte) as id_esporte,
 		(select imagem from esporte where esporte.id_esporte = partida.id_esporte) as img_esporte,
 		(select fase_descricao from fase where fase.fase_indice = partida.id_fase) as id_fase,
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
@@ -122,8 +125,15 @@ class PartidaDAO{
 		return $exec;
 	}
 
-	public function listarEquipePartida($torneio){
-		
+	public function listarParticipanteEsporte($torneio, $idEquipe, $idEsporte){
+		$sql = 'select * from participante, participacao_esporte where participante.id_participante = participacao_esporte.id_participante and id_torneio = :torneio and id_equipe = :idEquipe and id_esporte = :idEsporte';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->bindValue(':idEquipe', $idEquipe);
+		$prep->bindValue(':idEsporte', $idEsporte);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
 	}
 
 	public function alterar($partida){
@@ -224,4 +234,14 @@ class PartidaDAO{
 		return $exec;
 	}
 
+	public function pontuacao($partida){
+		$sql = 'UPDATE partida SET termino = :termino, placar_equipe_a = :placarA, placar_equipe_b = :placarB, vencedor = :vencedor WHERE id_partida = :id';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':termino', $partida->getTermino());
+		$prep->bindValue(':placarA', $partida->getPlacarA());
+		$prep->bindValue(':placarB', $partida->getPlacarB());
+		$prep->bindValue(':vencedor', $partida->getVencedor());
+		$prep->bindValue(':id', $partida->getidPartida());
+		$prep->execute();
+	}
 }

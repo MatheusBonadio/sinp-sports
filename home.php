@@ -1,6 +1,12 @@
+<?php 
+    session_start();
+    //error_reporting(E_ALL); 
+    //ini_set("display_errors", 1); 
+?>
 <!DOCTYPE html>
 <html lang='pt-br'>
 <head>
+    <?php include($_SERVER['DOCUMENT_ROOT']."/url.php") ?>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script src='/public/js/jquery.js'></script>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
@@ -13,15 +19,16 @@
 </head>
 
 <body>
+
     <div class='header flex'>
-        <a href=''>
+        <a href='/'>
             <div class='img'></div>
         </a>
-        <a onclick='select_head(0)'>home</a>
-        <a onclick='select_head(1)'>partidas</a>
-        <a onclick='select_head(2)'>esportes</a>
-        <a onclick='select_head(3)'>equipes</a>
-        <a onclick='select_head(4)'>login</a>
+        <a onclick='select_head("<?php echo $torneio ?>", 0)'>home</a>
+        <a onclick='select_head("<?php echo $torneio ?>", 1)'>partidas</a>
+        <a onclick='select_head("<?php echo $torneio ?>", 2)'>esportes</a>
+        <a onclick='select_head("<?php echo $torneio ?>", 3)'>equipes</a>
+        <a onclick='select_head("<?php echo $torneio ?>", 4)'>login</a>
     </div>
 
     <script src='/public/js/header.js'></script>
@@ -30,13 +37,6 @@
         <div class='loader'></div>
         <label>Loading</label>
     </div>
-
-    <?php
-        $url = (isset($_GET["url"])) ? $_GET["url"]:"home";
-        $url = $_SERVER['DOCUMENT_ROOT']."/pages/".$url.".php";
-        if(!file_exists($url)) 
-            $url = $_SERVER['DOCUMENT_ROOT']."/errors/404.php";
-    ?>
 
     <script>$('#loader').hide();</script>
 

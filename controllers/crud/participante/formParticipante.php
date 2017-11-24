@@ -62,7 +62,7 @@
 				nome<input type="text" name="nome" value='<?php echo $participante->getNome();?>'><br>
 				equipe<select name='equipe'>
 					<?php 
-						$exec = $dao->consultarEquipe();
+						$exec = $dao->consultarEquipe($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 							if($listar['id_equipe'] == $participante->getidEquipe()){
 					?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 20-Nov-2017 às 10:56
+-- Generation Time: 24-Nov-2017 às 11:12
 -- Versão do servidor: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -18,9 +18,6 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `sinpsports`
-
-CREATE DATABASE sinpsports;
-USE sinpsports;
 --
 
 -- --------------------------------------------------------
@@ -44,9 +41,10 @@ CREATE TABLE `administrador` (
 --
 
 INSERT INTO `administrador` (`id_adm`, `id_torneio`, `login`, `senha`, `email`, `nome`, `cargo`) VALUES
-(5, 1, 'fon', '123', 'matheus.bonadio@etec.sp.gov.br  ', 'Bacana', 'Representante'),
+(1, 1, 'Bonadio', 'ww50hgbi', 'matheus_lima_bonadio_xd@hotmail.com', 'Matheus Lima', 'Gerente'),
+(5, 1, 'fon', '222', 'matheus.bonadio@etec.sp.gov.br  ', 'Bacana', 'Representante'),
 (4, 1, 'Bonadio ', 'trab ', 'matheus.bonadio@etec.sp.gov.br    ', 'Matheus Lima Bonadio', 'Gerente'),
-(6, 1, 'trab', 'xie4vuhx', 'matheus.bonadio@etec.sp.gov.br', 'bandeirantes', 'Administrador');
+(6, 1, 'trab   ', '333', 'matheus.bonadio@etec.sp.gov.br   ', 'bandeirantes   ', 'Administrador');
 
 -- --------------------------------------------------------
 
@@ -67,7 +65,8 @@ CREATE TABLE `destaque` (
 --
 
 INSERT INTO `destaque` (`id_destaque`, `id_torneio`, `id_partida`, `texto`, `imagem`) VALUES
-(1, 1, 1, 'Crudzão gostoso', 'c20ab209df1d3c9fc5b6f9be0ed177c1810890dc.png');
+(1, 1, 1, 'Esse é o pique, hackearam meu email', '5af478e47ea90a88e60bae412c8c2ea966711ea5.jpg'),
+(2, 1, 2, 'Hackearam meu site', '902a7849178f52b44ea53d9fd415b822c9dc2ac8.jpg');
 
 -- --------------------------------------------------------
 
@@ -84,16 +83,18 @@ CREATE TABLE `equipe` (
   `empates` int(11) DEFAULT '0',
   `derrotas` int(11) DEFAULT '0',
   `pontos` int(11) DEFAULT '0',
-  `representante` varchar(20) NOT NULL
+  `representante` varchar(20) NOT NULL,
+  `logo` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `equipe`
 --
 
-INSERT INTO `equipe` (`id_equipe`, `id_torneio`, `nome`, `sigla`, `vitorias`, `empates`, `derrotas`, `pontos`) VALUES
-(1, 1, '1º Administração', '1° ADM', 0, 0, 0, 0),
-(2, 2, '1° Informática', '1° INF', 0, 0, 0, 0);
+INSERT INTO `equipe` (`id_equipe`, `id_torneio`, `nome`, `sigla`, `vitorias`, `empates`, `derrotas`, `pontos`, `representante`, `logo`) VALUES
+(1, 1, 'Fox Hot', 'FH', 0, 0, 0, 0, 'fon', '301dbfd8999c69155eadeaca0f8480559618dde9.png'),
+(2, 1, 'Gladiators', 'GT', 0, 0, 0, 0, 'fon', '57a34ab1e170b2e6acc7d792b9811b27e5b76e48.png'),
+(3, 1, 'Musketeers', 'MSKT', 0, 0, 0, 0, 'fon', '0567d5c87d6769febad73d5017f4b65017dec022.png');
 
 -- --------------------------------------------------------
 
@@ -108,17 +109,18 @@ CREATE TABLE `esporte` (
   `genero` varchar(15) NOT NULL,
   `tipo` varchar(30) NOT NULL,
   `qtd_jogadores` int(11) NOT NULL,
-  `qtd_times` int(11) NOT NULL,
   `classificacao` varchar(20) NOT NULL,
-  `imagem` varchar(50) NOT NULL
+  `imagem` varchar(50) DEFAULT NULL,
+  `qtd_times` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `esporte`
 --
 
-INSERT INTO `esporte` (`id_esporte`, `id_torneio`, `esporte`, `genero`, `tipo`, `qtd_jogadores`, `qtd_times`, `classificacao`, `imagem`) VALUES
-(1, 1, 'League of Legends ', 'Ambos', 'Eletrônico', 1, 1, 'Chave', '79e02a9dd9acce74a8e325a9ee25e407b61c7582.jpg');
+INSERT INTO `esporte` (`id_esporte`, `id_torneio`, `esporte`, `genero`, `tipo`, `qtd_jogadores`, `classificacao`, `imagem`, `qtd_times`) VALUES
+(1, 1, 'League of Legends  ', 'Ambos', 'Eletrônico', 1, 'Chave', '077474dcd0691e40ce5d4015288de1bd0cb168a8.jpg', 2),
+(2, 1, 'Xadrez ', 'Ambos', 'Tabuleiro', 1, 'Chave', '5f4fccd5f3ac34e389fc8e8a690b15f82d2753ba.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -138,7 +140,7 @@ CREATE TABLE `fase` (
 --
 
 INSERT INTO `fase` (`id_fase`, `id_torneio`, `fase_descricao`, `fase_indice`) VALUES
-(1, 1, 'quartas', 1);
+(1, 1, 'final', 1);
 
 -- --------------------------------------------------------
 
@@ -148,9 +150,22 @@ INSERT INTO `fase` (`id_fase`, `id_torneio`, `fase_descricao`, `fase_indice`) VA
 
 CREATE TABLE `participacao_esporte` (
   `id_participante` int(11) NOT NULL,
-  `id_torneio` int(11) NOT NULL,
   `id_esporte` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `participacao_esporte`
+--
+
+INSERT INTO `participacao_esporte` (`id_participante`, `id_esporte`) VALUES
+(1, 2),
+(2, 1),
+(1, 1),
+(2, 2),
+(5, 2),
+(4, 1),
+(5, 1),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -164,6 +179,17 @@ CREATE TABLE `participante` (
   `id_equipe` int(11) NOT NULL,
   `nome` char(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `participante`
+--
+
+INSERT INTO `participante` (`id_participante`, `id_torneio`, `id_equipe`, `nome`) VALUES
+(1, 1, 1, 'Bertao'),
+(2, 1, 1, 'Lima'),
+(3, 1, 1, 'Piga'),
+(4, 1, 2, 'Fon'),
+(5, 1, 2, 'Matheus Bonadio');
 
 -- --------------------------------------------------------
 
@@ -191,7 +217,9 @@ CREATE TABLE `partida` (
 --
 
 INSERT INTO `partida` (`id_partida`, `id_torneio`, `id_equipe_a`, `id_equipe_b`, `id_esporte`, `id_fase`, `dia`, `inicio`, `termino`, `placar_equipe_a`, `placar_equipe_b`, `vencedor`) VALUES
-(1, 1, 1, 2, 1, 1, '2017-11-17', '08:00', '08:01', 2, 3, 2);
+(1, 1, 2, 1, 2, 1, '2017-11-26', '08:39', NULL, 0, 0, NULL),
+(2, 1, 1, 2, 1, 1, '2017-11-23', '09:37', '9:50', 2, 3, 1),
+(4, 1, 3, 2, 2, 1, '2017-11-23', '22:03', NULL, 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -230,8 +258,7 @@ CREATE TABLE `permissao` (
 --
 
 INSERT INTO `permissao` (`login`, `id_torneio`, `id_esporte`) VALUES
-('Bonadio ', 1, 1),
-('trab', 1, 1);
+('trab   ', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -251,8 +278,8 @@ CREATE TABLE `torneio` (
 --
 
 INSERT INTO `torneio` (`id_torneio`, `descricao`, `inicio`, `termino`) VALUES
-(1, 'Torneio de verão Etec', '2017-12-04', '2017-12-08'),
-(2, 'Torneio alternativo', '2017-11-17', '2017-11-24');
+(1, 'Torneio de verão', '2017-11-20', '2017-11-30'),
+(2, 'Interclasse', '2017-11-04', '2017-11-08');
 
 --
 -- Indexes for dumped tables
@@ -291,10 +318,17 @@ ALTER TABLE `fase`
   ADD PRIMARY KEY (`id_fase`);
 
 --
+-- Indexes for table `participacao_esporte`
+--
+ALTER TABLE `participacao_esporte`
+  ADD KEY `id_participante` (`id_participante`);
+
+--
 -- Indexes for table `participante`
 --
 ALTER TABLE `participante`
-  ADD PRIMARY KEY (`id_participante`);
+  ADD PRIMARY KEY (`id_participante`),
+  ADD KEY `id_equipe` (`id_equipe`);
 
 --
 -- Indexes for table `partida`
@@ -340,17 +374,17 @@ ALTER TABLE `administrador`
 -- AUTO_INCREMENT for table `destaque`
 --
 ALTER TABLE `destaque`
-  MODIFY `id_destaque` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_destaque` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `equipe`
 --
 ALTER TABLE `equipe`
-  MODIFY `id_equipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_equipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `esporte`
 --
 ALTER TABLE `esporte`
-  MODIFY `id_esporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_esporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `fase`
 --
@@ -360,12 +394,12 @@ ALTER TABLE `fase`
 -- AUTO_INCREMENT for table `participante`
 --
 ALTER TABLE `participante`
-  MODIFY `id_participante` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_participante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `partida`
 --
 ALTER TABLE `partida`
-  MODIFY `id_partida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_partida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `partida_log`
 --

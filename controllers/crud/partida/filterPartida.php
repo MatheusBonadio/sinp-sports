@@ -67,7 +67,7 @@
 				$backup = $listar['dia'];
 			}
 			?>
-			<a class='match' href='/partidas/<?php echo $listar['id_partida']?>'>
+			<a class='match' href='/<?php echo $_SESSION['descricao']?>/partidas/<?php echo $listar['id_partida']?>'>
 				<div class='time flex'>
 					<span><?php echo $listar['inicio'] ?>h</span>
 					<span><?php echo $listar['id_esporte'] ?></span>

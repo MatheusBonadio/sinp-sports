@@ -10,11 +10,12 @@
 			<div class='filter_header'>FILTROS</div>
 			<div class='filter_header'>ESPORTES</div>
 			<div class='filter_line'></div>
+			<?php if (count($exec)>0){ ?>
 			<div class='filter' onclick='select_filter()'>Todos</div>
 			<?php foreach ($exec as $listar) { ?>
 			<div class='filter' onclick='select_filter(<?php echo $listar['id_esporte']?>, "esporte")'><?php echo $listar['esporte']?></div>
 			<?php 
-			}
+			}}
 			$exec = $dao->listarEquipePartida($_SESSION['torneio']);
 			?>
 			<div class='filter_header'>EQUIPES</div>

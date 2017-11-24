@@ -16,9 +16,9 @@
 	if(!isset($_SESSION['cargo'])){
 		header('location: ../../../errors/403.php');
 	}
-
-	if(!isset($_GET['id'])){
-		if($_SESSION['cargo'] == 'Gerente'){
+	
+	if($_SESSION['cargo'] == 'Gerente'){
+		if(!isset($_GET['id'])){	
 ?>
 		<form action="insertPartida.php" method="POST">
 			equipeA<select name='equipeA'>
@@ -76,34 +76,10 @@
 		</form>
 
 <?php 
-		}else{
-			header('location: ../../../errors/403.php');
-		}
 	}else{
 		$id = $_GET['id'];
-		$partida = $dao->consultar($id);
+		$partida = $dao->consultar($id, $_SESSION['torneio']);
 
-		$i = 0;
-		foreach($_SESSION['permissao'] as $value){
-  			foreach($value as $v_key){
-	        	$idEsporte[$i] = $v_key;
-	        	$i++;
-   			}
-		}
-
-		for ($i=0; $i < count($idEsporte); $i++) { 
-			if($id == $idEsporte[$i]){
-				$permitido = true;
-			}
-		}
-
-		if(!$permitido){
-			header('location: ../../../errors/403.php');
-		}else{
-
-		//aparecer somente oq o adm pode editar
-		//nao poder acessar o formulario pela url = session de login + confirmação de permissao atraves desse sql:
-		//select * from permissao where id_esporte = $listar['id_esporte'] and login = $_SESSION['login'];
  ?>
 
 	
@@ -211,8 +187,10 @@
 		</form>
 
 <?php
+		}
+	}else{
+		header('location: ../../../errors/403.php');
 	}
-}
 ?>
 </body>
 </html>

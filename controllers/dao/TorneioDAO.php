@@ -60,4 +60,13 @@ class TorneioDAO{
         $prep->bindValue(':id', $codigo);
         $prep->execute();
 	}
+
+	public function normalizaURL($descricao){
+	    $descricao = strtolower(utf8_decode($descricao)); $i=1;
+	    $descricao = strtr($descricao, utf8_decode('àáâãäåæçèéêëìíîïñòóôõöøùúûýýÿ'), 'aaaaaaaceeeeiiiinoooooouuuyyy');
+	    $descricao = preg_replace("/([^a-z0-9])/",'-',utf8_encode($descricao));
+	    while($i>0) $descricao = str_replace('--','-',$descricao,$i);
+	    if (substr($descricao, -1) == '-') $descricao = substr($descricao, 0, -1);
+	    return $descricao;
+	}
 }

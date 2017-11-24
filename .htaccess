@@ -1,16 +1,16 @@
 Options +FollowSymLinks
 Options All -Indexes
 
-#ErrorDocument 404 /index.php?url=nao-existe
-#ErrorDocument 403 /index.php?url=nao-existe
+ErrorDocument 404 /home.php?url=nao-existe
+ErrorDocument 403 /home.php?url=nao-existe
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteCond %{SCRIPT_FILENAME} !-f
     RewriteCond %{SCRIPT_FILENAME} !-d
-    RewriteRule ^([A-Za-z0-9-]+)/?$ home.php?url=$1 [NC]
-    RewriteRule ^partidas/?([a-zA-Z0-9]*)/?$ home.php?url=id-partida&id=$1 [NC]
-    #RewriteRule ^(?!pages/)(.*)$ index.php?p=$1 [L]
+    RewriteRule ^([A-Za-z0-9-]+)/?$ home.php?torneio=$1 [NC]
+    RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$ home.php?torneio=$1&url=$2 [NC]
+    RewriteRule ^([A-Za-z0-9-]+)/partidas/?([A-Za-z0-9-]+)/?$ home.php?torneio=$1&url=id-partida&id=$2 [NC]
 </IfModule>
 
 <Files ~ "^\.(htaccess|htpasswd)$">
