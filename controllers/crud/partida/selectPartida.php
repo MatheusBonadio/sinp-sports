@@ -64,8 +64,9 @@ if($_SESSION['cargo'] == 'Gerente'){
 			echo "Vencedor: ".$listar['vencedor']."<br>";
 			echo "<a href=formPartida.php?id=".$listar['id_partida'].">ALTERAR</a><br>";
 			echo "<a href=deletePartida.php?id=".$listar['id_partida'].">EXCLUIR</a><br>";
+
 		}
 }
 ?>
-
+<a href="formPartida.php">INSERIR</a><br>
 <a href='../../../painel/painel<?php echo $_SESSION['cargo'] ?>.php'>MENU</a><br>

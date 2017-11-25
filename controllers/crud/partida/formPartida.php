@@ -10,11 +10,11 @@
 	session_start();
 
 	if($_SESSION['cargo'] == 'Representante'){
-		header('location: ../../../errors/403.php');
+		header('location: /errors/403.php');
 	}
 
 	if(!isset($_SESSION['cargo'])){
-		header('location: ../../../errors/403.php');
+		header('location: /errors/403.php');
 	}
 	
 	if($_SESSION['cargo'] == 'Gerente'){
@@ -189,7 +189,7 @@
 <?php
 		}
 	}else{
-		header('location: ../../../errors/403.php');
+		header('location: /errors/403.php');
 	}
 ?>
 </body>

@@ -33,3 +33,22 @@ function select_filter(id, acao){
         },
     });
 }
+
+function select_match(torneio, id){
+    $.ajax({
+        url: "/pages/id-partida.php?id="+id,
+        beforeSend: function() {
+            $('html, body').animate({scrollTop:0}, 400);
+            $('#loader').show();
+            $('.content').hide();
+        },
+        success: function (data){
+            setTimeout(function(){
+                window.history.pushState("", "", "/"+torneio+"/partidas/"+id);
+                $('#loader').hide();
+                $('.content').show();
+                $('.content').html(data);
+            }, 500);
+        },
+    });
+}

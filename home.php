@@ -2,11 +2,11 @@
     session_start();
     //error_reporting(E_ALL); 
     //ini_set("display_errors", 1); 
+    include($_SERVER['DOCUMENT_ROOT']."/url.php");
 ?>
 <!DOCTYPE html>
 <html lang='pt-br'>
 <head>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/url.php") ?>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script src='/public/js/jquery.js'></script>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>

@@ -29,11 +29,14 @@ a{
 	z-index: 1;
 }
 .filter_header{
-	padding: 22px 26px;
-	width: 100%;
+	padding: 22px 12px;
+	width: 90%;
 	box-sizing: border-box;
+	border-bottom: 1px solid #252525;
 }
 .filter_header:first-child{
+	border: none;
+	width: 100%;
 	font-weight: 400;
 	padding: 42px 0 22px 26px;
 	background-color: #e2aa00;
@@ -51,11 +54,6 @@ a{
 .filter:hover{
 	border-left: 4px solid #e2aa00;
 	background-color: #1f1f1c;
-}
-.filter_line{
-	width: 90%;
-	height: 1px;
-	background-color: #252525;
 }
 .absolute{
 	position: absolute;

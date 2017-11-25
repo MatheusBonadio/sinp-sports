@@ -43,6 +43,24 @@ class PartidaDAO{
 		return $exec;
 	}
 
+	public function listarPartidasFinalizadas($torneio){
+		$sql = 'SELECT id_partida, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as nome_equipe_a,
+		(select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as nome_equipe_b,
+		(select sigla from equipe where equipe.id_equipe = partida.id_equipe_a) as sigla_a,
+		(select sigla from equipe where equipe.id_equipe = partida.id_equipe_b) as sigla_b,
+		(select esporte from esporte where esporte.id_esporte = partida.id_esporte) as id_esporte,
+		(select fase_descricao from fase where fase.fase_indice = partida.id_fase) as id_fase,
+		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
+		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor,
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_a) as logo_a,
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio and termino IS NOT NULL ORDER BY dia';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
+	}
+
 	public function listarID($torneio, $id){
 		$sql = 'SELECT id_partida, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as nome_equipe_a, 
 		(select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as nome_equipe_b, 
@@ -125,8 +143,10 @@ class PartidaDAO{
 		return $exec;
 	}
 
+	//edição
+
 	public function listarParticipanteEsporte($torneio, $idEquipe, $idEsporte){
-		$sql = 'select * from participante, participacao_esporte where participante.id_participante = participacao_esporte.id_participante and id_torneio = :torneio and id_equipe = :idEquipe and id_esporte = :idEsporte';
+		$sql = 'select * from participante, participacao_esporte where participante.id_participante = participacao_esporte.id_participante and id_torneio = :torneio and id_equipe = :idEquipe and id_esporte = :idEsporte order by nome';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->bindValue(':idEquipe', $idEquipe);

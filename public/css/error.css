@@ -1,19 +1,25 @@
 .error{
+	margin-top: 70px;
 	width: 100vw;
-	min-height: 100vh;
+	min-height: calc(100vh - 70px);
 	display: flex;
 	flex-direction: column;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-image: linear-gradient(to bottom, rgba(20,20,20,.6) 0%,
-	rgba(20,20,20,.6) 100%), url(../../public/img/sistema/error.jpg);
+	rgba(20,20,20,.6) 100%), url(../../public/img/sistema/error_404.jpg);
     filter: contrast(105%) brightness(110%);
 	justify-content: center;
 	align-items: center;
 	color: #fff;
 	box-sizing: border-box;
 	padding: 20px;
+}
+._403{
+	background-position: center 0;
+	background-image: linear-gradient(to bottom, rgba(20,20,20,.6) 0%,
+	rgba(20,20,20,.6) 100%), url(../../public/img/sistema/error_403.jpg);
 }
 .error label{
 	text-align: center;

@@ -1,8 +1,8 @@
 Options +FollowSymLinks
 Options All -Indexes
 
-ErrorDocument 404 /home.php?url=nao-existe
-ErrorDocument 403 /home.php?url=nao-existe
+ErrorDocument 404 /home.php?url=404
+ErrorDocument 403 /home.php?url=403
 
 <IfModule mod_rewrite.c>
     RewriteEngine On

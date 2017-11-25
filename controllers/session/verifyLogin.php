@@ -23,6 +23,6 @@ if($verifica){
 		header('location: ../../painel/painelRepresentante.php');
 	}
 }else{
-	header('location: /errors/403.php');
+	header('location: /error/403');
 }
 

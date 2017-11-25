@@ -1,6 +1,5 @@
 <?php
 
-
 require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/TorneioDAO.php";
 $dao = new TorneioDAO();
 $exec = $dao->listar();
@@ -28,6 +27,12 @@ if(isset($_SESSION["descricao"]))
 else
 	header("location: /");
 
-if(!file_exists($url)) 
-    $url = $_SERVER['DOCUMENT_ROOT']."/errors/404.php";
+if(!file_exists($url)){
+	$url = (isset($_GET["url"])) ? $_GET["url"]:"404";
+	echo "<script>console.log('Sem URL: '+".$url.")</script>";
+	if($url=="403")
+    	$url = $_SERVER['DOCUMENT_ROOT']."/errors/403.php";
+    else 
+    	$url = $_SERVER['DOCUMENT_ROOT']."/errors/404.php";
+}
 session_write_close();

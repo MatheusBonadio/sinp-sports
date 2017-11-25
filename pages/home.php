@@ -1,8 +1,10 @@
 	<link rel="stylesheet" href="/public/css/home.css" type="text/css">
+
 	<?php
+		session_start();
 		require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/DestaqueDAO.php";
 		$dao = new DestaqueDAO();
-		$exec = $dao->listar();
+		$exec = $dao->listar($_SESSION['torneio']);
 	?>
 	<div class='slideshow'>
 		<div class='highlight_container'>
@@ -34,33 +36,35 @@
 		<div class='arrow flex material-icons' onclick='plusSlides(1)'>keyboard_arrow_right</div>
 		<div class='arrow flex material-icons' onclick='plusSlides(-1)'>keyboard_arrow_left</div>
 	</div>
+	<?php 
+		require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/PartidaDAO.php";
+		$dao = new PartidaDAO();
+		$exec = $dao->listarPartidasFinalizadas($_SESSION['torneio']);
+	?>
 	<div class='next_games'>
-		<div class='match flex'>
-			<div class='sport'>cabo de guerra</div>
+		<?php foreach ($exec as $listar) {
+			if($listar['nome_equipe_a'] == $listar['vencedor']){
+				$listar['equipe_a'] = "V";
+				$listar['equipe_b'] = "D";
+			}else if($listar['nome_equipe_b'] == $listar['vencedor']){
+				$listar['equipe_a'] = "D";
+				$listar['equipe_b'] = "V";
+			}
+		?>
+		<div class='match flex' onclick='select_match("<?php echo $_SESSION['descricao']?>", <?php echo $listar['id_partida']?>)'>
+			<div class='sport'><?php echo $listar['id_esporte'] ?></div>
 			<div class='team flex'>
-				<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/cloud9-gnd9b0gn.png' width='16%'/>
-				<label>1º INF</label>
-				<label>V</label>
+				<img src='/public/img/equipe/<?php echo $listar['logo_a'] ?>' width='16%'/>
+				<label><?php echo $listar['sigla_a'] ?></label>
+				<label><?php echo $listar['equipe_a'] ?></label>
 			</div>
 			<div class='team flex'>
-				<img src='https://lolstatic-a.akamaihd.net/esports-assets/production/team/team-solomid-cg2byxoe.png' width='16%'/>
-				<label>1º ADM</label>
-				<label>D</label>
-			</div>
-		</div>
-		<div class='match flex'>
-			<div class='sport'>vôlei masculino</div>
-			<div class='team flex'>
-				<img src='https://www.festisite.com/static/partylogo/img/logos/fc-barcelona.png' width='16%'/>
-				<label>3º INF</label>
-				<label>D</label>
-			</div>
-			<div class='team flex'>
-				<img src='https://orig00.deviantart.net/996d/f/2015/307/a/d/bayern_munich_lockglyph__request__by_astoldbyalp-d9fd7qm.png' width='16%'/>
-				<label>2º ADM</label>
-				<label>V</label>
+				<img src='/public/img/equipe/<?php echo $listar['logo_b'] ?>' width='16%'/>
+				<label><?php echo $listar['sigla_b'] ?></label>
+				<label><?php echo $listar['equipe_b'] ?></label>
 			</div>
 		</div>
+		<?php }?>
 	</div>
 	<script>
 		$('#loader').hide();
@@ -73,5 +77,6 @@
 			ref.appendChild(div);
 		}
 	</script>
+	<script src="/public/js/partidas.js"></script>
 	<script src="/public/js/slideshow.js"></script>
 	<script>slider($(".header a:eq(1)"))</script>

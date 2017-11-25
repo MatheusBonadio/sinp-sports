@@ -67,7 +67,7 @@
 				$backup = $listar['dia'];
 			}
 			?>
-			<a class='match' href='/<?php echo $_SESSION['descricao']?>/partidas/<?php echo $listar['id_partida']?>'>
+			<a class='match' onclick='select_match("<?php echo $_SESSION['descricao']?>", <?php echo $listar['id_partida']?>)'>
 				<div class='time flex'>
 					<span><?php echo $listar['inicio'] ?>h</span>
 					<span><?php echo $listar['id_esporte'] ?></span>
@@ -99,10 +99,9 @@
 	<?php } }else echo "<div class='error flex'>Nenhuma partida encontrada</div>"; ?>
 	</div>
 	<script>
-		var $doc = $('html, body');
 		$('.stage').click(function() {
 			console.log($( $.attr(this, 'href') ));
-		    $doc.animate({
+		    $('html, body').animate({
 		        scrollTop: ($( $.attr(this, 'href') ).offset().top - 70)
 		    }, 500);
 		    return false;

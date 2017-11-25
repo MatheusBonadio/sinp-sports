@@ -32,34 +32,37 @@
 					<span><?php echo $listar['nome_equipe_a']?></span>
 					<span class='<?php echo $listar['equipe_a'] ?>'><?php echo $listar['equipe_a'] ?></span>
 				</div>
-				<div class='team_img flex'>
-					<img src='/public/img/equipe/<?php echo $listar['logo_a']; ?>' width='100%'>
-				</div>
+				<div class='team_img flex' style='background-image: url(/public/img/equipe/<?php echo $listar['logo_a']; ?>)'></div>
 			</div>
 			<div class='versus flex'><?php echo $listar['placar_equipe_a']?> - <?php echo $listar['placar_equipe_b']?></div>
 			<div class='team_b'>
-				<div class='team_img flex'>
-					<img src='/public/img/equipe/<?php echo $listar['logo_b']; ?>' width='100%'>
-				</div>
+				<div class='team_img flex' style='background-image: url(/public/img/equipe/<?php echo $listar['logo_b']; ?>)'></div>
 				<div class='team_name'>
 					<span><?php echo $listar['nome_equipe_b']?></span>
 					<span class='<?php echo $listar['equipe_b'] ?>'><?php echo $listar['equipe_b'] ?></span>
 				</div>
 			</div>
 		</div>
+		<div class='container_participant'>
+			<div class='participant_team_a'>
+				<?php $exec2 = $dao->listarParticipanteEsporte($_SESSION['torneio'], $idEquipeA, $idEsporte);
+				foreach ($exec2 as $listar2) {
+					?><div><?php echo $listar2['nome']?></div>
+				<?php }?>
+			</div>
+			<div class='participant_team_b'>
+				<?php $exec2 = $dao->listarParticipanteEsporte($_SESSION['torneio'], $idEquipeB, $idEsporte);
+				foreach ($exec2 as $listar2) {
+					?><div><?php echo $listar2['nome']?></div>
+				<?php }?>
+			</div>
+		</div>
 	</div>
-	<?php 
-		$exec = $dao->listarParticipanteEsporte($_SESSION['torneio'], $idEquipeA, $idEsporte);
-		foreach ($exec as $listar) {
-			echo $listar['nome']."<br>";
-		}
-		$exec = $dao->listarParticipanteEsporte($_SESSION['torneio'], $idEquipeB, $idEsporte);
-		foreach ($exec as $listar) {
-			echo $listar['nome']."<br>";
-		}
+	<?php
 	}
 	}else
 		header("Location: /".$_SESSION['descricao']."/partidas");
 	 ?>
 
+	<script>$('#loader').hide();</script>
 	<script>slider($(".header a:eq(2)"))</script>
