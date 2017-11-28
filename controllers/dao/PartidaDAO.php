@@ -53,7 +53,7 @@ class PartidaDAO{
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
 		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor,
 		(select logo from equipe where equipe.id_equipe = partida.id_equipe_a) as logo_a,
-		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio and termino IS NOT NULL ORDER BY dia';
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio and termino IS NOT NULL ORDER BY dia desc';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();

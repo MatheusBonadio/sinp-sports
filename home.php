@@ -7,6 +7,14 @@
 <!DOCTYPE html>
 <html lang='pt-br'>
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110299461-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-110299461-1');
+    </script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script src='/public/js/jquery.js'></script>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>

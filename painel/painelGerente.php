@@ -1,14 +1,14 @@
+<?php
+
+require_once $_SERVER['DOCUMENT_ROOT']."/controllers/session/Functions.php";
+session_start();
+var_dump($_SESSION);
+
+$func = new Functions();
+$func->sessionGerente();
+
+?>
 <html>
-	<?php
-	
-	require_once $_SERVER['DOCUMENT_ROOT']."/controllers/session/Functions.php";
-	session_start();
-	var_dump($_SESSION);
-
-	$func = new Functions();
-	$func->sessionGerente();
-
-	?>
 	<a href="..\controllers\crud\adm\selectAdm.php">ADM</a><br>
 	<a href="..\controllers\crud\torneio\selectTorneio.php">TORNEIO</a><br>
 	<a href="..\controllers\crud\esporte\selectEsporte.php">ESPORTE</a><br>

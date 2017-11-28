@@ -1,9 +1,12 @@
 var currentHead;
 
 function select_head(torneio, n){
-    if(currentHead!=n){
-        var sites = ["home", "partidas", "esportes", "equipes", "login"];
-        var url = "/pages/"+sites[n]+".php";
+    var path = last_word();
+    var sites = ["home", "partidas", "esportes", "equipes", "login"];
+    var url = "/pages/"+sites[n]+".php";
+    if(path=="")
+        path = sites[0];
+    if(path!=sites[n]){
         $.ajax({
             url: url,
             beforeSend: function() {
@@ -21,9 +24,18 @@ function select_head(torneio, n){
             },
         });
     }
-    currentHead = n;
 }
 
 window.onpopstate = function (event) {
   location.reload();
+}
+
+function last_word(){
+    var path = window.location.pathname;
+    path = path.split('').reverse().join('');
+    var indexPath = path.indexOf("/");
+    path = path.substring(0, indexPath);
+    path = path.split('').reverse().join('');
+    path = path.replace("/", "");
+    return path;
 }

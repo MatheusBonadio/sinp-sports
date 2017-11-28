@@ -1,10 +1,10 @@
-	<link rel="stylesheet" href="/public/css/partidas.css" type="text/css">
 	<?php
 		session_start();
 		require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/PartidaDAO.php";
 		$dao = new PartidaDAO();
 		$exec = $dao->listarEsportePartida($_SESSION['torneio']);
 	?>
+	<link rel="stylesheet" href="/public/css/partidas.css" type="text/css">
 	<div class='container'>
 		<div class='container_filter'>
 			<div class='filter_header'>FILTROS</div>

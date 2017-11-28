@@ -1,7 +1,7 @@
 <?php
+	session_start();
 	require_once '../../dao/ParticipanteDAO.php';
 	$dao = new ParticipanteDAO();
-	session_start();
 
 	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Gerente'){
 		$exec = $dao->listar($_SESSION['torneio']);

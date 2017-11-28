@@ -1,7 +1,7 @@
 <?php
+	session_start();
 	require_once '../../dao/AdministradorDAO.php';
 	$dao = new AdministradorDAO();
-	session_start();
 	$exec = $dao->listar($_SESSION['torneio']);
 
 	

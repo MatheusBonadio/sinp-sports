@@ -1,0 +1,92 @@
+.container{
+	box-sizing: border-box;
+	margin-top: 70px;
+	display: flex;
+	position: relative;
+	padding: 30px 5vw;
+	width: 100%;
+	color: #fff;
+	flex-direction: column;
+}
+.sport_type_line{
+	width: 40%;
+	height: 1px;
+	background-color: #646464;
+}
+.sport_type label{
+	margin: 0 30px;
+	font-size: 25px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+.sport_type{
+	margin: 25px 0;
+	width: 100%;
+}
+.sport_container{
+	display: flex;
+	width: 100%;
+	min-height: 420px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-grow: 1;
+	min-width: 25%;
+}
+.sport{
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: default;
+	position: relative;
+	margin: 7px;
+	min-width: calc(25% - 16px);
+	min-height: 350px;
+	flex-grow: 1;
+	border: 1px solid #646464;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	filter: grayscale(100%);
+	overflow: hidden;
+	transition: transform .4s, box-shadow .4s, filter .4s;
+	box-shadow: 0 2px 10px 2px rgba(0,0,0,.26);
+}
+.sport:hover{
+	transform: scale(1.02);
+	box-shadow: 0 0 16px 5px rgba(0,0,0,.4);
+	filter: grayscale(10%);
+}
+.sport_read{
+	display: flex;
+	flex-direction: column;
+	height: 40%;
+	width: 100%;
+	position: absolute;
+	bottom: -16%;
+	transition: .4s;
+}
+.sport_read div{
+	height: 40%;
+}
+.sport_read div:first-child{
+	border-top: 1px solid #646464;
+	height: 60%;
+	background-color: rgba(0,0,0,.8);
+	text-align: center;
+	font-weight: 300;
+	font-size: 20px;
+}
+.sport_read div:last-child{
+	background-color: #e2aa00;	
+	font-size: 15px;
+	font-weight: 400;
+	text-transform: uppercase;
+}
+.sport:hover .sport_read{
+	bottom: 0;
+}
+@media screen and (max-width:1025px) {
+	.sport{
+		min-width: calc(100% - 16px);
+		min-height: 200px;
+	}
+}

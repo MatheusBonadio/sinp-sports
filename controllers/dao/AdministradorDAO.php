@@ -112,7 +112,7 @@ class AdministradorDAO{
  	}
 
  	public function consultarPermissao($login){
- 		$sql = "select permissao.id_esporte from esporte, permissao where permissao.login = :login and permissao.id_esporte = esporte.id_esporte order by tipo,esporte;";
+ 		$sql = "select permissao.id_esporte, esporte.esporte from esporte, permissao where permissao.login = :login and permissao.id_esporte = esporte.id_esporte order by tipo,esporte;";
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':login', $login);
 		$prep->execute();

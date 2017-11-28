@@ -61,7 +61,8 @@
 	<?php
 	}
 	}else
-		header("Location: /".$_SESSION['descricao']."/partidas");
+		echo "<script>window.location.href = '/".$_SESSION['descricao']."/partidas';</script>";
+		//header("Location: /".$_SESSION['descricao']."/partidas");
 	 ?>
 
 	<script>$('#loader').hide();</script>

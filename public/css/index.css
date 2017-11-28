@@ -171,7 +171,9 @@ a[title="Hosted on free web hosting 000webhost.com. Host your own website for FR
 	.header a:first-child:hover{
 		background-color: #1b1b1b;
 	}
-	.small{
-		height: 90px;
+	.small a:first-child .img{
+		bottom: -25px;
+		width: 90px;
+		height: 85px;
 	}
 }
