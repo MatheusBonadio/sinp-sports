@@ -7,6 +7,7 @@
 	$adm = new Administrador();
 	$dao = new AdministradorDAO();
 	$func = new Functions();
+	session_start();
 
 	if(!isset($_GET['cargo']) && !isset($_GET['id'])){
 		header('location: index.php');
@@ -15,35 +16,35 @@
 		$cargoSel = $_GET['cargo'];
 	}
 
+	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
+		header('location: ../../../errors/403.php');
+	}
+
+	if(!isset($_SESSION['cargo'])){
+		header('location: ../../../errors/403.php');
+	}
+
+	if($_SESSION['cargo'] == 'Gerente'){
+
 	if(!isset($_GET['id'])){
 		if($cargoSel == 'Gerente' || $cargoSel == 'Representante'){
-			?>
+?>
 			<form action="insertAdm.php" method="POST">
-			torneio<select name='torneio'>
-						<option selected disabled hidden>Selecione um torneio</option>
-					<?php 
-						$exec = $dao->consultarTorneio();
-						foreach ($exec as $listar) {
-					?>
-						<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
-					<?php
-						}
-					?>
-					</select><br>
+			<label><?php echo $cargoSel; ?></label><input type="text" name="cargo" value="<?php echo $cargoSel; ?>" hidden><br>
 			login<input type="text" name="adm_login"><br>
 			email<input type="text" name="email"><br>
 			nome<input type="text" name="nome"><br>
-			cargo<input type="text" name="cargo" value="<?php echo $cargoSel; ?>"><br>
 			<input type="submit">
-			<?php
+<?php
 		}
+
 		if($cargoSel == 'Administrador'){
 ?>
 		<form action="insertAdm.php" method="POST">
+			<label><?php echo $cargoSel; ?></label><input type="text" name="cargo" value="<?php echo $cargoSel; ?>" hidden><br>
 			login<input type="text" name="adm_login"><br>
 			email<input type="text" name="email"><br>
 			nome<input type="text" name="nome"><br>
-			cargo<input type="text" name="cargo" value="<?php echo $cargoSel; ?>"><br>
 			permissao<br>
 					<?php 
 						$exec = $dao->consultarEsporte();
@@ -71,30 +72,11 @@
 			if($adm->getCargo() == 'Gerente' || $adm->getCargo() == 'Representante'){
  ?>
 		<form action="updateAdm.php" method="POST">
-			id<input type="text" name="id" value="<?php echo $adm->getidAdm(); ?> "><br>
-			torneio<select name='torneio'>
-					<?php 
-						$exec = $dao->consultarTorneio();
-						foreach ($exec as $listar) {
-							if($listar['id_torneio'] == $idTorneio){
-					?>
-								<option value="<?php echo $listar['id_torneio'];?>" selected><?php echo $listar['descricao']; ?></option>
-					<?php
-							}else{
-					?>
-								<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
-					<?php
-							}
-						}
-					?>
-					</select><br>
+			<input type="text" name="id" value="<?php echo $adm->getidAdm(); ?> " hidden>
 			login<input type="text" name="login" value="<?php echo $adm->getLogin(); ?> "><br>
 			senha<input type="text" name="senha" value="<?php echo $adm->getSenha(); ?> "><br>
 			email<input type="text" name="email" value="<?php echo $adm->getEmail(); ?> "><br>
 			nome<input type="text" name="nome" value="<?php echo $adm->getNome(); ?> "><br>
-			cargo<select name='cargo'>
-					<?php echo $func->optionsCargo($adm); ?>
-					</select><br>
 			<input type="submit">
 		</form>	
 
@@ -102,30 +84,11 @@
 		}else if($adm->getCargo() == 'Administrador'){
 ?>
 		<form action="updateAdm.php" method="POST">
-			id<input type="text" name="id" value="<?php echo $adm->getidAdm(); ?> "><br>
-			torneio<select name='torneio'>
-					<?php 
-						$exec = $dao->consultarTorneio();
-						foreach ($exec as $listar) {
-							if($listar['id_torneio'] == $idTorneio){
-					?>
-								<option value="<?php echo $listar['id_torneio'];?>" selected><?php echo $listar['descricao']; ?></option>
-					<?php
-							}else{
-					?>
-								<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
-					<?php
-							}
-						}
-					?>
-					</select><br>
+			<input type="text" name="id" value="<?php echo $adm->getidAdm(); ?> " hidden>
 			login<input type="text" name="login" value="<?php echo $adm->getLogin(); ?> "><br>
 			senha<input type="text" name="senha" value="<?php echo $adm->getSenha(); ?> "><br>
 			email<input type="text" name="email" value="<?php echo $adm->getEmail(); ?> "><br>
 			nome<input type="text" name="nome" value="<?php echo $adm->getNome(); ?> "><br>
-			cargo<select name='cargo'>
-					<?php echo $func->optionsCargo($adm); ?>
-					</select><br>
 			permissao<br>
 				<?php 
 					$exec = $dao->consultarEsporte();
@@ -148,6 +111,7 @@
 <?php
 		}
 	}
+}
 ?>
 </body>
 </html>

@@ -1,10 +1,20 @@
 <?php
-	session_start();
 	require_once '../../dao/AdministradorDAO.php';
 	$dao = new AdministradorDAO();
+	session_start();
+
 	$exec = $dao->listar($_SESSION['torneio']);
 
-	
+	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
+		header('location: ../../../errors/403.php');
+	}
+
+	if(!isset($_SESSION['cargo'])){
+		header('location: ../../../errors/403.php');
+	}
+
+if($_SESSION['cargo'] == 'Gerente'){
+
 	foreach ($exec as $listar) {
 		echo "ID: ".$listar['id_adm']."<br>";
 		echo "Torneio: ".$listar['id_torneio']."<br>";
@@ -18,7 +28,15 @@
 		foreach ($permExec as $listarEsporte) {
 			echo $listarEsporte['esporte']."<br>";
 		}
-		echo "<a href=formAdm.php?id=".$listar['id_adm'].">ALTERAR</a><br>";
+		echo "<a href=formAdm.php?id=".$listar['id_adm'].">ALTERAR DADOS</a><br>";
+		echo "<a href=formCargo.php?id=".$listar['id_adm'].">ALTERAR CARGO</a><br>";
 		echo "<a href=deleteAdm.php?id=".$listar['id_adm']."&login=".$listar['login'].">EXCLUIR</a><br>";
 	}
+?>
+
+<a href="cargo.php">INSERIR</a><br>
+<a href='/painel/painel<?php echo $_SESSION['cargo'] ?>.php'>MENU</a><br>
+
+<?php
+}
 ?>

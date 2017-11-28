@@ -34,13 +34,20 @@ class AdministradorDAO{
 	}
 	
 	public function alterar($adm){
-		$sql = 'UPDATE administrador SET id_torneio = :torneio, login = :login, senha = :senha, email = :email, nome = :nome, cargo = :cargo WHERE id_adm = :id';
+		$sql = 'UPDATE administrador SET id_torneio = :torneio, login = :login, senha = :senha, email = :email, nome = :nome WHERE id_adm = :id';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $adm->getidTorneio());
 		$prep->bindValue(':login', $adm->getLogin());
 		$prep->bindValue(':senha', $adm->getSenha());
 		$prep->bindValue(':email', $adm->getEmail());
 		$prep->bindValue(':nome', $adm->getNome());
+		$prep->bindValue(':id', $adm->getidAdm());
+		$prep->execute();
+	}
+
+	public function alterarCargo($adm){
+		$sql = 'UPDATE administrador SET cargo = :cargo WHERE id_adm = :id';
+		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':cargo', $adm->getCargo());
 		$prep->bindValue(':id', $adm->getidAdm());
 		$prep->execute();
@@ -112,7 +119,7 @@ class AdministradorDAO{
  	}
 
  	public function consultarPermissao($login){
- 		$sql = "select permissao.id_esporte, esporte.esporte from esporte, permissao where permissao.login = :login and permissao.id_esporte = esporte.id_esporte order by tipo,esporte;";
+ 		$sql = "select permissao.id_esporte, esporte from esporte, permissao where permissao.login = :login and permissao.id_esporte = esporte.id_esporte order by tipo,esporte;";
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':login', $login);
 		$prep->execute();

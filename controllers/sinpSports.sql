@@ -8,7 +8,7 @@ Create table administrador (
 	login Varchar(20) NOT NULL,
 	senha Varchar(32) NOT NULL,
 	email Varchar(70) NOT NULL,
-	nome Varchar(20) NOT NULL,
+	nome Varchar(40) NOT NULL,
 	cargo varchar(20) NOT NULL,
  	Primary Key (id_adm)
 );
@@ -56,6 +56,22 @@ Create table partida (
  	Primary Key (id_partida)
 );
 
+Create table partida_log (
+	id_log Int NOT NULL AUTO_INCREMENT,
+	id_torneio Int NOT NULL,
+	id_partida Int NOT NULL,
+	id_fase Int NOT NULL,
+	inicio Varchar(15),
+	termino Varchar(15),
+	placar_equipe_a Int,
+	placar_equipe_b Int,
+	vencedor Int,
+	administrador Varchar(40),
+	dataUpdate Datetime,
+	action Varchar(50),
+    Primary Key (id_log)
+);
+
 Create table permissao (
 	login Varchar(20) NOT NULL,
 	id_torneio Int NOT NULL,
@@ -73,7 +89,6 @@ Create table destaque (
 
 Create table fase (
 	id_fase Int NOT NULL AUTO_INCREMENT,
-	id_torneio Int NOT NULL,
 	fase_descricao Varchar(40),
 	fase_indice Int,
 	Primary Key (id_fase)
@@ -85,21 +100,6 @@ Create table torneio (
 	inicio Date NOT NULL,
 	termino Date NOT NULL,
     Primary Key (id_torneio)
-);
-
-Create table partida_log (
-	id_log Int NOT NULL AUTO_INCREMENT,
-	id_torneio Int NOT NULL,
-	id_partida Int NOT NULL,
-	id_fase Int NOT NULL,
-	inicio Varchar(15),
-	termino Varchar(15),
-	placar_equipe_a Int,
-	placar_equipe_b Int,
-	vencedor Int,
-	dataUpdate Datetime,
-	action Varchar(50),
-    Primary Key (id_log)
 );
 
 Create table participante (

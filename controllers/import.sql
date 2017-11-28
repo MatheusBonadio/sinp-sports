@@ -141,7 +141,6 @@ INSERT INTO `esporte` (`id_esporte`, `id_torneio`, `esporte`, `genero`, `tipo`, 
 
 CREATE TABLE `fase` (
   `id_fase` int(11) NOT NULL,
-  `id_torneio` int(11) NOT NULL,
   `fase_descricao` varchar(40) DEFAULT NULL,
   `fase_indice` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -150,12 +149,12 @@ CREATE TABLE `fase` (
 -- Dumping data for table `fase`
 --
 
-INSERT INTO `fase` (`id_fase`, `id_torneio`, `fase_descricao`, `fase_indice`) VALUES
-(1, 1, 'Final', 1),
-(2, 1, 'Semifinal', 2),
-(3, 1, 'Quartas', 3),
-(4, 1, 'Oitavas', 4),
-(5, 1, 'Eliminatórias', 0);
+INSERT INTO `fase` (`id_fase`, `fase_descricao`, `fase_indice`) VALUES
+(1, 'Final', 1),
+(2, 'Semifinal', 2),
+(3, 'Quartas', 3),
+(4, 'Oitavas', 4),
+(5, 'Eliminatórias', 0);
 
 -- --------------------------------------------------------
 
