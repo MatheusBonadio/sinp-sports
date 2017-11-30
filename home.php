@@ -34,7 +34,7 @@
         <a onclick='select_head("<?php echo $torneio ?>", 0)'>home</a>
         <a onclick='select_head("<?php echo $torneio ?>", 1)'>partidas</a>
         <a onclick='select_head("<?php echo $torneio ?>", 2)'>esportes</a>
-        <a onclick='select_head("<?php echo $torneio ?>", 3)'>equipes</a>
+        <!-- <a onclick='select_head("<?php echo $torneio ?>", 3)'>destaques</a> -->
         <a onclick='select_head("<?php echo $torneio ?>", 4)'>login</a>
     </div>
 

@@ -2,7 +2,7 @@ var currentHead;
 
 function select_head(torneio, n){
     var path = last_word();
-    var sites = ["home", "partidas", "esportes", "equipes", "login"];
+    var sites = ["home", "partidas", "esportes", "destaques", "login"];
     var url = "/pages/"+sites[n]+".php";
     if(path=="")
         path = sites[0];

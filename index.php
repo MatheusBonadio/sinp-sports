@@ -31,9 +31,7 @@
 			<div class='search'>
 				<input type='text' id='search' value='' placeholder='Pesquise uma competição' />
 				<div class='search_icon material-icons flex'>search</div>
-				<div class='results'>
-					<?php include("/controllers/crud/torneio/searchTorneio.php"); ?>
-				</div>
+				<div class='results'></div>
 			</div>
 		</div>
 	</div>
