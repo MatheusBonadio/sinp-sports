@@ -108,11 +108,10 @@ class AdministradorDAO{
         $prep->execute();
 	}
 
-	
-
-	public function consultarEsporte(){
- 		$sql = "select id_esporte, esporte from esporte order by tipo,esporte";
+	public function consultarEsporte($torneio){
+ 		$sql = "select id_esporte, esporte from esporte where id_torneio = :torneio order by tipo,esporte";
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
@@ -173,8 +172,22 @@ class AdministradorDAO{
 		return $idTorneio;
 	}
 
-	public function verificarLogin($login, $senha){
-		$sql = "select * from administrador where login = :login and senha = :senha";
+	public function verificarLogin($login, $senha, $torneio){
+		$sql = "select * from administrador where login = :login and senha = :senha and id_torneio = :torneio";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':login', $login);
+		$prep->bindValue(':senha', $senha);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->execute();
+		if($prep->fetchColumn() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public function verificarGerente($login, $senha){
+		$sql = "select * from administrador where login = :login and senha = :senha and cargo = 'Gerente'";
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':login', $login);
 		$prep->bindValue(':senha', $senha);

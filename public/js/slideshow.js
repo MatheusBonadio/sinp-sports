@@ -4,7 +4,7 @@ var disable = false;
 var timeBar = 5000;
 var touchMove = 0, touchStart = 0;
 
-/*window.onload = function(){
+window.onload = function(){
   var touch = document.getElementsByClassName("slideshow")[0];
   touch.addEventListener("touchstart",function(e){
     touchStart = e.changedTouches[0].clientX;
@@ -17,10 +17,9 @@ var touchMove = 0, touchStart = 0;
       plusSlides(-1);
     else if((touchMove+90) < touchStart)
       plusSlides(1);
-    console.log(touchMove+"-"+touchStart);
     touchMove = 0;
   });
-}*/
+}
 
 function plusSlides(n) {
   if(!document.getElementsByClassName("highlight_img").length)

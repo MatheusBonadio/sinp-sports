@@ -1,0 +1,111 @@
+.container{
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background: linear-gradient(#101010 30%, #000);
+}
+.logo{
+	flex-grow: 1;
+	background-size: 350px;
+	background-repeat: no-repeat;
+	background-position: center bottom -80px;
+	background-image: url('/public/img/sistema/logo.png');
+}
+.search_container{
+	box-sizing: border-box;
+	height: 50vh;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.search{
+	width: 50%;
+	box-shadow: 0 2px 15px 10px rgba(0,0,0,.4);
+	border-radius: 3px;
+	overflow: hidden;
+	display: flex;
+	flex-wrap: wrap;
+	transition: width .4s;
+}
+.search_icon{
+	color: #fff;
+	cursor: pointer;
+	font-size: 25px;
+	min-height: 58px;
+	min-width: 70px;
+	box-sizing: border-box;
+	flex-grow: 1;
+	background-color: #e2aa00;
+	transition: .4s;
+}
+.search_icon:hover{
+	color: rgba(255,255,255,.6);
+	background-color: #cd8f0b;
+}
+::placeholder{
+	font: 300 16px Roboto;
+	color: rgba(0,0,0,.7);
+}
+input[type="text"]{
+	min-width: 85%; 
+	flex-grow: 1;
+	box-sizing: border-box;
+	height: 58px;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	padding: 18px 28px;
+}
+.results{
+	background-color: rgba(255,255,255,.8);
+	width: 100%;
+	height: 200px;
+	max-height: 20000px;
+	overflow-x: hidden;
+}
+.tournament_line{
+	background-color: rgba(0,0,0,.3);
+	width: 90%;
+	margin: 0 25px;
+	box-sizing: border-box;
+	height: 1px;
+}
+.opacity{
+	opacity: .7;
+}
+.tournament{
+	width: 100%;
+	text-decoration: none;
+	font: 500 16px Roboto;
+	padding: 18px 28px;
+	box-sizing: border-box;
+	cursor: pointer;
+	transition: .4s;
+	color: rgba(0,0,0,.8);
+	display: flex;
+}
+.tournament:hover{
+	background-color: #d1c49d;
+}
+.tournament_title{
+	display: flex;
+	flex-direction: column;
+}
+.tournament_title label{
+	cursor: pointer;
+}
+.tournament_title label:last-child{
+	margin-top: 5px;
+	font: 400 13px Roboto;
+}
+.error{
+	font: 300 18px Roboto;
+	width: 100%;
+	height: 100%;
+}
+@media screen and (max-width:1050px) {
+	.search{
+		width: 85%;
+	}
+}

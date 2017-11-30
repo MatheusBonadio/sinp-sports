@@ -6,17 +6,16 @@
 }
 ::-webkit-scrollbar {
   	width: 5px;
+  	height: 5px;
 }
- 
 ::-webkit-scrollbar-track {
   	background: #ddd;
 }
- 
 ::-webkit-scrollbar-thumb {
   	background: #666; 
 }
 body{
-	background-color: #141414;
+	background-color: #101010;
 	width: 100%;
 	overflow-x: hidden;
 }
@@ -24,6 +23,14 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+@font-face {
+    font-family: Main;
+    src: url(/fonts/Main.ttf)
+}
+@font-face {
+    font-family: Caligrafia;
+    src: url(/fonts/caligrafia.ttf)
 }
 .header{
 	-webkit-user-select: none;
@@ -99,10 +106,6 @@ body{
 .content{
 	width: 100vw;
 	min-height: calc(100vh - 70px);
-	/*display: flex;
-	flex-direction: column;
-	justify-content: center;
-	background-color: #141414;*/
 	animation: fadeUp .5s ease;
 }
 @keyframes fadeUp{
@@ -147,14 +150,20 @@ body{
 .footer{
 	background-color: #000;
 	width: 100%;
-	height: 150px;
+	height: 80px;
+	color: #D7D7D7;
+	display: flex;
+	text-align: center;
+	overflow: hidden;
+}
+.footer_body{
+	width: 50%;
 }
 a[title="Hosted on free web hosting 000webhost.com. Host your own website for FREE."]{
 	display: none;
 }
-.model{
-	font: 300 25px Roboto;
-	color: #cfcfcf;
+tr:nth-child(odd){
+	background-color: rgba(255,255,255,.05);
 }
 @media screen and (max-width:1025px) {
 	.header a:nth-child(n+2){

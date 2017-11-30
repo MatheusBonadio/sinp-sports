@@ -37,7 +37,6 @@
 }
 .match_teams{
 	padding: 25px 0;
-	flex-wrap: wrap;
 	width: 100%;	
 	display: flex;
 	align-items: center;

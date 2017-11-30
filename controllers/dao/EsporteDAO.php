@@ -25,9 +25,10 @@ class EsporteDAO{
 		$prep->execute();
 	}
 
-	public function listar(){
-		$sql = 'SELECT * FROM esporte order by tipo, esporte';
+	public function listar($torneio){
+		$sql = 'SELECT * FROM esporte WHERE id_torneio = :torneio order by tipo, esporte';
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;

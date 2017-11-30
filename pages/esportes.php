@@ -2,7 +2,7 @@
 	session_start();
 	require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/EsporteDAO.php";
 	$dao = new EsporteDAO();
-	$exec = $dao->listar();
+	$exec = $dao->listar($_SESSION["torneio"]);
 	$backupTipo = "";
 	error_reporting(0);
 ?>
@@ -32,6 +32,4 @@
 	$backupTipo = $listar["tipo"];
 	} ?>
 	</div>
-	<!--<script src="/public/js/partidas.js"></script> -->
-	<!-- <script>$('.load').hide();</script> -->
 	<script>slider($(".header a:eq(3)"))</script>

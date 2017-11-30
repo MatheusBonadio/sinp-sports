@@ -1,9 +1,19 @@
 <?php
-	require_once '../../class/Administrador.php';
-	require_once '../../dao/AdministradorDAO.php';
+	session_start();
+
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Administrador.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/AdministradorDAO.php';
 	$adm = new Administrador();
 	$dao = new AdministradorDAO();
-	session_start();
+
+	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
+		header('location: /error/403');
+	}
+
+	if(!isset($_SESSION['cargo'])){
+		header('location: /error/403');
+	}
+	
 
 	$adm->setidAdm($_POST['id']);
 	$adm->setidTorneio($_SESSION['torneio']);

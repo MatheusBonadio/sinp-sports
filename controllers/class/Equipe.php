@@ -6,9 +6,9 @@ class Equipe {
     private $idTorneio;
     private $nome;
     private $sigla;
-    private $vitorias;
-    private $empates;
-    private $derrotas;
+    private $Ouro;
+    private $prata;
+    private $bronze;
     private $pontos;
     private $representante;
     private $logo;
@@ -45,28 +45,28 @@ class Equipe {
         return $this->sigla;
     }
 
-    public function setVitorias($vitorias){
-        $this->vitorias = $vitorias;
+    public function setOuro($Ouro){
+        $this->Ouro = $Ouro;
     }
 
-    public function getVitorias(){
-        return $this->vitorias;
+    public function getOuro(){
+        return $this->Ouro;
     }
 
-    public function setEmpates($empates){
-        $this->empates = $empates;
+    public function setPrata($prata){
+        $this->prata = $prata;
     }
 
-    public function getEmpates(){
-        return $this->empates;
+    public function getPrata(){
+        return $this->prata;
     }
 
-    public function setDerrotas($derrotas){
-        $this->derrotas = $derrotas;
+    public function setBronze($bronze){
+        $this->bronze = $bronze;
     }
 
-    public function getDerrotas(){
-        return $this->derrotas;
+    public function getBronze(){
+        return $this->bronze;
     }
 
     public function setPontos($pontos){

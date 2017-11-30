@@ -1,7 +1,20 @@
 <?php
-	require_once '../../dao/EsporteDAO.php';
+	session_start();
+	
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/EsporteDAO.php';
 	$dao = new EsporteDAO();
-	$exec = $dao->listar();
+	
+
+	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
+		header('location: /error/403');
+	}
+
+	if(!isset($_SESSION['cargo'])){
+		header('location: /error/403');
+	}
+
+if($_SESSION['cargo'] == 'Gerente'){
+	$exec = $dao->listar($_SESSION['torneio']);
 	foreach ($exec as $listar) {
 		echo "ID: ".$listar['id_esporte']."<br>";
 		echo "Torneio: ".$listar['id_torneio']."<br>";
@@ -15,4 +28,9 @@
 		echo "<a href=formEsporte.php?id=".$listar['id_esporte'].">ALTERAR</a><br>";
 		echo "<a href=deleteEsporte.php?id=".$listar['id_esporte'].">EXCLUIR</a><br>";
 	}
+?>
+<a href="formEsporte.php">INSERIR</a><br>
+<a href='/painel/painel<?php echo $_SESSION['cargo'] ?>.php'>MENU</a><br>
+<?php
+}
 ?>

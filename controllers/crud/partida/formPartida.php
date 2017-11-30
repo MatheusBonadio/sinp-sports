@@ -1,13 +1,13 @@
-<html>
-<body>
 <?php
-	require_once '../../class/Partida.php';
-	require_once '../../dao/PartidaDAO.php';
-	require_once '../calendario.html';
+	session_start();
+
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Partida.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/PartidaDAO.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/crud/calendario.html';
 	$partida = new Partida();
 	$dao = new PartidaDAO();
 
-	session_start();
+	
 
 	if($_SESSION['cargo'] == 'Representante'){
 		header('location: /errors/403.php');
@@ -20,6 +20,8 @@
 	if($_SESSION['cargo'] == 'Gerente'){
 		if(!isset($_GET['id'])){	
 ?>
+<html>
+<body>
 		<form action="insertPartida.php" method="POST">
 			equipeA<select name='equipeA'>
 						<option selected disabled hidden>Selecione uma equipe</option>
@@ -57,7 +59,7 @@
 			fase<select name='fase'>
 						<option selected disabled hidden>Selecione uma fase</option>
 					<?php 
-						$exec = $dao->consultarFase($_SESSION['torneio']);
+						$exec = $dao->consultarFase();
 						foreach ($exec as $listar) {
 					?>
 						<option value="<?php echo $listar['fase_indice'];?>"><?php echo $listar['fase_descricao']; ?></option>
@@ -138,7 +140,7 @@
 
 			fase<select name='fase'>
 					<?php 
-						$exec = $dao->consultarFase($_SESSION['torneio']);
+						$exec = $dao->consultarFase();
 						foreach ($exec as $listar) {
 							if($listar['fase_indice'] == $partida->getidFase()){
 					?>
@@ -189,7 +191,7 @@
 <?php
 		}
 	}else{
-		header('location: /errors/403.php');
+		header('location: /error/403');
 	}
 ?>
 </body>

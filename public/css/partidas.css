@@ -232,4 +232,7 @@ a{
 	.team_name span:nth-child(2){
 		display: none;
 	}
+	.matchs{
+		padding: 0px 25px 20px 15px;
+	}
 }

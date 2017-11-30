@@ -1,20 +1,20 @@
 <?php
-	require_once '../../dao/AdministradorDAO.php';
-	$dao = new AdministradorDAO();
 	session_start();
-
-	$exec = $dao->listar($_SESSION['torneio']);
+	
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/AdministradorDAO.php';
+	$dao = new AdministradorDAO();
+	
 
 	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 	if(!isset($_SESSION['cargo'])){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 if($_SESSION['cargo'] == 'Gerente'){
-
+	$exec = $dao->listar($_SESSION['torneio']);
 	foreach ($exec as $listar) {
 		echo "ID: ".$listar['id_adm']."<br>";
 		echo "Torneio: ".$listar['id_torneio']."<br>";

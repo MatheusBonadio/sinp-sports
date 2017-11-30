@@ -1,11 +1,18 @@
 <?php
 session_start();
+
 require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/AdministradorDAO.php";
 $dao = new AdministradorDAO();
 
 $login = $_POST['login'];
 $senha = $_POST['senha'];
-$verifica = $dao->verificarLogin($login, $senha);
+$_SESSION['cargo'] = $dao->consultarCargoLogin($login);
+if($_SESSION['cargo'] == 'Gerente'){
+	$verifica = $dao->verificarGerente($login, $senha);
+}else{
+	$verifica = $dao->verificarLogin($login, $senha, $_SESSION['torneio']);
+}
+
 
 if($verifica){
 	$_SESSION['permissao'] = $dao->consultarPermissao($login);

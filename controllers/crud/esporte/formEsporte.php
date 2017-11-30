@@ -1,15 +1,27 @@
-<html>
-<body>
+
 <?php
-	require_once '../../class/Esporte.php';
-	require_once '../../dao/EsporteDAO.php';
-	require_once 'Functions.php';
+	session_start();
+	
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Esporte.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/EsporteDAO.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/crud/esporte/Functions.php';
 	$esporte = new Esporte();
 	$dao = new EsporteDAO();
 	$func = new Functions();
+	
+
+	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
+		header('location: /error/403');
+	}
+
+	if(!isset($_SESSION['cargo'])){
+		header('location: /error/403');
+	}
 
 	if(!isset($_GET['id'])){
 ?>
+<html>
+<body>
 		<form action="insertEsporte.php" enctype="multipart/form-data" method="POST">
 			esporte<input type="text" name="esporte"><br>
 			genero<select name="genero">
@@ -23,17 +35,6 @@
 			classificacao<select name="classificacao">
 							<?php $func->optionsClassificacao($esporte); ?>
 						</select><br>
-			torneio<select name='torneio'>
-					<option selected disabled hidden>Selecione um torneio</option>
-				<?php 
-					$exec = $dao->consultarTorneio();
-					foreach ($exec as $listar) {
-				?>
-					<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
-				<?php
-					}
-				?>
-			</select><br>
 			imagem<br><input type="file" name="imagem"><br>
 			<input type="submit">
 		</form>
@@ -46,7 +47,7 @@
  ?>
 
 	<form action="updateEsporte.php" enctype="multipart/form-data" method="POST">
-		id<input type="text" name="id" value="<?php echo $esporte->getidEsporte(); ?> "><br>
+		<input type="text" name="id" value="<?php echo $esporte->getidEsporte(); ?> " hidden>
 		esporte<input type="text" name="esporte" value="<?php echo $esporte->getEsporte(); ?> "><br>
 		genero<select name="genero">
 				<?php $func->optionsGenero($esporte); ?>
@@ -58,22 +59,6 @@
 		qtdTimes<input type="text" name="qtdTimes" value="<?php echo $esporte->getqtdTimes(); ?> "><br>
 		classificacao<select name="classificacao">
 				<?php $func->optionsClassificacao($esporte); ?>
-				</select><br>
-		torneio<select name='torneio'>
-				<?php 
-					$exec = $dao->consultarTorneio();
-					foreach ($exec as $listar) {
-						if($listar['id_torneio'] == $esporte->getidTorneio()){
-				?>
-							<option value="<?php echo $listar['id_torneio'];?>" selected><?php echo $listar['descricao']; ?></option>
-				<?php
-						}else{
-				?>
-							<option value="<?php echo $listar['id_torneio'];?>"><?php echo $listar['descricao']; ?></option>
-				<?php
-						}
-					}
-				?>
 				</select><br>
 		imagem<br>
 				<img src="../../../public/img/esporte/<?php echo $esporte->getImagem(); ?>">

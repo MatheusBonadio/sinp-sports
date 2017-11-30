@@ -1,6 +1,7 @@
 <?php
 	session_start();
-	require_once '../../dao/ParticipanteDAO.php';
+	
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/ParticipanteDAO.php';
 	$dao = new ParticipanteDAO();
 
 	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Gerente'){
@@ -8,11 +9,11 @@
 	}
 
 	if($_SESSION['cargo'] == 'Administrador'){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 	if(!isset($_SESSION['cargo'])){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 	foreach ($exec as $listar) {
@@ -32,4 +33,4 @@
 
 	<a href="formParticipante.php">INSERIR</a><br>
 	<a href="participacao.php">PARTICIPACAO</a><br>
-	<a href='../../../painel/painel<?php echo $_SESSION['cargo'] ?>.php'>MENU</a><br>
+	<a href='/painel/painel<?php echo $_SESSION['cargo'] ?>.php'>MENU</a><br>

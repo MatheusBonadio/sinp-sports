@@ -1,9 +1,11 @@
 <?php
-	require_once '../../class/Partida.php';
-	require_once '../../dao/PartidaDAO.php';
+	session_start();
+	
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Partida.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/PartidaDAO.php';
 	$partida = new Partida();
 	$dao = new PartidaDAO();
-	session_start();
+	
 
 	$partida->setidPartida($_POST['id']);
 	$partida->setidEquipeA($_POST['equipeA']);

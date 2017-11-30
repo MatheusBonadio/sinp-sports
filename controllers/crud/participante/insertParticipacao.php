@@ -1,15 +1,17 @@
 <?php
-	require_once '../../class/Participante.php';
-	require_once '../../dao/ParticipanteDAO.php';
-	$dao = new ParticipanteDAO();
 	session_start();
+	
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Participante.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/ParticipanteDAO.php';
+	$dao = new ParticipanteDAO();
+	
 
 	if($_SESSION['cargo'] == 'Administrador'){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 	if(!isset($_SESSION['cargo'])){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 	var_dump($_POST['participacao']);

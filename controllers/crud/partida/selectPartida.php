@@ -1,9 +1,11 @@
 <?php
-	require_once '../../dao/PartidaDAO.php';
-	require_once '../../dao/AdministradorDAO.php';
+	session_start();
+	
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/PartidaDAO.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/AdministradorDAO.php';
 	$dao = new PartidaDAO();
 	$daoAdm = new AdministradorDAO();
-	session_start();
+	
 
 	$i = 0;	
 	foreach($_SESSION['permissao'] as $value){
@@ -16,11 +18,11 @@
 	$numPermissao = $daoAdm->consultarNumPermissao($_SESSION['login']);
 
 	if($_SESSION['cargo'] == 'Representante'){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 	if(!isset($_SESSION['cargo'])){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 if($_SESSION['cargo'] == 'Administrador'){
@@ -66,7 +68,10 @@ if($_SESSION['cargo'] == 'Gerente'){
 			echo "<a href=deletePartida.php?id=".$listar['id_partida'].">EXCLUIR</a><br>";
 
 		}
+?>
+	<a href="formPartida.php">INSERIR</a><br>
+<?php
 }
 ?>
-<a href="formPartida.php">INSERIR</a><br>
-<a href='../../../painel/painel<?php echo $_SESSION['cargo'] ?>.php'>MENU</a><br>
+
+<a href='/painel/painel<?php echo $_SESSION['cargo'] ?>.php'>MENU</a><br>

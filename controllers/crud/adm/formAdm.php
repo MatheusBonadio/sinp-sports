@@ -1,27 +1,28 @@
-<html>
-<body>
+
 <?php
-	require_once '../../class/Administrador.php';
-	require_once '../../dao/AdministradorDAO.php';
-	require_once 'Functions.php';
+	session_start();
+	
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Administrador.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/AdministradorDAO.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/crud/adm/Functions.php';
 	$adm = new Administrador();
 	$dao = new AdministradorDAO();
 	$func = new Functions();
-	session_start();
+	
 
 	if(!isset($_GET['cargo']) && !isset($_GET['id'])){
-		header('location: index.php');
+		header('location: /error/403');
 	}else{
 		if(!isset($_GET['id']))
 		$cargoSel = $_GET['cargo'];
 	}
 
 	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 	if(!isset($_SESSION['cargo'])){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 	if($_SESSION['cargo'] == 'Gerente'){
@@ -29,6 +30,8 @@
 	if(!isset($_GET['id'])){
 		if($cargoSel == 'Gerente' || $cargoSel == 'Representante'){
 ?>
+<html>
+<body>
 			<form action="insertAdm.php" method="POST">
 			<label><?php echo $cargoSel; ?></label><input type="text" name="cargo" value="<?php echo $cargoSel; ?>" hidden><br>
 			login<input type="text" name="adm_login"><br>
@@ -47,7 +50,7 @@
 			nome<input type="text" name="nome"><br>
 			permissao<br>
 					<?php 
-						$exec = $dao->consultarEsporte();
+						$exec = $dao->consultarEsporte($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 					?>
 						<input type='checkbox' name='permissao[]' value='<?php echo $listar['id_esporte']; ?>'>
@@ -91,7 +94,7 @@
 			nome<input type="text" name="nome" value="<?php echo $adm->getNome(); ?> "><br>
 			permissao<br>
 				<?php 
-					$exec = $dao->consultarEsporte();
+					$exec = $dao->consultarEsporte($_SESSION['torneio']);
 					foreach ($exec as $listar) {
 						if(isset($arrayChecked[$listar['id_esporte']]) && $listar['id_esporte'] == $arrayChecked[$listar['id_esporte']]){
 					?>

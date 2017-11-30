@@ -15,14 +15,6 @@ class Fase {
         return $this->idFase;
     }
 
-    public function setidTorneio($idTorneio){
-        $this->idTorneio = $idTorneio;
-    }
-
-    public function getidTorneio(){
-        return $this->idTorneio;
-    }
-
     public function setDescricao($descricao){
         $this->descricao = $descricao;
     }

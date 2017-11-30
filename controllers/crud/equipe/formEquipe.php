@@ -1,24 +1,25 @@
-<html>
-<body>
 <?php
-	require_once '../../class/Equipe.php';
-	require_once '../../dao/EquipeDAO.php';
-	$equipe = new Equipe();
-	$dao = new EquipeDAO();
 	session_start();
 
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Equipe.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/EquipeDAO.php';
+	$equipe = new Equipe();
+	$dao = new EquipeDAO();
+	
+
 	if($_SESSION['cargo'] == 'Administrador'){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 	if(!isset($_SESSION['cargo'])){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 
 	if(!isset($_GET['id']) && $_SESSION['cargo'] != 'Representante'){
 ?>
-	
+<html>
+<body>
 		<form action="insertEquipe.php" method="POST" enctype="multipart/form-data">
 			nome<input type="text" name="nome"><br>
 			sigla<input type="text" name="sigla" maxlength="6" style='text-transform: uppercase;'><br>
@@ -47,7 +48,7 @@
 			nome<input type="text" name="nome" value="<?php echo $equipe->getNome(); ?>"><br>
 			sigla<input type="text" name="sigla" value="<?php echo $equipe->getSigla(); ?>"><br>
 			representante: <label><?php echo $_SESSION['login']; ?></label><br>
-			<img src="../../../public/img/equipe/<?php echo $equipe->getLogo(); ?>">
+			<img src="/public/img/equipe/<?php echo $equipe->getLogo(); ?>">
 			Logo<br><input type="file" name="logo"><br>
 			<input type="submit">
 		</form>
@@ -75,7 +76,7 @@
 						}
 					?>
 					</select><br>
-			<img src="../../../public/img/equipe/<?php echo $equipe->getLogo(); ?>">
+			<img src="/public/img/equipe/<?php echo $equipe->getLogo(); ?>">
 			Logo<br><input type="file" name="logo"><br>
 			<input type="submit">
 		</form>

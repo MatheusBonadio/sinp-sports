@@ -1,12 +1,21 @@
 <?php
+session_start();
 
-require_once '../../class/Esporte.php';
-require_once '../../dao/EsporteDAO.php';
-
+require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Esporte.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/EsporteDAO.php';
 $esporte = new Esporte();
 $dao = new EsporteDAO();
 
-$esporte->setidTorneio($_POST['torneio']);
+
+	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
+		header('location: /error/403');
+	}
+
+	if(!isset($_SESSION['cargo'])){
+		header('location: /error/403');
+	}
+
+$esporte->setidTorneio($_SESSION['torneio']);
 $esporte->setEsporte($_POST['esporte']);
 $esporte->setGenero($_POST['genero']);
 $esporte->setTipo($_POST['tipo']);

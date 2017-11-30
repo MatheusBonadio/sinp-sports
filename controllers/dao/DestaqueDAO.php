@@ -21,9 +21,23 @@ class DestaqueDAO{
 		$prep->execute();
 	}
 
-	public function listar(){
-		$sql = "SELECT *, (select esporte from esporte where esporte.id_esporte = partida.id_esporte) as esporte, (select tipo from esporte where esporte.id_esporte = partida.id_esporte) as tipo, date_format(partida.dia,'%d/%m/%Y') as dia, (select id_torneio from torneio where torneio.id_torneio = destaque.id_torneio) as id_torneio FROM destaque,partida WHERE partida.id_partida = destaque.id_partida ORDER BY dia DESC, termino DESC, inicio DESC, id_destaque DESC LIMIT 6";
+	public function listar($torneio){
+		$sql = "SELECT *, (select esporte from esporte where esporte.id_esporte = partida.id_esporte and esporte.id_torneio = :torneio) as esporte, (select tipo from esporte where esporte.id_esporte = partida.id_esporte and esporte.id_torneio = :torneio) as tipo, date_format(partida.dia,'%d/%m/%Y') as dia, (select id_torneio from torneio where torneio.id_torneio = destaque.id_torneio) as id_torneio FROM destaque,partida WHERE partida.id_partida = destaque.id_partida AND destaque.id_torneio = :torneio ORDER BY dia DESC, termino DESC, inicio DESC, id_destaque DESC LIMIT 6";
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
+	}
+
+	//TERMINA AQUI
+
+	public function listarEsporte($idEsporte, $torneio, $idPartida){
+		$sql = "SELECT *, (select esporte from esporte where id_esporte = :esporte and id_torneio = :torneio) as esporte, (SELECT id_partida FROM partida WHERE partida.id_esporte = :esporte AND destaque.id_partida = partida.id_partida AND partida.id_torneio = :torneio) FROM destaque WHERE id_torneio = :torneio AND id_partida = :partida";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':esporte', $idEsporte);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->bindValue(':partida', $idPartida);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
@@ -74,10 +88,11 @@ class DestaqueDAO{
         $prep->execute();
 	}
 
-	public function consultarPartida(){
-		$sql = "SELECT id_partida, id_esporte, date_format(partida.dia, '%d/%m/%Y') AS dia, (select esporte from esporte where esporte.id_esporte = partida.id_esporte) AS esporte, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as equipe_a, 
-		(select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as equipe_b FROM partida";
+	public function consultarPartida($idEsporte, $torneio){
+		$sql = "SELECT id_partida, id_esporte, date_format(partida.dia, '%d/%m/%Y') AS dia, (select esporte from esporte where esporte.id_esporte = partida.id_esporte) AS esporte, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as equipe_a, (select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as equipe_b FROM partida WHERE id_esporte = :esporte AND id_torneio = :torneio";
 		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':esporte', $idEsporte);
+		$prep->bindValue(':torneio', $torneio);
         $prep->execute();
         $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
         return $exec;

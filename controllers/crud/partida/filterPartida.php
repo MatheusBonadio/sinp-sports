@@ -1,7 +1,9 @@
 <?php
+	session_start();
+	
 	require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/PartidaDAO.php";
 	$dao = new PartidaDAO();
-	session_start();
+	
 	$backup = 0;
 	$arraySemana = Array(
 		1=>"Segunda-feira",	2=>"Terça-feira",	3=>"Quarta-feira", 4=>"Quinta-feira",

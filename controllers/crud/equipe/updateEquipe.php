@@ -1,16 +1,18 @@
 <?php
-	require_once '../../class/Equipe.php';
-	require_once '../../dao/EquipeDAO.php';
+	session_start();
+	
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Equipe.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/EquipeDAO.php';
 	$equipe = new Equipe();
 	$dao = new EquipeDAO();
-	session_start();
+	
 
 	if($_SESSION['cargo'] == 'Administrador'){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 
 	if(!isset($_SESSION['cargo'])){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
 	
 	$equipe->setidEquipe($_POST['id']);

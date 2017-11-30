@@ -2,6 +2,7 @@
 
 require_once $_SERVER['DOCUMENT_ROOT']."/controllers/conexao.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/controllers/class/Partida.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/controllers/class/Equipe.php";
 
 class PartidaDAO{
 
@@ -176,6 +177,36 @@ class PartidaDAO{
 		$prep->execute();
 	}
 
+	public function consultarEquipe($equipe, $torneio){
+		$sql = "SELECT * FROM equipe WHERE id_equipe = :equipe AND id_torneio = :torneio";
+        $prep = $this->con->prepare($sql);
+        $prep->bindValue(':equipe', $equipe);
+        $prep->bindValue(':torneio', $torneio);
+        $prep->execute();
+        $equipe = new Equipe();
+        $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($exec as $linha) {
+        	$equipe->setidEquipe($linha['id_equipe']);
+        	$equipe->setidTorneio($linha['id_torneio']);
+	        $equipe->setNome($linha['nome']);
+	        $equipe->setSigla($linha['sigla']);
+	        $equipe->setOuro($linha['ouro']);
+	        $equipe->setPrata($linha['prata']);
+	        $equipe->setBronze($linha['bronze']);
+	        $equipe->setPontos($linha['pontos']);
+	        $equipe->setRepresentante($linha['representante']);
+	        $equipe->setLogo($linha['logo']);
+        }
+        return $equipe;
+	}
+
+	public function excluir($codigo){
+		$sql = "DELETE FROM partida WHERE id_partida = :id";
+        $prep = $this->con->prepare($sql);
+        $prep->bindValue(':id', $codigo);
+        $prep->execute();
+	}
+
 	public function consultar($codigo, $torneio){
 		$sql = "SELECT * FROM partida WHERE id_partida = :id AND id_torneio = :torneio";
         $prep = $this->con->prepare($sql);
@@ -201,33 +232,8 @@ class PartidaDAO{
         return $partida;
 	}
 
-	public function excluir($codigo){
-		$sql = "DELETE FROM partida WHERE id_partida = :id";
-        $prep = $this->con->prepare($sql);
-        $prep->bindValue(':id', $codigo);
-        $prep->execute();
-	}
-
-	public function consultarEquipe($torneio){
-		$sql = "select id_equipe, nome from equipe where id_torneio = :torneio order by nome";
-		$prep = $this->con->prepare($sql);
-		$prep->bindValue(':torneio', $torneio);
-		$prep->execute();
-		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
-		return $exec;
-	}
-
-	public function consultarEsporte($torneio){
-		$sql = "select id_esporte, esporte from esporte where id_torneio = :torneio order by tipo,esporte";
-		$prep = $this->con->prepare($sql);
-		$prep->bindValue(':torneio', $torneio);
-		$prep->execute();
-		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
-		return $exec;
-	}
-
-	public function consultarFase($torneio){
-		$sql = "select fase_indice, fase_descricao from fase where id_torneio = :torneio order by fase_indice";
+	public function consultarFase(){
+		$sql = "select fase_indice, fase_descricao from fase order by fase_indice";
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
@@ -262,6 +268,98 @@ class PartidaDAO{
 		$prep->bindValue(':placarB', $partida->getPlacarB());
 		$prep->bindValue(':vencedor', $partida->getVencedor());
 		$prep->bindValue(':id', $partida->getidPartida());
+		$prep->execute();
+	}
+
+	public function consultarFasedeGrupo($idPartida){
+		$sql = "select id_esporte, (select classificacao from esporte where partida.id_esporte = esporte.id_esporte) as classificacao from partida where id_partida = :partida";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':partida', $idPartida);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($exec as $linha) {
+        	if($linha['classificacao'] == 'Fase de Grupo'){
+				return true;
+			}else{
+				return false;
+			}
+        }
+	}
+
+	public function consultarFasePartida($idPartida){
+		$sql = "select id_fase from partida where id_partida = :partida";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':partida', $idPartida);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+	    $fase = '';
+	    foreach ($exec as $linha) {
+	    	$fase = $linha['id_fase'];
+		}
+		return $fase;
+	}
+
+	public function consultarPontuacao($idEquipe, $idEsporte){
+		$sql = "select * from classificacao where id_equipe = :equipe and id_esporte = :esporte";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':equipe', $idEquipe);
+		$prep->bindValue(':esporte', $idEsporte);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		$pontuacao = '';
+        foreach ($exec as $linha) {
+        	$pontuacao = $linha['pontuacao'];
+		}
+		return $pontuacao;
+    }
+		
+	public function inserirPontuacao($classificacao, $pontuacao){
+		$sql = 'UPDATE classificacao SET pontuacao = :pontuacao WHERE id_classificacao = :id';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':pontuacao', $pontuacao);
+		$prep->bindValue(':id', $classificacao->getidClassificacao());
+		$prep->execute();
+	}
+
+	public function consultarClassificacao($idEquipe, $idEsporte){
+		$sql = "SELECT * FROM classificacao WHERE id_equipe = :equipe and id_esporte = :esporte";
+        $prep = $this->con->prepare($sql);
+		$prep->bindValue(':equipe', $idEquipe);
+		$prep->bindValue(':esporte', $idEsporte);
+		$prep->execute();
+        $classificacao = new Classificacao();
+        $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($exec as $linha) {
+        	$classificacao->setidClassificacao($linha['id_classificacao']);
+        	$classificacao->setidTorneio($linha['id_torneio']);
+	        $classificacao->setidEquipe($linha['id_equipe']);
+	        $classificacao->setidEsporte($linha['id_esporte']);
+	        $classificacao->setPontuacao($linha['pontuacao']);
+        }
+        return $classificacao;
+	}
+
+	public function inserirOuro($equipe, $ouro){
+		$sql = 'UPDATE equipe SET ouro = :ouro WHERE id_equipe = :idEquipe';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':ouro', $ouro);
+		$prep->bindValue(':idEquipe', $equipe->getidEquipe());
+		$prep->execute();
+	}
+
+	public function inserirPrata($equipe, $prata){
+		$sql = 'UPDATE equipe SET prata = :prata WHERE id_equipe = :idEquipe';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':prata', $prata);
+		$prep->bindValue(':idEquipe', $equipe->getidEquipe());
+		$prep->execute();
+	}
+
+	public function inserirBronze($equipe, $bronze){
+		$sql = 'UPDATE equipe SET bronze = :bronze WHERE id_equipe = :idEquipe';
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':bronze', $bronze);
+		$prep->bindValue(':idEquipe', $equipe->getidEquipe());
 		$prep->execute();
 	}
 }

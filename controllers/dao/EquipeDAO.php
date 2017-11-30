@@ -23,7 +23,7 @@ class EquipeDAO{
 	}
 
 	public function listar($torneio){
-		$sql = 'SELECT * FROM equipe WHERE id_torneio = :torneio';
+		$sql = 'SELECT * FROM equipe WHERE id_torneio = :torneio order by pontos desc, nome';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
@@ -73,9 +73,9 @@ class EquipeDAO{
         	$equipe->setidTorneio($linha['id_torneio']);
 	        $equipe->setNome($linha['nome']);
 	        $equipe->setSigla($linha['sigla']);
-	        $equipe->setVitorias($linha['vitorias']);
-	        $equipe->setEmpates($linha['empates']);
-	        $equipe->setDerrotas($linha['derrotas']);
+	        $equipe->setOuro($linha['ouro']);
+	        $equipe->setPrata($linha['prata']);
+	        $equipe->setBronze($linha['bronze']);
 	        $equipe->setPontos($linha['pontos']);
 	        $equipe->setRepresentante($linha['representante']);
 	        $equipe->setLogo($linha['logo']);
@@ -96,9 +96,9 @@ class EquipeDAO{
         	$equipe->setidTorneio($linha['id_torneio']);
 	        $equipe->setNome($linha['nome']);
 	        $equipe->setSigla($linha['sigla']);
-	        $equipe->setVitorias($linha['vitorias']);
-	        $equipe->setEmpates($linha['empates']);
-	        $equipe->setDerrotas($linha['derrotas']);
+	        $equipe->setOuro($linha['ouro']);
+	        $equipe->setPrata($linha['prata']);
+	        $equipe->setBronze($linha['bronze']);
 	        $equipe->setPontos($linha['pontos']);
 	        $equipe->setRepresentante($linha['representante']);
 	        $equipe->setLogo($linha['logo']);
@@ -165,5 +165,35 @@ class EquipeDAO{
         $prep->execute();
         $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 		return $exec;
+	}
+
+	public function inserirClassificacao($torneio){
+		$sqlEquipe = "SELECT * FROM equipe WHERE id_torneio = :torneio";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $execEquipe;
+
+		foreach ($execEquipe as $linhaEquipe) {
+		
+
+			$sqlEsporte = "SELECT * FROM esporte WHERE id_torneio = :torneio AND classificacao = 'Fase de Grupo'";
+			$prep = $this->con->prepare($sql);
+			$prep->bindValue(':torneio', $torneio);
+			$prep->execute();
+			$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+			return $execEsporte;
+
+			foreach ($execEsporte as $linhaEsporte) {
+			$sql = "INSERT INTO classificacao(id_torneio, id_equipe, id_esporte) VALUES(:torneio, :idEquipe, :idEsporte)";
+	        $prep = $this->con->prepare($sql);
+	        $prep->bindValue(':idEsporte', $linhaEsporte['id_esporte']);
+	        $prep->bindValue(':idEquipe', $linhaEquipe['id_equipe']);
+	        $prep->bindValue(':torneio', $torneio);
+	        $prep->execute();
+	        }
+
+        }
 	}
 }

@@ -6,17 +6,85 @@
 	height: calc(100vh - 70px);
 	color: #fff;
 }
+::placeholder{
+	font: 300 16px Roboto;
+	color: rgba(255,255,255,.4);
+}
+form{
+	width: 100%;
+	flex-direction: column;
+	position: relative;
+}
 input[type="text"], input[type="password"]{
-	width: 200px;
+	-webkit-user-select: none;
+	user-select: none;
+	font-weight: 300;
+	margin: 5px 0;
+	font-size: 16px;
+	box-sizing: border-box;
+	width: 80%;
 	background: none;
 	border: none;
 	outline: none;
-	border-bottom: 2px solid #e2aa00;
+	border-bottom: 1px solid #fff;
 	color: #fff;
-	padding: 10px;
+	transition: .4s;
+	padding: 18px 0px 18px 45px;
+	background-size: 25px;
+	background-repeat: no-repeat;
+	background-position: left;
+	background-image: url(/public/img/sistema/person.png);
+}
+input[type="password"]{
+	background-image: url(/public/img/sistema/lock.png);
+}
+input[type="text"]:focus, input[type="password"]:focus{
+	border-bottom: 1px solid #e2aa00;
+}
+input[type="text"]:invalid, input[type="password"]:invalid{
+	outline: none;
+	box-shadow: none;
 }
 input[type="submit"]{
-	margin-top: 10px;
-	padding: 10px;
-	width: 200px;
+	color: #fff;
+	font: 500 16px Roboto;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	border-radius: 3px;
+	background-color: #e2aa00;
+	margin-top: 30px;
+	padding: 15px 0;
+	width: 80%;
+	text-transform: uppercase;
+}
+.background_left{
+	flex-grow: 1;
+	z-index: 0;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: linear-gradient(to bottom, rgba(20,20,20,.3) 0%,
+	rgba(20,20,20,.3) 100%), url(/public/img/sistema/login.png);
+}
+.form_login{
+	border-left: 1px solid #646464;
+	width: 500px;
+	background-color: #323232;
+	box-shadow: 0 2px 15px 2px rgba(0,0,0,.8);
+	z-index: 1;
+	transition: width .4s;
+}
+.form_title{
+	font-family: Main;
+	font-size: 25px;
+	letter-spacing: 1px;
+	width: 80%;
+	position: absolute;
+	top: -50%;
+}
+@media screen and (max-width:1025px) {
+	.form_login{
+		width: 100%;
+	}
 }

@@ -31,9 +31,9 @@ Create table equipe (
 	id_torneio Int NOT NULL,
 	nome Varchar(30) NOT NULL,
 	sigla Varchar(6) NOT NULL,
-	vitorias Int NULL DEFAULT 0,
-	empates Int NULL DEFAULT 0,
-	derrotas Int NULL DEFAULT 0,
+	ouro Int NULL DEFAULT 0,
+	prata Int NULL DEFAULT 0,
+	bronze Int NULL DEFAULT 0,
 	pontos Int NULL DEFAULT 0,
 	representante varchar(20) NOT NULL,
 	logo varchar(50) NULL,
@@ -115,18 +115,11 @@ Create table participacao_esporte (
 	id_esporte Int NOT NULL
 );
 
-Alter table permissao add Foreign Key (login) references administrador (login) on delete  restrict on update  restrict;
-Alter table permissao add Foreign Key (id_esporte) references esporte (id_esporte) on delete  restrict on update  restrict;
-Alter table partida add Foreign Key (id_esporte) references esporte (id_esporte) on delete  restrict on update  restrict;
-Alter table selecao_esporte add Foreign Key (id_esporte) references esporte (id_esporte) on delete  restrict on update  restrict;
-Alter table partida add Foreign Key (id_equipe_a) references equipe (id_equipe) on delete  restrict on update  restrict;
-Alter table selecao_esporte add Foreign Key (id_equipe) references equipe (id_equipe) on delete  restrict on update  restrict;
-Alter table participante add Foreign Key (id_equipe) references equipe (id_equipe) on delete  restrict on update  restrict;
-Alter table partida add Foreign Key (id_equipe_b) references equipe (id_equipe) on delete  restrict on update  restrict;
-Alter table destaque add Foreign Key (id_partida) references partida (id_partida) on delete  restrict on update  restrict;
-Alter table partida_log add Foreign Key (id_partida) references partida (id_partida) on delete  restrict on update  restrict;
-Alter table partida add Foreign Key (id_fase) references fase (id_fase) on delete  restrict on update  restrict;
-Alter table partida add Foreign Key (id_torneio) references torneio (id_torneio) on delete  restrict on update  restrict;
-Alter table administrador add Foreign Key (id_torneio) references torneio (id_torneio) on delete  restrict on update  restrict;
-Alter table participacao_esporte add Foreign Key (id_selecao) references selecao_esporte (id_selecao) on delete  restrict on update  restrict;
-Alter table participacao_esporte add Foreign Key (id_participante) references participante (id_participante) on delete  restrict on update  restrict;
+Create table classificacao (
+	id_classificacao Int NOT NULL AUTO_INCREMENT,
+	id_torneio Int NOT NULL,
+	id_equipe Int NOT NULL,
+	id_esporte Int NOT NULL,
+	pontuacao Int DEFAULT 0,
+ 	Primary Key (id_classificacao)
+);

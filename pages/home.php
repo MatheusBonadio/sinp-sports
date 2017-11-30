@@ -66,6 +66,41 @@
 		</div>
 		<?php }?>
 	</div>
+	<?php 
+		require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/EquipeDAO.php";
+		$dao = new EquipeDAO();
+		$exec = $dao->listar($_SESSION['torneio']);
+	?>
+	<div class='table_classification flex'>
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Posição</th>
+					<th>Equipe</th>
+					<th>Ouro</th>
+					<th>Prata</th>
+					<th>Bronze</th>
+					<th>Pontos</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($exec as $key => $listar) {?>
+				<tr>
+					<td></td>
+					<td><?php echo "#".($key+1) ?></td>
+					<td><?php echo $listar['nome']; ?></td>
+					<td><?php echo $listar['ouro']; ?></td>
+					<td><?php echo $listar['prata']; ?></td>
+					<td><?php echo $listar['bronze']; ?></td>
+					<td><?php echo $listar['pontos']; ?></td>
+					<td></td>
+				</tr>
+				<?php }?>
+			</tbody>
+		</table>
+	</div>
 	<script>
 		$('#loader').hide();
 		var slides = document.getElementsByClassName("highlight_img");

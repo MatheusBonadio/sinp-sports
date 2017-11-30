@@ -1,15 +1,15 @@
 <?php
-	require_once '../../class/Administrador.php';
-	require_once '../../dao/AdministradorDAO.php';
-	require_once 'Functions.php';
+	session_start();
+	
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Administrador.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/AdministradorDAO.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/crud/adm/Functions.php';
 	$adm = new Administrador();
 	$dao = new AdministradorDAO();
-	session_start();
 
 	if(!isset($_SESSION['cargo'])){
-		header('location: ../../../errors/403.php');
+		header('location: /error/403');
 	}
-
 	$adm = $dao->consultarLogin($_SESSION['login'], $_SESSION['torneio']);
 
 ?>
@@ -20,7 +20,7 @@
 <?php
 	if(isset($_POST['senha'])){
 		$dao->trocarSenha($_POST['senha'], $_SESSION['login'], $_SESSION['torneio']);
-		header("location: ../../../painel/painel".$_SESSION['cargo'].".php");
+		header("location: /painel/painel".$_SESSION['cargo'].".php");
 	}
 		
 ?>

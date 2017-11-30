@@ -29,18 +29,10 @@
 	text-align: center;
 	width: 65vw;
 }
-@font-face {
-    font-family: Main;
-    src: url(../../fonts/Main.ttf)
-}
-@font-face {
-    font-family: Caligrafia;
-    src: url(../../fonts/caligrafia.ttf)
-}
 .highlight_sport{
 	//font: 600 50px Caligrafia;
 	font: 600 45px Main;
-	letter-spacing: 0px;
+	letter-spacing: 1px;
 }
 .highlight_line{
 	background-color: #e2aa00;
@@ -79,7 +71,7 @@
 	overflow: hidden;
 }
 .slideshow{
-	height: 100vh;
+	height: calc(100vh - 150px);
 	width: 100%;
 	overflow: hidden;
 	position: relative;
@@ -111,7 +103,7 @@
 .container_dots{
 	position: absolute;
 	z-index: 3;
-	bottom: 8vh;
+	bottom: 5vh;
 	width: 100%;
 }
 .dots_line{
@@ -137,8 +129,10 @@
 	background-color: #cfcfcf;
 }
 .next_games{
-	width: 20000px;
-	height: 150px;
+	overflow-x: scroll;
+	height: 154px;
+	width: auto;
+	max-width: 20000px;
 	background-color: #1a1a1a;
 	border: 2px solid #2d2d2d;
 	display: flex;
@@ -146,7 +140,7 @@
 	user-select: none;
 }
 .match{
-	width: 200px;
+	min-width: 200px;
 	height: 100%;
 	border-right: 1px solid #2d2d2d;
 	flex-direction: column;
@@ -161,6 +155,9 @@
 .match:hover{
 	border-left: 4px solid #e2aa00;
 	background-color: #1e1f21;
+}
+.match:last-child{
+	border: none;
 }
 .next_games .sport{
 	padding: 12px 0 10px 5px;
@@ -192,6 +189,29 @@
 	font-weight: 500;
 	color: #646464;
 }
+.next_games::-webkit-scrollbar-track {
+  	background-color: #1a1a1a;
+}
+.next_games::-webkit-scrollbar-thumb {
+	border-radius: 3px;
+}
+.table_classification{
+	display: flex;
+}
+table{
+	color: #adadad;
+	border-collapse: collapse;
+	width: 100%;
+}
+td{
+	padding: 20px;
+	text-align: center;
+}
+th{
+	padding: 25px 20px;
+	background-color: #e2aa00;
+	color: #fff;
+}
 @media screen and (max-width:1025px) {
 	.arrow{
 		opacity: 0;
@@ -207,4 +227,7 @@
 		width: 40vw;
 	}
 	@keyframes line{to{width: 85vw;}}
+	.next_games::-webkit-scrollbar { 
+	    display: none;
+	}
 }
