@@ -19,7 +19,9 @@
 		</form>	
 <?php
 	if(isset($_POST['senha'])){
-		$dao->trocarSenha($_POST['senha'], $_SESSION['login'], $_SESSION['torneio']);
+		$trim = trim($_POST['senha']);
+		$senha = md5($trim);
+		$dao->trocarSenha($senha, $_SESSION['login'], $_SESSION['torneio']);
 		header("location: /painel/painel".$_SESSION['cargo'].".php");
 	}
 		

@@ -177,7 +177,7 @@ class PartidaDAO{
 		$prep->execute();
 	}
 
-	public function consultarEquipe($equipe, $torneio){
+	public function consultarEquipeID($equipe, $torneio){
 		$sql = "SELECT * FROM equipe WHERE id_equipe = :equipe AND id_torneio = :torneio";
         $prep = $this->con->prepare($sql);
         $prep->bindValue(':equipe', $equipe);
@@ -235,6 +235,23 @@ class PartidaDAO{
 	public function consultarFase(){
 		$sql = "select fase_indice, fase_descricao from fase order by fase_indice";
 		$prep = $this->con->prepare($sql);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
+	}
+
+	public function consultarEquipe($torneio){
+		$sql = "select id_equipe, nome from equipe where id_torneio = :torneio";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		return $exec;
+	}
+
+	public function consultarEsporte($torneio){
+		$sql = "select id_esporte, esporte from esporte where id_torneio = :torneio";
+		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
@@ -287,14 +304,14 @@ class PartidaDAO{
 	}
 
 	public function consultarFasePartida($idPartida){
-		$sql = "select id_fase from partida where id_partida = :partida";
+		$sql = "select id_fase, (select fase_indice from fase where fase.id_fase = partida.id_fase) as fase_indice from partida where id_partida = :partida";
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':partida', $idPartida);
 		$prep->execute();
 		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
 	    $fase = '';
 	    foreach ($exec as $linha) {
-	    	$fase = $linha['id_fase'];
+	    	$fase = $linha['fase_indice'];
 		}
 		return $fase;
 	}
@@ -343,7 +360,7 @@ class PartidaDAO{
 		$sql = 'UPDATE equipe SET ouro = :ouro WHERE id_equipe = :idEquipe';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':ouro', $ouro);
-		$prep->bindValue(':idEquipe', $equipe->getidEquipe());
+		$prep->bindValue(':idEquipe', $equipe);
 		$prep->execute();
 	}
 
@@ -351,7 +368,7 @@ class PartidaDAO{
 		$sql = 'UPDATE equipe SET prata = :prata WHERE id_equipe = :idEquipe';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':prata', $prata);
-		$prep->bindValue(':idEquipe', $equipe->getidEquipe());
+		$prep->bindValue(':idEquipe', $equipe);
 		$prep->execute();
 	}
 
@@ -359,7 +376,7 @@ class PartidaDAO{
 		$sql = 'UPDATE equipe SET bronze = :bronze WHERE id_equipe = :idEquipe';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':bronze', $bronze);
-		$prep->bindValue(':idEquipe', $equipe->getidEquipe());
+		$prep->bindValue(':idEquipe', $equipe);
 		$prep->execute();
 	}
 }

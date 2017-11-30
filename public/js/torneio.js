@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 	$("#search").val("");
+	$("#search").focus();
     getDados();
 	$("#search").keyup(function() {
         getDados();

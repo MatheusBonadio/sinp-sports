@@ -38,8 +38,17 @@ if($_SESSION['cargo'] == 'Administrador' || $_SESSION['cargo'] == 'Gerente'){
 		<form action="insertDestaque.php" enctype="multipart/form-data" method="POST">
 			Partida<select name="partida">
 				<?php
-				for ($i=0; $i < $numPermissao; $i++) { 
-					$exec = $dao->consultarPartida($idEsporte[$i], $_SESSION['torneio']);
+				if($_SESSION['cargo'] == 'Administrador'){
+					for ($i=0; $i < $numPermissao; $i++) { 
+						$exec = $dao->consultarPartida($idEsporte[$i], $_SESSION['torneio']);
+						foreach ($exec as $listar) {
+				?>
+					<option value="<?php echo $listar['id_partida']?>"><?php echo $listar['esporte'].' - '.$listar['dia'].' - '.$listar['equipe_a'].' vs. '.$listar['equipe_b'];?></option>
+				<?php
+						}
+					}
+				}else if($_SESSION['cargo'] == 'Gerente'){
+					$exec = $dao->consultarPartidaGerente($_SESSION['torneio']);
 					foreach ($exec as $listar) {
 				?>
 					<option value="<?php echo $listar['id_partida']?>"><?php echo $listar['esporte'].' - '.$listar['dia'].' - '.$listar['equipe_a'].' vs. '.$listar['equipe_b'];?></option>

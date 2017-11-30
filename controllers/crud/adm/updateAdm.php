@@ -18,7 +18,9 @@
 	$adm->setidAdm($_POST['id']);
 	$adm->setidTorneio($_SESSION['torneio']);
 	$adm->setLogin($_POST['login']);
-	$adm->setSenha($_POST['senha']);
+	$trim = trim($_POST['senha']);
+	$senha = md5($trim);
+	$adm->setSenha($senha);
 	$adm->setEmail($_POST['email']);
 	$adm->setNome($_POST['nome']);
 	

@@ -18,7 +18,7 @@
 	}
 	
 	if($_SESSION['cargo'] == 'Gerente'){
-		if(!isset($_GET['id'])){	
+		if(!isset($_GET['id'])){
 ?>
 <html>
 <body>

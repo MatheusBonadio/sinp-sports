@@ -5,7 +5,8 @@ require_once $_SERVER['DOCUMENT_ROOT']."/controllers/dao/AdministradorDAO.php";
 $dao = new AdministradorDAO();
 
 $login = $_POST['login'];
-$senha = $_POST['senha'];
+	$trim = trim($_POST['senha']);
+	$senha = md5($trim);
 $_SESSION['cargo'] = $dao->consultarCargoLogin($login);
 if($_SESSION['cargo'] == 'Gerente'){
 	$verifica = $dao->verificarGerente($login, $senha);

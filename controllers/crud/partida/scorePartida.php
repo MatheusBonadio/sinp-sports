@@ -2,12 +2,14 @@
 	session_start();
 
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Partida.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Equipe.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/PartidaDAO.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Classificacao.php';
 	$classificacao = new Classificacao();
 	$partida = new Partida();
 	$dao = new PartidaDAO();
-	
+	$equipeA = new Equipe();
+	$equipeB = new Equipe();
 
 	$id = $_POST['id'];
 	$partida = $dao->consultar($id, $_SESSION['torneio']);
@@ -44,11 +46,11 @@
 				}
 				//empate
 				if($_POST['vencedor'] == 0){
-					$classificacao = $dao->consultarClassificacao($_POST['equipeA'], $_POST['esporte']);
+					$classificacao = $dao->consultarClassificacao(trim($_POST['equipeA']), $_POST['esporte']);
 					$pontuacao = $classificacao->getPontuacao() + 1;
 					$dao->inserirPontuacao($classificacao, $pontuacao);
 
-					$classificacao = $dao->consultarClassificacao($_POST['equipeB'], $_POST['esporte']);
+					$classificacao = $dao->consultarClassificacao(trim($_POST['equipeB']), $_POST['esporte']);
 					$pontuacao = $classificacao->getPontuacao() + 1;
 					$dao->inserirPontuacao($classificacao, $pontuacao);
 				}
@@ -56,40 +58,39 @@
 
 			//final - ouro e prata
 			if($fase == 1){
-				$equipeA = $dao->consultarEquipe($_POST['equipeA'], $_SESSION['torneio']);
-				var_dump($equipeA);
-				$equipeB = $dao->consultarEquipe($_POST['equipeB'], $_SESSION['torneio']);
+				$equipeA = $dao->consultarEquipeID(trim($_POST['equipeA']), $_SESSION['torneio']);
+				$equipeB = $dao->consultarEquipeID(trim($_POST['equipeB']), $_SESSION['torneio']);
 				
-				if($_POST['vencedor'] == $_POST['equipeA']){
+				if($_POST['vencedor'] == trim($_POST['equipeA'])){
 					$ouro = $equipeA->getOuro() + 1;
-					$dao->inserirOuro($equipeA, $ouro);
+					$dao->inserirOuro($equipeA->getidEquipe(), $ouro);
 
 					$prata = $equipeB->getPrata() + 1;
-					$dao->inserirPrata($equipeB, $prata);
+					$dao->inserirPrata($equipeB->getidEquipe(), $prata);
 				}
 
-				if($_POST['vencedor'] == $equipeB->getidEquipe()){
+				if($_POST['vencedor'] == trim($_POST['equipeB'])){
 					$ouro = $equipeB->getOuro() + 1;
-					$dao->inserirOuro($equipeB, $ouro);
+					$dao->inserirOuro($equipeB->getidEquipe(), $ouro);
 
 					$prata = $equipeA->getPrata() + 1;
-					$dao->inserirPrata($equipeA, $prata);
+					$dao->inserirPrata($equipeA->getidEquipe(), $prata);
 				}
 			}
 
 			//disputa pelo bronze
 			if($fase == 6){
-				$equipeA = $dao->consultarEquipe($_POST['equipeA']);
-				$equipeB = $dao->consultarEquipe($_POST['equipeB']);
+				$equipeA = $dao->consultarEquipeID(trim($_POST['equipeA']), $_SESSION['torneio']);
+				$equipeB = $dao->consultarEquipeID(trim($_POST['equipeB']), $_SESSION['torneio']);
 				
 				if($_POST['vencedor'] == $equipeA->getidEquipe()){
 					$bronze = $equipeA->getBronze() + 1;
-					$dao->inserirBronze($equipeA, $bronze);
+					$dao->inserirBronze($equipeA->getidEquipe(), $bronze);
 				}
 
 				if($_POST['vencedor'] == $equipeB->getidEquipe()){
 					$bronze = $equipeB->getBronze() + 1;
-					$dao->inserirBronze($equipeB, $bronze);
+					$dao->inserirBronze($equipeB->getidEquipe(), $bronze);
 				}
 			}
 
@@ -101,5 +102,5 @@
 
 		$dao->pontuacao($partida);
 
-		header('location: selectPartida.php');
+		//header('location: selectPartida.php');
 	}

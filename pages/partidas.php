@@ -28,7 +28,7 @@
 				<label>Loading</label>
 			</div>
 			<div class='content_match'>
-				<?php 
+				<?php
 					session_write_close();
 					$url = $_SERVER['DOCUMENT_ROOT']."/controllers/crud/partida/filterPartida.php";
 					include($url);

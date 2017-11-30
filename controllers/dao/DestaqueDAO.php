@@ -98,6 +98,15 @@ class DestaqueDAO{
         return $exec;
 	}
 
+	public function consultarPartidaGerente($torneio){
+		$sql = "SELECT id_partida, id_esporte, date_format(partida.dia, '%d/%m/%Y') AS dia, (select esporte from esporte where esporte.id_esporte = partida.id_esporte) AS esporte, (select nome from equipe where equipe.id_equipe = partida.id_equipe_a) as equipe_a, (select nome from equipe where equipe.id_equipe = partida.id_equipe_b) as equipe_b FROM partida WHERE id_torneio = :torneio";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':torneio', $torneio);
+        $prep->execute();
+        $exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+        return $exec;
+	}
+
 	public function consultarTorneio(){
 		$sql = "select id_torneio, descricao from torneio order by descricao";
 		$prep = $this->con->prepare($sql);
