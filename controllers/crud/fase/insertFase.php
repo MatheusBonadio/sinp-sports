@@ -5,7 +5,6 @@
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/FaseDAO.php';
 	$fase = new Fase();
 	$dao = new FaseDAO();
-	
 
 	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
 		header('location: /error/403');

@@ -3,7 +3,6 @@
 class Fase {
 
     private $idFase;
-    private $idTorneio;
     private $descricao;
     private $indice;
 

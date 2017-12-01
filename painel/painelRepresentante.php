@@ -1,15 +1,20 @@
 <?php
-
-require_once $_SERVER['DOCUMENT_ROOT']."/controllers/session/Functions.php";
+include($_SERVER['DOCUMENT_ROOT']."/painel/index.php");
 
 $func = new Functions();
-session_start();
 $func->sessionRepresentante();
-
 ?>
-<html>
-	<a href="..\controllers\crud\adm\trocarSenha.php">TROCAR SENHA</a><br>
-	<a href="..\controllers\crud\equipe\selectEquipe.php">EQUIPE</a><br>
-	<a href="..\controllers\crud\participante\selectParticipante.php">PARTICIPANTE</a><br>
-	<a href="..\controllers\session\sair.php">Sair</a>
+<body>
+	<div class='header'>
+		<div class='user'>
+			<div>Bem vindo, </div>
+			<div><?php echo $_SESSION['nome']; ?></div>
+			<div><?php echo $_SESSION['cargo']; ?></div>
+		</div>
+		<a href="/controllers/crud/adm/trocarSenha.php">trocar senha</a>
+		<a href="/controllers/crud/equipe/selectEquipe.php">equipe</a>
+		<a href="/controllers/crud/participante/selectParticipante.php">participante</a>
+		<a href="/controllers/session/sair.php">sair</a>
+	</div>
+</body>
 </html>

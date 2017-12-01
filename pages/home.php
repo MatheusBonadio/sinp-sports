@@ -86,9 +86,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($exec as $key => $listar) {
-						$pontos = ($listar['ouro'] * 50) + ($listar['prata'] * 30) + ($listar['bronze'] * 20);
-					?>
+				<?php foreach ($exec as $key => $listar) {?>
 				<tr>
 					<td></td>
 					<td><?php echo "#".($key+1) ?></td>
@@ -96,7 +94,7 @@
 					<td><?php echo $listar['ouro']; ?></td>
 					<td><?php echo $listar['prata']; ?></td>
 					<td><?php echo $listar['bronze']; ?></td>
-					<td><?php echo $pontos; ?></td>
+					<td><?php echo $listar['pontos']; ?></td>
 					<td></td>
 				</tr>
 				<?php }?>

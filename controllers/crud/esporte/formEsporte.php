@@ -1,14 +1,15 @@
 
 <?php
 	session_start();
-	
+	session_write_close();
+	include $_SERVER['DOCUMENT_ROOT'].'/painel/painel'.$_SESSION['cargo'].'.php';
+
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Esporte.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/EsporteDAO.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/crud/esporte/Functions.php';
 	$esporte = new Esporte();
 	$dao = new EsporteDAO();
 	$func = new Functions();
-	
 
 	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
 		header('location: /error/403');
@@ -17,11 +18,10 @@
 	if(!isset($_SESSION['cargo'])){
 		header('location: /error/403');
 	}
-
-	if(!isset($_GET['id'])){
 ?>
-<html>
-<body>
+	<div class='container_header flex'>Esporte</div>
+	<div class='container_body'>
+	<?php if(!isset($_GET['id'])){ ?>
 		<form action="insertEsporte.php" enctype="multipart/form-data" method="POST">
 			esporte<input type="text" name="esporte"><br>
 			genero<select name="genero">
@@ -69,5 +69,6 @@
 <?php
 	}
 ?>
+	</div>
 </body>
 </html>

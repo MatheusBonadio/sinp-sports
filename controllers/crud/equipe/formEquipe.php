@@ -1,5 +1,7 @@
 <?php
 	session_start();
+	session_write_close();
+	include $_SERVER['DOCUMENT_ROOT'].'/painel/painel'.$_SESSION['cargo'].'.php';
 
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Equipe.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/EquipeDAO.php';
@@ -15,15 +17,15 @@
 		header('location: /error/403');
 	}
 
-
-	if(!isset($_GET['id']) && $_SESSION['cargo'] != 'Representante'){
 ?>
-<html>
-<body>
+	<div class='container_header flex'>Equipe</div>
+	<div class='container_body'>
+<?php if(!isset($_GET['id']) && $_SESSION['cargo'] != 'Representante'){ ?>
 		<form action="insertEquipe.php" method="POST" enctype="multipart/form-data">
-			nome<input type="text" name="nome"><br>
-			sigla<input type="text" name="sigla" maxlength="6" style='text-transform: uppercase;'><br>
-			representante: <select name="representante">
+			<input type="text" name="nome" placeholder='Digite o nome da equipe' required>
+			<input type="text" name="sigla" maxlength="6" placeholder='Digite a sigla da equipe' required>
+			<select name="representante">
+				<option selected disabled hidden>Selecione uma equipe</option>
 				<?php
 					$exec = $dao->consultarRepresentantes($_SESSION['torneio']);
 					foreach ($exec as $listar) {				
@@ -32,7 +34,7 @@
 				<?php
 					}
 				?>
-			</select><br>
+			</select>
 			<input type="submit">
 		</form>
 	
@@ -45,11 +47,11 @@
  ?>
 		<form action="updateEquipe.php" method="POST" enctype="multipart/form-data">
 			<input type="text" name="id" value="<?php echo $equipe->getidEquipe(); ?>" hidden><br>
-			nome<input type="text" name="nome" value="<?php echo $equipe->getNome(); ?>"><br>
-			sigla<input type="text" name="sigla" value="<?php echo $equipe->getSigla(); ?>"><br>
-			representante: <label><?php echo $_SESSION['login']; ?></label><br>
+			<input type="text" name="nome" value="<?php echo $equipe->getNome(); ?>" placeholder='Digite o nome da equipe' required>
+			<input type="text" name="sigla" value="<?php echo $equipe->getSigla(); ?>" placeholder='Digite a sigla da equipe' required>
+			<label><?php echo $_SESSION['login']; ?></label>
 			<img src="/public/img/equipe/<?php echo $equipe->getLogo(); ?>">
-			Logo<br><input type="file" name="logo"><br>
+			<br><input type="file" name="logo">
 			<input type="submit">
 		</form>
 <?php
@@ -57,9 +59,9 @@
 ?>
 		<form action="updateEquipe.php" method="POST" enctype="multipart/form-data">
 			<input type="text" name="id" value="<?php echo $equipe->getidEquipe(); ?>" hidden>
-			nome<input type="text" name="nome" value="<?php echo $equipe->getNome(); ?>"><br>
-			sigla<input type="text" name="sigla" value="<?php echo $equipe->getSigla(); ?>"><br>
-			Representante: <select name='representante'>
+			<input type="text" name="nome" value="<?php echo $equipe->getNome(); ?>" placeholder='Digite o nome da equipe' required>
+			<input type="text" name="sigla" value="<?php echo $equipe->getSigla(); ?>" placeholder='Digite a sigla da equipe' required>
+			<select name='representante'>
 					<?php 
 
 						$exec = $dao->consultarRepresentantes($_SESSION['torneio']);
@@ -75,9 +77,12 @@
 							}
 						}
 					?>
-					</select><br>
-			<img src="/public/img/equipe/<?php echo $equipe->getLogo(); ?>">
-			Logo<br><input type="file" name="logo"><br>
+					</select>
+			<div class='container_img'>
+				<div class='select_img' style='background-image: url(/public/img/equipe/<?php echo $equipe->getLogo(); ?>)'></div>
+				<input type="file" name="logo" id='logo' hidden>
+				<label for='logo'>Selecione uma imagem</label>
+			</div>
 			<input type="submit">
 		</form>
 <?php

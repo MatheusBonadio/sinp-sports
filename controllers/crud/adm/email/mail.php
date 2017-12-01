@@ -1,6 +1,7 @@
 <?php
 require_once 'class.smtp.php';
 require_once 'class.phpmailer.php';
+session_start();
 
 class Mail{
 
@@ -35,7 +36,7 @@ class Mail{
 						 		</tr>
 						 		<tr>
 						 			<td style='padding: 40px 30px 40px 30px;text-align: justify;'>
-										Olá {$nome}! Você acaba de ser qualificado(a) para a administração de uma competição esportiva.
+										Olá {$nome}! Você acaba de ser qualificado(a) para a administração da competição esportiva – ".$_SESSION['descricao2'].".
 										<br><br>
 										login: <strong>{$login}</strong><br>
 										senha: <strong>{$senha}</strong>

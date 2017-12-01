@@ -23,7 +23,7 @@ class EquipeDAO{
 	}
 
 	public function listar($torneio){
-		$sql = 'SELECT * FROM equipe WHERE id_torneio = :torneio order by pontos desc, nome';
+		$sql = 'SELECT *,(ouro*50+prata*30+bronze*20) as pontos FROM equipe WHERE id_torneio = :torneio order by pontos desc, nome';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();

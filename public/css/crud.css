@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+*{
+	margin: 0;
+	font-family: Roboto;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+::-webkit-scrollbar {
+  	width: 5px;
+  	height: 5px;
+}
+::-webkit-scrollbar-track {
+  	background-color: #ddd;
+}
+::-webkit-scrollbar-thumb {
+  	background-color: #666; 
+}
+body{
+	background-color: #d9dde0;
+	width: 100%;
+	overflow-x: hidden;
+}
+a{
+	text-decoration: none;
+}
+.flex{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container{
+	margin-left: 300px;
+}
+.container_header{
+	width: 100%;
+	height: 108px;
+	font: 300 25px Roboto;
+	background-color: #414243;
+	color: #fff;
+	position: relative;
+}
+.container_header a{
+	font-size: 70px;
+	left: 30px;
+	position: absolute;
+	color: #fff;
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: pointer;
+}
+.container_body{
+	display: flex;
+	padding: 10px;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+}
+.header{
+	background-color: #101010;
+	width: 300px;
+	height: 100vh;
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	overflow-x: hidden;
+	box-shadow: 0 2px 15px 2px rgba(0,0,0,.4);
+}
+.logo{
+	width: 100%;
+	height: 100px;
+	display: none;
+}
+.user{
+	padding: 15px 20px;
+	border-bottom: 1px solid;
+	border-color: rgba(255,255,255,.15);
+}
+.user div{
+	padding: 4px 0;
+	font: 300 16px Roboto;
+	color: #fff;
+}
+.user div:first-child{
+	font: 300 14px Roboto;
+}
+.user div:last-child{
+	font: 300 14px Roboto;
+	color: #e2aa00;
+}
+.header a{
+	letter-spacing: -1px;
+	display: flex;
+	align-items: center;
+	border-left: 4px solid transparent;
+	outline: none;
+	min-height: 12px;
+	max-height: 12px;
+	padding: 20px 15px;
+	text-transform: capitalize;
+	font: 300 16px Roboto;
+	color: #646464;
+	transition: .4s;
+}
+.header a:hover{
+	border-left: 4px solid #e2aa00;
+	background-color: #1f1f1c;
+}
+table{
+	border-collapse: collapse;
+}
+th{
+	font: 500 16px Roboto;
+}
+td{
+	text-align: center;
+	font: 400 16px Roboto;
+	padding: 10px;
+	box-sizing: border-box;
+}
+.block{
+	min-width: 400px;
+	display: flex;
+	flex-grow: 1;
+	height: 230px;
+	background-color: #fff;
+	border-radius: 7px;
+	overflow: hidden;
+	margin: 10px;
+	box-shadow: 0 2px 15px 2px rgba(0,0,0,.1);
+}
+.block .img{
+	width: 180px;
+	max-width: 300px;
+	height: 100%;
+	background-color: #414243;
+	background-size: 150px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.block .info{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-grow: 1;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.block .info_name{
+	width: 100%;
+	font: 500 16px Roboto;
+	padding: 20px 0 10px 20px;
+	box-sizing: border-box;
+}
+.block .info_data{
+	font-size: 15px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 20px;
+	height: 55%;
+	display: flex;
+	align-items: center;
+}
+.block .buttons{
+	width: 100%;
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+.buttons a{
+	font: 300 13px Roboto;
+	background-color: #414243;
+	padding: 10px 20px;
+	border-radius: 20px;
+	margin: 5px;
+	cursor: pointer;
+	transition: .4s;
+	color: #fff;
+}
+.buttons a:hover{
+	background-color: #101010;
+}
+.buttons a:last-child{
+	background-color: #B71C1C;
+}
+.buttons a:last-child:hover{
+	background-color: #A41111;
+}
+.insert{
+	width: 60px;
+	height: 60px;
+	right: 30px;
+	bottom: 20px;
+	position: fixed;
+	font-size: 28px;
+	border-radius: 50%;
+	color: #fff;
+	background-color: #e2aa00;
+	cursor: pointer;
+	transition: .4s;
+}
+.insert:hover{
+	background-color: #c39300;
+}
+form{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+.container_checkbox{
+	display: flex;
+	width: 80%;
+	flex-wrap: wrap;
+	margin-top: 25px;
+}
+.container_checkbox .group_check{
+	padding: 10px;
+}
+input[name='sigla']{
+	text-transform: uppercase;
+}
+input[name='sigla']::placeholder{
+	text-transform: none;
+}
+input[type="text"], input[type="password"], input[type="number"], select{
+	-webkit-user-select: none;
+	user-select: none;
+	font-weight: 300;
+	margin: 5px 0;
+	font-size: 16px;
+	box-sizing: border-box;
+	width: 80%;
+	background: none;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid #000;
+	color: #000;
+	transition: .4s;
+	padding: 18px 5px;
+}
+input[type="text"]:focus, input[type="password"]:focus, input[type="number"]:focus{
+	border-bottom: 1px solid #e2aa00;
+}
+input[type="text"]:invalid, input[type="password"]:invalid, input[type="number"]:invalid{
+	outline: none;
+	box-shadow: none;
+}
+input[type="submit"]{
+	color: #fff;
+	font: 500 16px Roboto;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	border-radius: 3px;
+	background-color: #e2aa00;
+	margin-top: 30px;
+	padding: 15px 0;
+	width: 80%;
+	text-transform: uppercase;
+}
+select{
+	-webkit-appearance: none;
+    appearance: none;
+}
+.container_img{
+	width: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+.select_img{
+	width: 200px;
+	height: 200px;
+	background-size: 200px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.container_img label{
+	color: #fff;
+	font-weight: 500;
+	border-radius: 10px;
+	cursor: pointer;
+	padding: 10px 25px;
+	background-color: #e2aa00;
+}

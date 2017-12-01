@@ -25,7 +25,7 @@ class AdministradorDAO{
 	}
 
 	public function listar($torneio){
-		$sql = 'SELECT * FROM administrador WHERE id_torneio = :torneio';
+		$sql = 'SELECT *,(select descricao from torneio where administrador.id_torneio = torneio.id_torneio) as descricao FROM administrador WHERE id_torneio = :torneio order by field(cargo, "Gerente", "Administrador", "Representante"), nome';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
@@ -217,5 +217,17 @@ class AdministradorDAO{
 			$cargo = $linha['cargo'];
 		}
 		return $cargo;
+	}
+
+	public function consultarNomeLogin($login){
+		$sql = "select nome from administrador where login = :login";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':login', $login);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		foreach($exec as $linha){
+			$nome = $linha['nome'];
+		}
+		return $nome;
 	}
 }
