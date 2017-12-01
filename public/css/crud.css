@@ -223,7 +223,7 @@ input[name='sigla']{
 input[name='sigla']::placeholder{
 	text-transform: none;
 }
-input[type="text"], input[type="password"], input[type="number"], select{
+input[type="text"], input[type="password"], input[type="number"], select, textarea{
 	-webkit-user-select: none;
 	user-select: none;
 	font-weight: 300;
@@ -239,14 +239,14 @@ input[type="text"], input[type="password"], input[type="number"], select{
 	transition: .4s;
 	padding: 18px 5px;
 }
-input[type="text"]:focus, input[type="password"]:focus, input[type="number"]:focus{
+input[type="text"]:focus, input[type="password"]:focus, input[type="number"]:focus, textarea:focus{
 	border-bottom: 1px solid #e2aa00;
 }
-input[type="text"]:invalid, input[type="password"]:invalid, input[type="number"]:invalid{
+input[type="text"]:invalid, input[type="password"]:invalid, input[type="number"]:invalid, textarea:invalid{
 	outline: none;
 	box-shadow: none;
 }
-input[type="submit"]{
+input[type="submit"], .finish{
 	color: #fff;
 	font: 500 16px Roboto;
 	cursor: pointer;
@@ -258,6 +258,10 @@ input[type="submit"]{
 	padding: 15px 0;
 	width: 80%;
 	text-transform: uppercase;
+}
+.finish{
+	background-color: #414243;
+	margin-top: 5px;
 }
 select{
 	-webkit-appearance: none;

@@ -1,13 +1,13 @@
 <?php
 	session_start();
+	session_write_close();
+	include $_SERVER['DOCUMENT_ROOT'].'/painel/painel'.$_SESSION['cargo'].'.php';
 
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Partida.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/PartidaDAO.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/crud/calendario.html';
 	$partida = new Partida();
 	$dao = new PartidaDAO();
-
-	
 
 	if($_SESSION['cargo'] == 'Representante'){
 		header('location: /errors/403.php');
@@ -17,14 +17,15 @@
 		header('location: /errors/403.php');
 	}
 	
-	if($_SESSION['cargo'] == 'Gerente'){
+	?>
+	<div class='container_header flex'>Partida</div>
+	<div class='container_body'>
+	<?php if($_SESSION['cargo'] == 'Gerente'){
 		if(!isset($_GET['id'])){
 ?>
-<html>
-<body>
 		<form action="insertPartida.php" method="POST">
-			equipeA<select name='equipeA'>
-						<option selected disabled hidden>Selecione uma equipe</option>
+			<select name='equipeA' required>
+						<option selected disabled hidden value=''>Selecione a primeira equipe</option>
 					<?php 
 						$exec = $dao->consultarEquipe($_SESSION['torneio']);
 						foreach ($exec as $listar) {
@@ -33,9 +34,9 @@
 					<?php
 						}
 					?>
-					</select><br>
-			equipeB<select name='equipeB'>
-						<option selected disabled hidden>Selecione uma equipe</option>
+					</select>
+			<select name='equipeB' required>
+						<option selected disabled hidden value=''>Selecione a segunda equipe</option>
 					<?php 
 						$exec = $dao->consultarEquipe($_SESSION['torneio']);
 						foreach ($exec as $listar) {
@@ -44,9 +45,9 @@
 					<?php
 						}
 					?>
-					</select><br>
-			esporte<select name='esporte'>
-						<option selected disabled hidden>Selecione um esporte</option>
+					</select>
+			<select name='esporte' required>
+						<option selected disabled hidden value=''>Selecione um esporte</option>
 					<?php 
 						$exec = $dao->consultarEsporte($_SESSION['torneio']);
 						foreach ($exec as $listar) {
@@ -55,9 +56,9 @@
 					<?php
 						}
 					?>
-					</select><br>
-			fase<select name='fase'>
-						<option selected disabled hidden>Selecione uma fase</option>
+					</select>
+			<select name='fase' required>
+						<option selected disabled hidden value=''>Selecione uma fase</option>
 					<?php 
 						$exec = $dao->consultarFase();
 						foreach ($exec as $listar) {
@@ -66,15 +67,10 @@
 					<?php
 						}
 					?>
-					</select><br>
-			dia<input id="inicio" type="text" name="dia"><br>
-			inicio<input type="text" name="inicio"><br>
-			termino<input type="text" name="termino" value="--:--" disabled><br>
-			placarA<input type="text" name="placarA" value="0" disabled><br>
-			placarB<input type="text" name="placarB" value="0" disabled><br>
-			vencedor<input type="text" name="vencedor" value="-" disabled><br>
-					
-			<input type="submit">
+					</select>
+			<input id="inicio" type="text" name="dia" placeholder="Selecione o dia da partida" required>
+			<input type="text" name="inicio" placeholder="Digite o inicio da partida" required>
+			<input type="submit" value='Enviar'>
 		</form>
 
 <?php 
@@ -86,8 +82,8 @@
 
 	
 		<form action="updatePartida.php" method="POST">
-			id<input type="text" name="id" value="<?php echo $partida->getidPartida(); ?> "><br>
-			equipeA<select name='equipeA'>
+			<input type="text" name="id" value="<?php echo $partida->getidPartida(); ?>" hidden>
+			<select name='equipeA'>
 					<?php 
 						$exec = $dao->consultarEquipe($_SESSION['torneio']);
 						foreach ($exec as $listar) {
@@ -102,9 +98,9 @@
 							}
 						}
 					?>
-					</select><br>
+					</select>
 
-			equipeB<select name='equipeB'>
+			<select name='equipeB'>
 					<?php 
 						$exec = $dao->consultarEquipe($_SESSION['torneio']);
 						foreach ($exec as $listar) {
@@ -119,9 +115,9 @@
 							}
 						}
 					?>
-					</select><br>
+					</select>
 
-			esporte<select name='esporte'>
+			<select name='esporte'>
 					<?php 
 						$exec = $dao->consultarEsporte($_SESSION['torneio']);
 						foreach ($exec as $listar) {
@@ -136,9 +132,9 @@
 							}
 						}
 					?>
-					</select><br>
+					</select>
 
-			fase<select name='fase'>
+			<select name='fase'>
 					<?php 
 						$exec = $dao->consultarFase();
 						foreach ($exec as $listar) {
@@ -153,14 +149,14 @@
 							}
 						}
 					?>
-					</select><br>
+					</select>
 
-			dia<input id="inicio" type="text" name="dia" value="<?php echo $partida->getDia();?>"><br>
-			inicio<input type="text" name="inicio" value="<?php echo $partida->getInicio();?>"><br>
-			termino<input type="text" name="termino" value="<?php echo $partida->getTermino();?>"><br>
-			placarA<input type="text" name="placarA" value="<?php echo $partida->getPlacarA();?>"><br>
-			placarB<input type="text" name="placarB" value="<?php echo $partida->getPlacarB();?>"><br>
-			vencedor<select name='vencedor'>
+			<input id="inicio" type="text" name="dia" value="<?php echo $partida->getDia();?>" placeholder='Selecione o dia da partida' required>
+			<input type="text" name="inicio" value="<?php echo $partida->getInicio();?>" placeholder='Digite o inicio da partida' required>
+			<input type="text" name="termino" value="<?php echo $partida->getTermino();?>" placeholder='Digite o término da partida' required>
+			<input type="number" name="placarA" value="<?php echo $partida->getPlacarA();?>" placeholder='Digite o placar da primeira equipe' required>
+			<input type="number" name="placarB" value="<?php echo $partida->getPlacarB();?>" placeholder='Digite o placar da segunda equipe' required>
+			<select name='vencedor'>
 					<?php 
 						$exec = $dao->consultarVencedor($id, $_SESSION['torneio']);
 						foreach ($exec as $listar) {
@@ -183,9 +179,9 @@
 							}	
 						}
 					?>
-					</select><br>
+					</select>
 					
-			<input type="submit">
+			<input type="submit" value='Enviar'>
 		</form>
 
 <?php

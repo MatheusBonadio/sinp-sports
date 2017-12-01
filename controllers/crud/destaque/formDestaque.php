@@ -1,6 +1,8 @@
 
 <?php
 	session_start();
+	session_write_close();
+	include $_SERVER['DOCUMENT_ROOT'].'/painel/painel'.$_SESSION['cargo'].'.php';
 
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Destaque.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/DestaqueDAO.php';
@@ -28,15 +30,16 @@
 	$numPermissao = $daoAdm->consultarNumPermissao($_SESSION['login']);
 
 	
-
-if($_SESSION['cargo'] == 'Administrador' || $_SESSION['cargo'] == 'Gerente'){
+?>
+	<div class='container_header flex'>Destaque</div>
+	<div class='container_body'>
+<?php if($_SESSION['cargo'] == 'Administrador' || $_SESSION['cargo'] == 'Gerente'){
 
 	if(!isset($_GET['id'])){
 ?>
-<html>
-<body>
 		<form action="insertDestaque.php" enctype="multipart/form-data" method="POST">
-			Partida<select name="partida">
+			<select name="partida" required>
+				<option selected hidden disabled value=''>Selecione uma partida</option>
 				<?php
 				if($_SESSION['cargo'] == 'Administrador'){
 					for ($i=0; $i < $numPermissao; $i++) { 
@@ -56,10 +59,13 @@ if($_SESSION['cargo'] == 'Administrador' || $_SESSION['cargo'] == 'Gerente'){
 					}
 				}
 				?>
-			</select><br>
-			texto	<textarea name="texto"></textarea><br>
-			imagem<br><input type="file" name="imagem"><br>
-			<input type="submit">
+			</select>
+			<textarea name="texto" placeholder="Digite o texto de destaque"></textarea>
+			<div class='container_img'>
+				<input type="file" name="imagem" id='imagem' accept="image/*" hidden>
+				<label for='imagem'>Selecione uma imagem</label>
+			</div>
+			<input type="submit" value='Enviar'>	
 		</form>
 
 <?php 
@@ -71,7 +77,8 @@ if($_SESSION['cargo'] == 'Administrador' || $_SESSION['cargo'] == 'Gerente'){
 
 	<form action="updateDestaque.php" enctype="multipart/form-data" method="POST">
 		<input type="text" name="id" value="<?php echo $destaque->getidDestaque(); ?> " hidden>
-		Partida<select name="partida">
+		<select name="partida" required>
+			<option selected hidden disabled value=''>Selecione uma partida</option>
 				<?php
 				for ($i=0; $i < $numPermissao; $i++) { 
 					$exec = $dao->consultarPartida($idEsporte[$i], $_SESSION['torneio']);
@@ -88,12 +95,14 @@ if($_SESSION['cargo'] == 'Administrador' || $_SESSION['cargo'] == 'Gerente'){
 					}
 				}
 				?>
-			</select><br>
-		Texto<textarea name="texto"><?php echo $destaque->getTexto();?></textarea><br>
-		imagem<br>
-				<img src="/public/img/destaque/<?php echo $destaque->getImagem(); ?>"><br>
- 				<input type="file" name="imagem">
-		<input type="submit">
+			</select>
+		<textarea name="texto" placeholder="Digite o texto de destaque"><?php echo $destaque->getTexto();?></textarea>
+		<div class='container_img'>
+			<div class='select_img' style='background-image: url(/public/img/destaque/<?php echo $destaque->getImagem(); ?>)'></div>
+			<input type="file" name="imagem" id='imagem' accept="image/*" hidden>
+			<label for='imagem'>Selecione uma imagem</label>
+		</div>
+		<input type="submit" value='Enviar'>
 		</form>
 
 <?php

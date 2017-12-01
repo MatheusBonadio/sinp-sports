@@ -5,7 +5,7 @@
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/EquipeDAO.php';
 	$equipe = new Equipe();
 	$dao = new EquipeDAO();
-	
+	error_reporting(0);
 
 	if($_SESSION['cargo'] == 'Administrador'){
 		header('location: /error/403');

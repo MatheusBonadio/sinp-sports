@@ -1,7 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/conexao.php';
 
-class Functions{
+class FunctionsAdministrador{
 
 	private $con;
 	private $arrayCargo = ['Gerente','Representante','Administrador'];

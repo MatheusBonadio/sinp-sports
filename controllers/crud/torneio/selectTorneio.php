@@ -9,11 +9,11 @@
 	$exec = $dao->listar($_SESSION['torneio']);
 
 	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
-		header('location: ../../../errors/403.php');
+		header('location: /errors/403.php');
 	}
 
 	if(!isset($_SESSION['cargo'])){
-		header('location: ../../../errors/403.php');
+		header('location: /errors/403.php');
 	}
 ?>
 	<div class='container_header flex'>Torneio</div>

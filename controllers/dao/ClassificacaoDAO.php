@@ -38,7 +38,7 @@ class ClassificacaoDAO{
 	}
 
 	public function listar($torneio){
-		$sql = "SELECT *, (select nome from equipe where classificacao.id_equipe = equipe.id_equipe) as nomeEquipe, (select esporte from esporte where classificacao.id_esporte = esporte.id_esporte) as nomeEsporte, (select descricao from torneio where classificacao.id_torneio = torneio.id_torneio) FROM classificacao WHERE id_torneio = :torneio order by pontuacao desc";
+		$sql = "SELECT *, (select nome from equipe where classificacao.id_equipe = equipe.id_equipe) as nomeEquipe, (select esporte from esporte where classificacao.id_esporte = esporte.id_esporte) as nomeEsporte, (select descricao from torneio where classificacao.id_torneio = torneio.id_torneio) FROM classificacao WHERE id_torneio = :torneio order by nomeEsporte, pontuacao desc, nomeEquipe";
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();

@@ -1,6 +1,8 @@
 <?php
 	session_start();
-	
+	session_write_close();
+	include $_SERVER['DOCUMENT_ROOT'].'/painel/painel'.$_SESSION['cargo'].'.php';
+
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Partida.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/PartidaDAO.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/crud/calendario.html';
@@ -35,25 +37,24 @@
 		}
 	}
 
-	
-
-	if(!$permitido){
+	?>
+	<div class='container_header flex'>Pontuação</div>
+	<div class='container_body'>
+	<?php if(!$permitido){
 		header('location: /error/403');
 	}else{
 		$exec = $dao->consultarVencedor($id, $_SESSION['torneio']);
 			foreach ($exec as $listar) {
  ?>
-<html>
-<body>
 		<form action="scorePartida.php" method="POST">
 			<input type="text" name="id" value="<?php echo $partida->getidPartida(); ?> " hidden>
 			<input type="text" name="esporte" value="<?php echo $partida->getidEsporte(); ?> " hidden>
 			<input type="text" name="equipeA" value="<?php echo $partida->getidEquipeA(); ?> " hidden>
 			<input type="text" name="equipeB" value="<?php echo $partida->getidEquipeB(); ?> " hidden>
-			Termino<input type="text" name="termino" ><br>
-			Placar: <?php echo $listar['nomeA']; ?><input type="number" name="placarA"><br>
-			Placar: <?php echo $listar['nomeB']; ?><input type="number" name="placarB"><br>
-			vencedor<select name='vencedor'>
+			<input type="text" name="termino" placeholder='Digite o término da partida' required>
+			<input type="number" name="placarA" placeholder="Placar da equipe <?php echo $listar['nomeA']; ?>" required>
+			<input type="number" name="placarB" placeholder="Placar da equipe <?php echo $listar['nomeB']; ?>" required>
+			<select name='vencedor'>
 					<option selected disabled hidden>Selecione um vencedor</option>
 					<?php 
 							if($listar['id_equipe_a'] == $partida->getVencedor()){
@@ -77,7 +78,7 @@
 							}	
 						}
 					?>
-					</select><br>
+					</select>
 					
 			<input type="submit">
 		</form>

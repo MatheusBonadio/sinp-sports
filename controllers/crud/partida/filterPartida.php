@@ -58,7 +58,7 @@
 		}
 		if($listar['dia']!=$backup){
 			$dia = substr($listar['dia'], -2);
-			$mes = substr($listar['dia'], 5, 2);
+			$mes = substr($listar['dia'], 6, 1);
 			$ano = substr($listar['dia'], 0, 4);
 			$dia_nome = $arraySemana[date("N", mktime(0, 0, 0, $mes, $dia, $ano))];
 			$mes_nome = $arrayMes[$mes];

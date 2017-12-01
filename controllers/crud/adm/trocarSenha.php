@@ -1,9 +1,10 @@
 <?php
 	session_start();
+	session_write_close();
+	include $_SERVER['DOCUMENT_ROOT'].'/painel/painel'.$_SESSION['cargo'].'.php';
 	
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/class/Administrador.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/AdministradorDAO.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/crud/adm/Functions.php';
 	$adm = new Administrador();
 	$dao = new AdministradorDAO();
 
@@ -11,16 +12,16 @@
 		header('location: /error/403');
 	}
 	$adm = $dao->consultarLogin($_SESSION['login'], $_SESSION['torneio']);
-
 ?>
-		<form action="trocarSenha.php" method="POST">
-			senha<input type="text" name="senha" value="<?php echo $adm->getSenha(); ?> "><br>
-			<input type="submit">
-		</form>	
+	<div class='container_header flex'>Trocar senha</div>
+	<div class='container_body'>
+	<form action="trocarSenha.php" method="POST">
+		<input type="password" name="senha" placeholder='Digite a sua nova senha' required="">
+		<input type="submit" value='Enviar'>
+	</form>	
 <?php
 	if(isset($_POST['senha'])){
-		$trim = trim($_POST['senha']);
-		$senha = md5($trim);
+		$senha = md5($_POST['senha']);
 		$dao->trocarSenha($senha, $_SESSION['login'], $_SESSION['torneio']);
 		header("location: /painel/painel".$_SESSION['cargo'].".php");
 	}

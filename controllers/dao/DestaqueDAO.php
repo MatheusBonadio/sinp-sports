@@ -30,8 +30,6 @@ class DestaqueDAO{
 		return $exec;
 	}
 
-	//TERMINA AQUI
-
 	public function listarEsporte($idEsporte, $torneio, $idPartida){
 		$sql = "SELECT *, (select esporte from esporte where id_esporte = :esporte and id_torneio = :torneio) as esporte, (SELECT id_partida FROM partida WHERE partida.id_esporte = :esporte AND destaque.id_partida = partida.id_partida AND partida.id_torneio = :torneio) FROM destaque WHERE id_torneio = :torneio AND id_partida = :partida";
 		$prep = $this->con->prepare($sql);

@@ -3,6 +3,8 @@
 	
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/PartidaDAO.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/dao/AdministradorDAO.php';
+	session_write_close();
+	include $_SERVER['DOCUMENT_ROOT'].'/painel/painel'.$_SESSION['cargo'].'.php';
 	$dao = new PartidaDAO();
 	$daoAdm = new AdministradorDAO();
 	
@@ -12,8 +14,8 @@
   		 foreach($value as $v_key){
         	$idEsporte[$i] = $v_key;
         	$i++;
-   }
-}
+   		}
+	}
 
 	$numPermissao = $daoAdm->consultarNumPermissao($_SESSION['login']);
 
@@ -25,53 +27,63 @@
 		header('location: /error/403');
 	}
 
-if($_SESSION['cargo'] == 'Administrador'){
+?>
+	<div class='container_header flex'>Partida</div>
+	<div class='container_body'>
+<?php if($_SESSION['cargo'] == 'Administrador'){
 
 	for ($i=0; $i < $numPermissao; $i++) { 
 		$exec = $dao->listarEsporte($idEsporte[$i], $_SESSION['torneio']);
 
-		foreach ($exec as $listar) {
-			echo "ID: ".$listar['id_partida']."<br>";
-			echo "EquipeA: ".$listar['nome_equipe_a']."<br>";
-			echo "EquipeB: ".$listar['nome_equipe_b']."<br>";
-			echo "Esporte: ".$listar['id_esporte']."<br>";
-			echo "Fase: ".$listar['id_fase']."<br>";
-			echo "Torneio: ".$listar['id_torneio']."<br>";
-			echo "Dia: ".$listar['dia']."<br>";
-			echo "Inicio: ".$listar['inicio']."<br>";
-			echo "Termino: ".$listar['termino']."<br>";
-			echo "PlacarA: ".$listar['placar_equipe_a']."<br>";
-			echo "PlacarB: ".$listar['placar_equipe_b']."<br>";
-			echo "Vencedor: ".$listar['vencedor']."<br>";
-			echo "<a href=formPontuacao.php?id=".$listar['id_partida'].">SCORE</a><br>";
-		}
+		foreach ($exec as $listar) {?>
+			<div class='block'>
+				<div class='img' style='background-image: url(/public/img/sistema/torneio.png);'></div>
+				<div class='info'>
+					<div class='info_name'><?php echo $listar['nome_equipe_a']." x ".$listar['nome_equipe_b'] ?></div>
+					<div class='info_data'>
+						<?php echo $listar['id_esporte'] ?><br />
+						<?php echo $listar['id_fase'] ?><br />
+						<?php echo $listar['dia'] ?><br />
+						Inicio: <?php echo $listar['inicio'] ?><br />
+						Término: <?php echo $listar['inicio'] ?><br />
+						Placar: <?php echo $listar['placar_equipe_a']." x ".$listar['placar_equipe_b'] ?><br />
+						Vencedor: <?php echo $listar['vencedor'] ?><br />
+					</div>
+					<div class='buttons'>
+						<a href=formPontuacao.php?id=<?php echo $listar['id_partida']?>>Score</a>
+					</div>
+				</div>
+			</div>
+		<?php }
 	}
 }
 
 if($_SESSION['cargo'] == 'Gerente'){
 		$exec = $dao->listar($_SESSION['torneio']);
 
-		foreach ($exec as $listar) {
-			echo "ID: ".$listar['id_partida']."<br>";
-			echo "EquipeA: ".$listar['nome_equipe_a']."<br>";
-			echo "EquipeB: ".$listar['nome_equipe_b']."<br>";
-			echo "Esporte: ".$listar['id_esporte']."<br>";
-			echo "Fase: ".$listar['id_fase']."<br>";
-			echo "Torneio: ".$listar['id_torneio']."<br>";
-			echo "Dia: ".$listar['dia']."<br>";
-			echo "Inicio: ".$listar['inicio']."<br>";
-			echo "Termino: ".$listar['termino']."<br>";
-			echo "PlacarA: ".$listar['placar_equipe_a']."<br>";
-			echo "PlacarB: ".$listar['placar_equipe_b']."<br>";
-			echo "Vencedor: ".$listar['vencedor']."<br>";
-			echo "<a href=formPartida.php?id=".$listar['id_partida'].">ALTERAR</a><br>";
-			echo "<a href=deletePartida.php?id=".$listar['id_partida'].">EXCLUIR</a><br>";
-
-		}
-?>
-	<a href="formPartida.php">INSERIR</a><br>
-<?php
-}
-?>
-
-<a href='/painel/painel<?php echo $_SESSION['cargo'] ?>.php'>MENU</a><br>
+		foreach ($exec as $listar) {?>
+			<div class='block'>
+				<div class='img' style='background-image: url(/public/img/sistema/torneio.png);'></div>
+				<div class='info'>
+					<div class='info_name'><?php echo $listar['nome_equipe_a']." x ".$listar['nome_equipe_b'] ?></div>
+					<div class='info_data'>
+						<?php echo $listar['id_esporte'] ?><br />
+						<?php echo $listar['id_fase'] ?><br />
+						<?php echo $listar['dia'] ?><br />
+						Inicio: <?php echo $listar['inicio'] ?><br />
+						Término: <?php echo $listar['inicio'] ?><br />
+						Placar: <?php echo $listar['placar_equipe_a']." x ".$listar['placar_equipe_b'] ?><br />
+						Vencedor: <?php echo $listar['vencedor'] ?><br />
+					</div>
+					<div class='buttons'>
+						<a href=formPartida.php?id=<?php echo $listar['id_partida']?>>Alterar</a>
+						<a href=deletePartida.php?id=<?php echo $listar['id_partida']?>>Excluir</a>
+					</div>
+				</div>
+			</div>
+		<?php } ?>
+	<a class='insert material-icons flex' href='formPartida.php'>add</a>
+	<?php
+	}
+	?>
+	</div>

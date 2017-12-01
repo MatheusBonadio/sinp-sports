@@ -9,7 +9,7 @@
 	require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/crud/esporte/Functions.php';
 	$esporte = new Esporte();
 	$dao = new EsporteDAO();
-	$func = new Functions();
+	$func = new FunctionsEsporte();
 
 	if($_SESSION['cargo'] == 'Representante' || $_SESSION['cargo'] == 'Administrador'){
 		header('location: /error/403');
@@ -23,20 +23,23 @@
 	<div class='container_body'>
 	<?php if(!isset($_GET['id'])){ ?>
 		<form action="insertEsporte.php" enctype="multipart/form-data" method="POST">
-			esporte<input type="text" name="esporte"><br>
-			genero<select name="genero">
-					<?php $func->optionsGenero($esporte); ?>
-					</select><br>
-			tipo<select name="tipo">
-					<?php $func->optionsTipo($esporte); ?>
-				</select><br>
-			qtdJogadores<input type="text" name="qtdJogadores"><br>
-			qtdTimes<input type="text" name="qtdTimes"><br>
-			classificacao<select name="classificacao">
-							<?php $func->optionsClassificacao($esporte); ?>
-						</select><br>
-			imagem<br><input type="file" name="imagem"><br>
-			<input type="submit">
+			<input type="text" name="esporte" placeholder='Digite o nome do esporte' required>
+			<select name="genero" required>
+				<?php $func->optionsGenero($esporte); ?>
+			</select>
+			<select name="tipo">
+				<?php $func->optionsTipo($esporte); ?>
+			</select>
+			<input type="number" name="qtdJogadores" placeholder='Digite a quantidade de jogadores por time' required>
+			<input type="number" name="qtdTimes" placeholder='Digite a quantidade de times por equipe' required>
+			<select name="classificacao">
+				<?php $func->optionsClassificacao($esporte); ?>
+			</select><br>
+			<div class='container_img'>
+				<input type="file" name="imagem" id='imagem' accept="image/*" hidden>
+				<label for='imagem'>Selecione uma imagem</label>
+			</div>
+			<input type="submit" value='Enviar'>
 		</form>
 
 <?php 
@@ -47,23 +50,25 @@
  ?>
 
 	<form action="updateEsporte.php" enctype="multipart/form-data" method="POST">
-		<input type="text" name="id" value="<?php echo $esporte->getidEsporte(); ?> " hidden>
-		esporte<input type="text" name="esporte" value="<?php echo $esporte->getEsporte(); ?> "><br>
-		genero<select name="genero">
-				<?php $func->optionsGenero($esporte); ?>
-				</select><br>
-		tipo<select name="tipo">
-				<?php $func->optionsTipo($esporte); ?>
-				</select><br>
-		qtdJogadores<input type="text" name="qtdJogadores" value="<?php echo $esporte->getqtdJogadores(); ?> "><br>
-		qtdTimes<input type="text" name="qtdTimes" value="<?php echo $esporte->getqtdTimes(); ?> "><br>
-		classificacao<select name="classificacao">
-				<?php $func->optionsClassificacao($esporte); ?>
-				</select><br>
-		imagem<br>
-				<img src="../../../public/img/esporte/<?php echo $esporte->getImagem(); ?>">
- 				<input type="file" name="imagem">
-		<input type="submit">
+		<input type="text" name="id" value="<?php echo $esporte->getidEsporte(); ?>" hidden>
+		<input type="text" name="esporte" value="<?php echo $esporte->getEsporte(); ?>" placeholder='Digite o nome do esporte' required>
+		<select name="genero">
+			<?php $func->optionsGenero($esporte); ?>
+		</select>
+		<select name="tipo">
+			<?php $func->optionsTipo($esporte); ?>
+		</select>
+		<input type="number" name="qtdJogadores" value="<?php echo $esporte->getqtdJogadores(); ?>" placeholder='Digite a quantidade de jogadores por time' required>
+		<input type="number" name="qtdTimes" value="<?php echo $esporte->getqtdTimes(); ?>" placeholder='Digite a quantidade de times por equipe' required>
+		<select name="classificacao">
+			<?php $func->optionsClassificacao($esporte); ?>
+		</select>
+		<div class='container_img'>
+			<div class='select_img' style='background-image: url(/public/img/esporte/<?php echo $esporte->getImagem(); ?>)'></div>
+			<input type="file" name="imagem" id='imagem' accept="image/*" hidden>
+			<label for='imagem'>Selecione uma imagem</label>
+		</div>
+		<input type="submit" value='Enviar'>
 		</form>
 
 <?php

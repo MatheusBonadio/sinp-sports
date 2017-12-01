@@ -13,7 +13,7 @@
 		header('location: /error/403');
 	}
 ?>
-	<div class='container_header flex'>Esportes</div>
+	<div class='container_header flex'>Esporte</div>
 	<div class='container_body'>
 
 <?php if($_SESSION['cargo'] == 'Gerente'){

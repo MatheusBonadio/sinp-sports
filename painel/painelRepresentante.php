@@ -16,5 +16,4 @@ $func->sessionRepresentante();
 		<a href="/controllers/crud/participante/selectParticipante.php">participante</a>
 		<a href="/controllers/session/sair.php">sair</a>
 	</div>
-</body>
-</html>
+	<div class='container'>

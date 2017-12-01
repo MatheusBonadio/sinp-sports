@@ -29,7 +29,7 @@
 					Prata: <?php echo $listar['prata'] ?><br />
 					Bronze: <?php echo $listar['bronze'] ?><br />
 					Pontos: <?php echo $listar['pontos'] ?><br />
-					<?php echo $listar['representante'] ?><br />
+					Representante: <?php echo $listar['representante'] ?><br />
 				</div>
 				<div class='buttons'>
 					<?php if($_SESSION['cargo'] == 'Gerente' || $_SESSION['cargo'] == 'Representante'){ ?>

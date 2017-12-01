@@ -32,7 +32,7 @@ class EquipeDAO{
 	}
 
 	public function listarEquipeRepre($representante, $torneio){
-		$sql = 'SELECT * FROM equipe WHERE representante = :representante and id_torneio = :torneio';
+		$sql = 'SELECT *,(ouro*50+prata*30+bronze*20) as pontos FROM equipe WHERE representante = :representante and id_torneio = :torneio';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':representante', $representante);
 		$prep->bindValue(':torneio', $torneio);

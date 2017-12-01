@@ -14,7 +14,6 @@
 	$id = $_POST['id'];
 	$partida = $dao->consultar($id, $_SESSION['torneio']);
 
-	var_dump($_SESSION['permissao']);
 	$i = 0;
 	foreach($_SESSION['permissao'] as $value){
   		foreach($value as $v_key){
@@ -102,5 +101,5 @@
 
 		$dao->pontuacao($partida);
 
-		//header('location: selectPartida.php');
+		header('location: selectPartida.php');
 	}

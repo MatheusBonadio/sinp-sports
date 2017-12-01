@@ -18,5 +18,4 @@ $func->sessionAdm();
 		<a href="/controllers/crud/equipe/selectEquipe.php">equipe</a>
 		<a href="/controllers/session/sair.php">sair</a>
 	</div>
-</body>
-</html>
+	<div class='container'>

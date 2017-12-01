@@ -24,8 +24,8 @@
 		<form action="insertEquipe.php" method="POST" enctype="multipart/form-data">
 			<input type="text" name="nome" placeholder='Digite o nome da equipe' required>
 			<input type="text" name="sigla" maxlength="6" placeholder='Digite a sigla da equipe' required>
-			<select name="representante">
-				<option selected disabled hidden>Selecione uma equipe</option>
+			<select name="representante" required>
+				<option selected disabled hidden value=''>Selecione um representante</option>
 				<?php
 					$exec = $dao->consultarRepresentantes($_SESSION['torneio']);
 					foreach ($exec as $listar) {				
@@ -35,7 +35,7 @@
 					}
 				?>
 			</select>
-			<input type="submit">
+			<input type="submit" value='Enviar'>
 		</form>
 	
 <?php 
@@ -48,11 +48,11 @@
 		<form action="updateEquipe.php" method="POST" enctype="multipart/form-data">
 			<input type="text" name="id" value="<?php echo $equipe->getidEquipe(); ?>" hidden><br>
 			<input type="text" name="nome" value="<?php echo $equipe->getNome(); ?>" placeholder='Digite o nome da equipe' required>
-			<input type="text" name="sigla" value="<?php echo $equipe->getSigla(); ?>" placeholder='Digite a sigla da equipe' required>
+			<input type="text" name="sigla" maxlength="6" value="<?php echo $equipe->getSigla(); ?>" placeholder='Digite a sigla da equipe' required>
 			<label><?php echo $_SESSION['login']; ?></label>
 			<img src="/public/img/equipe/<?php echo $equipe->getLogo(); ?>">
-			<br><input type="file" name="logo">
-			<input type="submit">
+			<input type="file" name="logo" accept="image/*">
+			<input type="submit" value='Enviar'>
 		</form>
 <?php
 		}else if($_SESSION['cargo'] == 'Gerente'){
@@ -60,10 +60,9 @@
 		<form action="updateEquipe.php" method="POST" enctype="multipart/form-data">
 			<input type="text" name="id" value="<?php echo $equipe->getidEquipe(); ?>" hidden>
 			<input type="text" name="nome" value="<?php echo $equipe->getNome(); ?>" placeholder='Digite o nome da equipe' required>
-			<input type="text" name="sigla" value="<?php echo $equipe->getSigla(); ?>" placeholder='Digite a sigla da equipe' required>
+			<input type="text" name="sigla" maxlength="6" value="<?php echo $equipe->getSigla(); ?>" placeholder='Digite a sigla da equipe' required>
 			<select name='representante'>
 					<?php 
-
 						$exec = $dao->consultarRepresentantes($_SESSION['torneio']);
 						foreach ($exec as $listar) {
 							if($listar['login'] == $equipe->getRepresentante()){
@@ -80,10 +79,10 @@
 					</select>
 			<div class='container_img'>
 				<div class='select_img' style='background-image: url(/public/img/equipe/<?php echo $equipe->getLogo(); ?>)'></div>
-				<input type="file" name="logo" id='logo' hidden>
+				<input type="file" name="logo" id='logo' accept="image/*" hidden>
 				<label for='logo'>Selecione uma imagem</label>
 			</div>
-			<input type="submit">
+			<input type="submit" value='Enviar'>
 		</form>
 <?php
 		}

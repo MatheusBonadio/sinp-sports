@@ -22,7 +22,7 @@ class ParticipanteDAO{
 	}
 
 	public function listar($torneio){
-		$sql = 'SELECT * FROM participante WHERE id_torneio = :torneio';
+		$sql = 'SELECT *,(select nome from equipe where equipe.id_equipe = participante.id_equipe) as nome_equipe FROM participante WHERE id_torneio = :torneio order by nome_equipe, nome';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
