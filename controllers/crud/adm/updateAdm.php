@@ -18,9 +18,19 @@
 	$adm->setidAdm($_POST['id']);
 	$adm->setidTorneio($_SESSION['torneio']);
 	$adm->setLogin($_POST['login']);
-	$trim = trim($_POST['senha']);
-	$senha = md5($trim);
-	$adm->setSenha($senha);
+
+	$senha = trim($_POST['senha']);
+	
+	$senhaAntiga = $dao->consultarSenhaAntiga($_POST['id']);
+	if($senha != $senhaAntiga){
+		$senha = md5($senha);
+		$adm->setSenha($senha);
+	}else{
+		$adm->setSenha($senhaAntiga);
+	}
+	
+
+
 	$adm->setEmail($_POST['email']);
 	$adm->setNome($_POST['nome']);
 	

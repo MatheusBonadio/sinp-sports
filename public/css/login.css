@@ -45,7 +45,7 @@ input[type="text"]:invalid, input[type="password"]:invalid{
 	outline: none;
 	box-shadow: none;
 }
-input[type="submit"]{
+.form_login input[type="submit"]{
 	color: #fff;
 	font: 500 16px Roboto;
 	cursor: pointer;
@@ -57,6 +57,7 @@ input[type="submit"]{
 	padding: 15px 0;
 	width: 80%;
 	text-transform: uppercase;
+	transition: .4s;
 }
 .background_left{
 	flex-grow: 1;

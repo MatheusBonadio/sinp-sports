@@ -29,9 +29,7 @@
 	?>
 		</div>
 		<div class='container_dots flex'>
-			<div class='dots_line'></div>
 			<div class='group_dots'></div>
-			<div class='dots_line'></div>
 		</div>
 		<div class='arrow flex material-icons' onclick='plusSlides(1)'>keyboard_arrow_right</div>
 		<div class='arrow flex material-icons' onclick='plusSlides(-1)'>keyboard_arrow_left</div>
@@ -42,24 +40,38 @@
 		$exec = $dao->listarPartidasFinalizadas($_SESSION['torneio']);
 	?>
 	<div class='next_games'>
-		<?php foreach ($exec as $listar) {
+		<?php 
+		$backupDay = "";
+		foreach ($exec as $listar) {
+			if($listar['dia'] != $backupDay){ ?>
+				<div class='match_day flex'>
+					<label><?php echo $listar['mes_format']?></label>
+					<div class='match_line'></div>
+					<label><?php echo $listar['dia_format']?></label>
+				</div>
+			<?php 
+				$backupDay = $listar['dia'];
+			}
 			if($listar['nome_equipe_a'] == $listar['vencedor']){
 				$listar['equipe_a'] = "V";
 				$listar['equipe_b'] = "D";
 			}else if($listar['nome_equipe_b'] == $listar['vencedor']){
 				$listar['equipe_a'] = "D";
 				$listar['equipe_b'] = "V";
+			}else{
+				$listar['equipe_a'] = "E";
+				$listar['equipe_b'] = "E";
 			}
 		?>
 		<div class='match flex' onclick='select_match("<?php echo $_SESSION['descricao']?>", <?php echo $listar['id_partida']?>)'>
 			<div class='sport'><?php echo $listar['id_esporte'] ?></div>
 			<div class='team flex'>
-				<img src='/public/img/equipe/<?php echo $listar['logo_a'] ?>' width='16%'/>
+				<img src='/public/img/equipe/<?php echo $listar['logo_a'] ?>' />
 				<label><?php echo $listar['sigla_a'] ?></label>
 				<label><?php echo $listar['equipe_a'] ?></label>
 			</div>
 			<div class='team flex'>
-				<img src='/public/img/equipe/<?php echo $listar['logo_b'] ?>' width='16%'/>
+				<img src='/public/img/equipe/<?php echo $listar['logo_b'] ?>' />
 				<label><?php echo $listar['sigla_b'] ?></label>
 				<label><?php echo $listar['equipe_b'] ?></label>
 			</div>

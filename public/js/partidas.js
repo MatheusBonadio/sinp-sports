@@ -4,11 +4,11 @@ document.onscroll = function(){
 	else
 		var posicao = document.body.scrollTop;
 	var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-	if(posicao>(height-150)){
+	if(posicao>(height-240))
         $('.container_filter').addClass('absolute');
-	}
     else
     	$('.container_filter').removeClass('absolute');
+
 }
 
 function select_filter(id, acao){

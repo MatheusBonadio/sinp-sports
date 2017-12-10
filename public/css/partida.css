@@ -1,6 +1,7 @@
 .match_header{
 	margin-top: 70px;
 	width: 100%;
+	height: calc(100vh - 70px);
 	box-shadow: 0 2px 15px 2px rgba(0,0,0,.4);
 	display: flex;
 	box-sizing: border-box;
@@ -85,15 +86,6 @@
 	font-size: 22px;
 	font-weight: 400;
 }
-.vitória,.derrota{
-	text-transform: uppercase;
-}
-.derrota{
-	color: #a65f46;
-}
-.vitória{
-	color: #bea152;
-}
 .container_participant{
 	display: flex;
 	justify-content: center;
@@ -115,4 +107,18 @@
 }
 .participant_team_a div, .participant_team_b div{
 	padding: 8px 0;
+}
+@media screen and (max-width:1025px) {
+	.team_a,.team_b{
+		width: 40%;
+	}
+	.team_a{
+		flex-direction: column-reverse;
+	}
+	.team_b{
+		flex-direction: column;
+	}
+	.match_header{
+		padding: 60px 30px 30px 30px;
+	}
 }

@@ -230,4 +230,16 @@ class AdministradorDAO{
 		}
 		return $nome;
 	}
+
+	public function consultarSenhaAntiga($id){
+		$sql = "select senha from administrador where id_adm = :id";
+		$prep = $this->con->prepare($sql);
+		$prep->bindValue(':id', $id);
+		$prep->execute();
+		$exec = $prep->fetchAll(PDO::FETCH_ASSOC);
+		foreach($exec as $linha){
+			$senhaAntiga = $linha['senha'];
+		}
+		return $senhaAntiga;
+	}
 }

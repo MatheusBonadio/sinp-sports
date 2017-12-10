@@ -6,13 +6,12 @@ class Conexao {
     private $senha = "";
     private $banco = "sinpsports";
     private $conexao;
-    /*
-    private $servidor = "localhost";
-    private $usuario = "id3206094_root1";
-    private $senha = "p13m29m28";
-    private $banco = "id3206094_sinpsports1";
-    private $conexao;
-    */
+
+    // private $servidor = "localhost";
+    // private $usuario = "id3206094_root1";
+    // private $senha = "p13m29m28";
+    // private $banco = "id3206094_sinpsports1";
+    // private $conexao;
 
     public function __construct() {
         try {

@@ -39,3 +39,8 @@ function last_word(){
     path = path.replace("/", "");
     return path;
 }
+
+$("#back_top").click(function() {
+  console.log("fon");
+  $('html, body').animate({scrollTop:0}, 'slow');
+});

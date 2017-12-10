@@ -116,7 +116,7 @@ td{
 	box-sizing: border-box;
 }
 .block{
-	min-width: 400px;
+	min-width: 500px;
 	display: flex;
 	flex-grow: 1;
 	height: 230px;

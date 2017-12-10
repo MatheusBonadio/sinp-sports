@@ -52,13 +52,15 @@
 		}else if($listar['nome_equipe_b'] == $listar['vencedor']){
 			$listar['equipe_a'] = "derrota";
 			$listar['equipe_b'] = "vitória";
+		}else if(is_null($listar['vencedor']) && $listar['termino']){
+			$listar['equipe_b'] = $listar['equipe_a'] = "empate";
 		}else{
 			$listar['equipe_a'] = "";
 			$listar['equipe_b'] = "";
 		}
 		if($listar['dia']!=$backup){
 			$dia = substr($listar['dia'], -2);
-			$mes = substr($listar['dia'], 6, 1);
+			$mes = substr($listar['dia'], 5, 2);
 			$ano = substr($listar['dia'], 0, 4);
 			$dia_nome = $arraySemana[date("N", mktime(0, 0, 0, $mes, $dia, $ano))];
 			$mes_nome = $arrayMes[$mes];

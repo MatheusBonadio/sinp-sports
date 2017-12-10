@@ -20,6 +20,5 @@
 	$participante->setidEquipe($_POST['equipe']);
 
 	$dao->inserir($participante);
-
-	header('location:formParticipante.php');
+	header('location: formParticipante.php');
 ?>

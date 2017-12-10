@@ -36,7 +36,8 @@ class PartidaDAO{
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
 		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor,
 		(select logo from equipe where equipe.id_equipe = partida.id_equipe_a) as logo_a,
-		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio ORDER BY dia';
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, 
+		date_format(dia, "%d/%m/%Y") as dia_format, dia, inicio, termino, placar_equipe_a, placar_equipe_b, cast(replace(inicio,":","") as signed) as inicio_int FROM partida where id_torneio = :torneio ORDER BY dia, inicio_int';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
@@ -54,7 +55,8 @@ class PartidaDAO{
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
 		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor,
 		(select logo from equipe where equipe.id_equipe = partida.id_equipe_a) as logo_a,
-		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio and termino IS NOT NULL ORDER BY dia desc';
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio,
+		date_format(dia, "%d") as dia_format, date_format(dia, "%m") as mes_format, termino, placar_equipe_a, placar_equipe_b, cast(replace(inicio,":","") as signed) as inicio_int FROM partida where id_torneio = :torneio and vencedor IS NOT NULL ORDER BY dia desc, inicio_int desc';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
@@ -96,7 +98,7 @@ class PartidaDAO{
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
 		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor,
 		(select logo from equipe where equipe.id_equipe = partida.id_equipe_a) as logo_a,
-		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio AND id_esporte = :idEsporte ORDER BY dia';
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b, cast(replace(inicio,":","") as signed) as inicio_int FROM partida where id_torneio = :torneio AND id_esporte = :idEsporte ORDER BY dia, inicio_int';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->bindValue(':idEsporte', $idEsporte);
@@ -117,7 +119,7 @@ class PartidaDAO{
 		(select descricao from torneio where torneio.id_torneio = partida.id_torneio) as id_torneio,
 		(select nome from equipe where equipe.id_equipe = partida.vencedor) as vencedor,
 		(select logo from equipe where equipe.id_equipe = partida.id_equipe_a) as logo_a,
-		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b FROM partida where id_torneio = :torneio and id_equipe_a = :idEquipe or id_equipe_b = :idEquipe ORDER BY dia';
+		(select logo from equipe where equipe.id_equipe = partida.id_equipe_b) as logo_b, dia, inicio, termino, placar_equipe_a, placar_equipe_b, cast(replace(inicio,":","") as signed) as inicio_int FROM partida where id_torneio = :torneio and id_equipe_a = :idEquipe or id_equipe_b = :idEquipe ORDER BY dia, inicio_int';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->bindValue(':idEquipe', $idEquipe);
@@ -241,7 +243,7 @@ class PartidaDAO{
 	}
 
 	public function consultarEquipe($torneio){
-		$sql = "select id_equipe, nome from equipe where id_torneio = :torneio";
+		$sql = "select id_equipe, nome from equipe where id_torneio = :torneio order by nome";
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();

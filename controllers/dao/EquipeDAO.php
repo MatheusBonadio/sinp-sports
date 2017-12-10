@@ -24,6 +24,7 @@ class EquipeDAO{
 
 	public function listar($torneio){
 		$sql = 'SELECT *,(ouro*50+prata*30+bronze*20) as pontos FROM equipe WHERE id_torneio = :torneio order by pontos desc, nome';
+		//$sql = 'SELECT distinct *,(ouro*50+prata*30+bronze*20) as pontos FROM equipe, partida WHERE equipe.id_torneio = 4 and partida.id_fase = 1 order by pontos desc, nome';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':torneio', $torneio);
 		$prep->execute();
@@ -42,11 +43,12 @@ class EquipeDAO{
 	}
 
 	public function alterar($equipe){
-		$sql = 'UPDATE equipe SET nome = :nome, sigla = :sigla WHERE id_equipe = :id';
+		$sql = 'UPDATE equipe SET nome = :nome, sigla = :sigla, representante = :representante WHERE id_equipe = :id';
 		$prep = $this->con->prepare($sql);
 		$prep->bindValue(':nome', $equipe->getNome());
 		$prep->bindValue(':sigla', $equipe->getSigla());
 		$prep->bindValue(':id', $equipe->getidEquipe());
+		$prep->bindValue(':representante', $equipe->getRepresentante());
 		$prep->execute();
 	}
 

@@ -153,9 +153,9 @@
 
 			<input id="inicio" type="text" name="dia" value="<?php echo $partida->getDia();?>" placeholder='Selecione o dia da partida' required>
 			<input type="text" name="inicio" value="<?php echo $partida->getInicio();?>" placeholder='Digite o inicio da partida' required>
-			<input type="text" name="termino" value="<?php echo $partida->getTermino();?>" placeholder='Digite o término da partida' required>
-			<input type="number" name="placarA" value="<?php echo $partida->getPlacarA();?>" placeholder='Digite o placar da primeira equipe' required>
-			<input type="number" name="placarB" value="<?php echo $partida->getPlacarB();?>" placeholder='Digite o placar da segunda equipe' required>
+			<input type="text" name="termino" value="<?php echo $partida->getTermino();?>" placeholder='Digite o término da partida'>
+			<input type="number" name="placarA" value="<?php echo $partida->getPlacarA();?>" placeholder='Digite o placar da primeira equipe'>
+			<input type="number" name="placarB" value="<?php echo $partida->getPlacarB();?>" placeholder='Digite o placar da segunda equipe'>
 			<select name='vencedor'>
 					<?php 
 						$exec = $dao->consultarVencedor($id, $_SESSION['torneio']);
@@ -175,6 +175,7 @@
 								<option selected disabled hidden>Selecione um vencedor</option>
 								<option value="<?php echo $listar['id_equipe_a'];?>"><?php echo $listar['nomeA']; ?></option>
 								<option value="<?php echo $listar['id_equipe_b'];?>"><?php echo $listar['nomeB']; ?></option>
+								<option value="0">Empate</option>
 					<?php
 							}	
 						}

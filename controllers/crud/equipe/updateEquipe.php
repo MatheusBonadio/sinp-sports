@@ -18,13 +18,13 @@
 	$equipe->setidEquipe($_POST['id']);
 	$equipe->setNome($_POST['nome']);
 	$equipe->setSigla($_POST['sigla']);
+	$equipe->setRepresentante($_POST['representante']);
 	$diretorio = $_SERVER['DOCUMENT_ROOT'].'/public/img/equipe/';
 
-if(!isset($_FILES['logo'])){
-	header("refresh:0 url= formEquipe.php?id=".$equipe->getidEquipe());
-	echo "<script>alert('Insira uma Logo');</script>";
-}
-
+	if(!isset($_FILES['logo'])){
+		header("refresh:0 url= formEquipe.php?id=".$equipe->getidEquipe());
+		echo "<script>alert('Insira uma Logo');</script>";
+	}
 
 	if($_FILES['logo']['error']==0){
 		$equLogo = $dao->consultar($_POST['id'], $_SESSION['torneio']);
@@ -39,6 +39,5 @@ if(!isset($_FILES['logo'])){
 	}
 
 	$dao->alterar($equipe);
-	
 	header('location:selectEquipe.php');
 ?>

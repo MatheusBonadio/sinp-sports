@@ -150,33 +150,138 @@ body{
 .footer{
 	background-color: #000;
 	width: 100%;
-	height: 80px;
+	min-height: 240px;
 	color: #D7D7D7;
 	display: flex;
-	text-align: center;
+	flex-direction: column;
 	overflow: hidden;
+	padding: 30px 6vw 10px 6vw;
+	box-sizing: border-box;
 }
 .footer_body{
-	width: 50%;
+	min-height: 120px;
+	width: 100%;
+	display: flex;
+}
+.footer_block{
+	margin: 0 20px;
+	width: 30%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	flex-grow: 1;
+}
+.footer form{
+	width: 100%;
+}
+.footer_block label:first-child{
+	font: 400 16px Roboto;
+}
+.footer_block label:nth-child(2){
+	margin: 10px 0;
+	font: 300 14px Roboto;
+	color: rgba(255,255,255,.6);
+}
+.footer input[type='email']{
+	width: 70%;
+	box-sizing: border-box;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 3px;
+}
+.footer input[type='submit']{
+	border-radius: 3px;
+	background-color: #e2aa00;
+	border: none;
+	padding: 10px;
+	box-sizing: border-box;
+	width: 28%;
+	cursor: pointer;
+	color: #fff;
+	font: 500 14px Roboto;
+	outline: none;
+	transition: .4s;
+}
+input[type='submit']:hover, .footer_block:nth-child(4) .button:hover{
+	background-color: #cc9000;
+}
+.footer_block:nth-child(2){
+	text-align: justify;
+	//overflow: hidden;
+}
+.footer_block:nth-child(3){
+	width: auto;
+}
+.footer_block:nth-child(4){
+	width: auto;
+}
+.footer_block:nth-child(4) .button{
+	margin-top: 10px;
+	height: 60px;
+	border-radius: 5px;
+	background-color: #e2aa00;
+	-webkit-user-select: none;
+	user-select: none;
+	font-size: 30px;
+	cursor: pointer;
+	transition: .4s;
+}
+.footer_block .media{
+	margin: 10px 0;
+	height: 60px;
+	display: flex;
+	position: relative;
+	left: -3px;
+}
+.media .social{
+	height: 100%;
+	width: 60px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	filter: grayscale(100%);
+	transition: .4s;
+}
+.social:nth-child(1){
+	background-image: url("../img/sistema/facebook.png");
+}
+.social:nth-child(2){
+	background-image: url("../img/sistema/instagram.png");
+}
+.social:nth-child(3){
+	background-image: url("../img/sistema/twitter.png");
+}
+.social:hover{
+	cursor: pointer;
+	filter: grayscale(0%);
+}
+.footer_copy{
+	text-align: center;
+	flex-grow: 1;
+	margin-top: 10px;
+	border-top: 1px solid #646464;
+	padding-top: 20px;
 }
 a[title="Hosted on free web hosting 000webhost.com. Host your own website for FREE."]{
 	display: none;
 }
-tr:nth-child(odd){
-	background-color: rgba(255,255,255,.05);
-}
 @media screen and (max-width:1025px) {
-	.header a:nth-child(n+2){
+	.footer_block:nth-child(1), .footer_block:nth-child(3){
 		display: none;
 	}
-	.header a:first-child .img{
+	/*.header a:nth-child(n+2){
+		display: none;
+	}*/
+	/*.header a:first-child .img{
 		bottom: -15px;
 		width: 100px;
 		height: 95px;
 	}
 	.header a:first-child{
 		min-width: 100%;
-	}
+	}*/
 	.header a:first-child:hover{
 		background-color: #1b1b1b;
 	}

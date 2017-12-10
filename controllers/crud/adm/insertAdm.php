@@ -21,6 +21,7 @@ $mail->configurarEmail($_POST['nome'], $_POST['email'], $senha, $_POST['adm_logi
 
 $adm->setidTorneio($_SESSION['torneio']);
 $adm->setLogin($_POST['adm_login']);
+$senha = md5($senha);
 $adm->setSenha($senha);
 $adm->setEmail($_POST['email']);
 $adm->setNome($_POST['nome']);

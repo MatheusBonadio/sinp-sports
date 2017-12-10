@@ -1,7 +1,6 @@
 <?php
 require_once 'class.smtp.php';
 require_once 'class.phpmailer.php';
-session_start();
 
 class Mail{
 
@@ -55,5 +54,6 @@ class Mail{
 		} else {
 		    echo 'Message has been sent';
 		}
+		header('location: selectAdm.php');
 	}
 }

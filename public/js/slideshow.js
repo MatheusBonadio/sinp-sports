@@ -3,7 +3,8 @@ var timer;
 var disable = false;
 var timeBar = 5000;
 var touchMove = 0, touchStart = 0;
-
+var dots = document.getElementsByClassName("dots");
+if(dots.length>1){
 window.onload = function(){
   var touch = document.getElementsByClassName("slideshow")[0];
   touch.addEventListener("touchstart",function(e){
@@ -48,7 +49,6 @@ function showSlides(n) {
   var container = document.getElementsByClassName("highlight_container")[0];
   var slides = document.getElementsByClassName("highlight_img");
   var lines = document.getElementsByClassName("highlight_line");
-  var dots = document.getElementsByClassName("dots");
   if (n > slides.length) {slideIndex = 1}    
   if (n < 1) {slideIndex = slides.length}
   for (var i = 0; i < lines.length; i++) {
@@ -85,3 +85,7 @@ document.getElementsByClassName("highlight_container")[0].addEventListener("clic
     plusSlides(1);
   }
 });
+}else{
+  var lines = document.getElementsByClassName("highlight_line");
+  lines[0].classList.add("animation_line");
+}

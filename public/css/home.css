@@ -71,7 +71,7 @@
 	overflow: hidden;
 }
 .slideshow{
-	height: calc(100vh - 150px);
+	height: calc(100vh - 158px);
 	width: 100%;
 	overflow: hidden;
 	position: relative;
@@ -106,23 +106,17 @@
 	bottom: 5vh;
 	width: 100%;
 }
-.dots_line{
-	margin: 0 15px;
-	flex-grow: 1;
-	height: .3vh;
-	background-color: #cfcfcf;
-	display: none;
-}
 .group_dots{
 	display: flex;
 }
 .dots{
 	cursor: pointer;
-	padding: 2px 2.5vw;
+	padding: 0 40px;
+	height: 4px;
 	border-radius: 2px;
 	flex-grow: 1;
 	background-color: rgba(255,255,255,.4);
-	margin: 0 .2vw;
+	margin: 0 2px;
 	transition: background .4s;
 }
 .dots:hover, .active_dots{
@@ -139,7 +133,7 @@
 	-webkit-user-select: none;
 	user-select: none;
 }
-.match{
+.match, .match_day{
 	min-width: 200px;
 	height: 100%;
 	border-right: 1px solid #2d2d2d;
@@ -156,8 +150,20 @@
 	border-left: 4px solid #e2aa00;
 	background-color: #1e1f21;
 }
-.match:last-child{
-	border: none;
+.match_day{
+	padding: 0;
+	min-width: 50px;
+	cursor: default;
+	background-color: #141414;
+}
+.match_day label{
+	transform: rotate(270deg);
+}
+.match_line{
+	margin: 8px 0;
+	background-color: #fff;
+	width: 50%;
+	height: 1px;
 }
 .next_games .sport{
 	padding: 12px 0 10px 5px;
@@ -173,10 +179,7 @@
 	justify-content: start;
 }
 .next_games img{
-	//width: 30px;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center 10%;
+	width: 27px;
 }
 .team label{
 	width: 70%;
@@ -204,21 +207,27 @@ table{
 	width: 100%;
 }
 td{
-	padding: 20px;
+	padding: 20px 5px;
 	text-align: center;
+	font-weight: 300;
 }
 th{
+	font-weight: 400;
+	text-transform: uppercase;
 	padding: 25px 20px;
 	background-color: #e2aa00;
 	color: #fff;
+}
+tr:nth-child(odd){
+	background-color: rgba(255,255,255,.03);
+}
+td:nth-child(7){
+	font-weight: 400;
 }
 @media screen and (max-width:1025px) {
 	.arrow{
 		opacity: 0;
 		visibility: hidden;
-	}
-	.dots{
-		width: 4vw;
 	}
 	.highlight_position{
 		width: 85vw;
@@ -229,5 +238,8 @@ th{
 	@keyframes line{to{width: 85vw;}}
 	.next_games::-webkit-scrollbar { 
 	    display: none;
+	}
+	td:first-child, td:last-child, th:first-child, th:last-child{
+		display: none;
 	}
 }

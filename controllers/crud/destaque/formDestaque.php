@@ -80,8 +80,7 @@
 		<select name="partida" required>
 			<option selected hidden disabled value=''>Selecione uma partida</option>
 				<?php
-				for ($i=0; $i < $numPermissao; $i++) { 
-					$exec = $dao->consultarPartida($idEsporte[$i], $_SESSION['torneio']);
+					$exec = $dao->consultarPartidaGerente($_SESSION['torneio']);
 					foreach ($exec as $listar) {
 						if($listar['id_partida'] == $destaque->getidPartida()){
 				?>
@@ -93,7 +92,6 @@
 				<?php
 						}
 					}
-				}
 				?>
 			</select>
 		<textarea name="texto" placeholder="Digite o texto de destaque"><?php echo $destaque->getTexto();?></textarea>

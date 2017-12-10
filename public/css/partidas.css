@@ -200,7 +200,7 @@ a{
 	font-weight: 400;
 	color: #646464;
 }
-.vitória,.derrota{
+.vitória,.derrota,.empate{
 	text-transform: uppercase;
 }
 .derrota{
@@ -208,6 +208,9 @@ a{
 }
 .vitória{
 	color: #bea152;
+}
+.empate{
+	color: #9a9a9a;
 }
 .error{
 	width: 100%;

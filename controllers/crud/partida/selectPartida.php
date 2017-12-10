@@ -69,9 +69,9 @@ if($_SESSION['cargo'] == 'Gerente'){
 					<div class='info_data'>
 						<?php echo $listar['id_esporte'] ?><br />
 						<?php echo $listar['id_fase'] ?><br />
-						<?php echo $listar['dia'] ?><br />
+						<?php echo $listar['dia_format'] ?><br />
 						Inicio: <?php echo $listar['inicio'] ?><br />
-						Término: <?php echo $listar['inicio'] ?><br />
+						Término: <?php echo $listar['termino'] ?><br />
 						Placar: <?php echo $listar['placar_equipe_a']." x ".$listar['placar_equipe_b'] ?><br />
 						Vencedor: <?php echo $listar['vencedor'] ?><br />
 					</div>

@@ -46,12 +46,15 @@
 		if($_SESSION['cargo'] == 'Representante'){
  ?>
 		<form action="updateEquipe.php" method="POST" enctype="multipart/form-data">
-			<input type="text" name="id" value="<?php echo $equipe->getidEquipe(); ?>" hidden><br>
+			<input type="text" name="id" value="<?php echo $equipe->getidEquipe(); ?>" hidden>
+			<input type="text" name="representante" value="<?php echo $equipe->getRepresentante(); ?>" hidden>
 			<input type="text" name="nome" value="<?php echo $equipe->getNome(); ?>" placeholder='Digite o nome da equipe' required>
 			<input type="text" name="sigla" maxlength="6" value="<?php echo $equipe->getSigla(); ?>" placeholder='Digite a sigla da equipe' required>
-			<label><?php echo $_SESSION['login']; ?></label>
-			<img src="/public/img/equipe/<?php echo $equipe->getLogo(); ?>">
-			<input type="file" name="logo" accept="image/*">
+			<div class='container_img'>
+				<div class='select_img' style='background-image: url(/public/img/equipe/<?php echo $equipe->getLogo(); ?>)'></div>
+				<input type="file" name="logo" id='logo' accept="image/*" hidden>
+				<label for='logo'>Selecione uma imagem</label>
+			</div>
 			<input type="submit" value='Enviar'>
 		</form>
 <?php

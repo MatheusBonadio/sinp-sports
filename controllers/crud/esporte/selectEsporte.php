@@ -26,8 +26,8 @@
 				<div class='info_data'>
 					<?php echo $listar['genero'] ?><br />
 					<?php echo $listar['tipo'] ?><br />
-					<?php echo $listar['qtd_jogadores'] ?> Jogadores<br />
-					<?php echo $listar['qtd_times'] ?> Times<br />
+					<?php echo $listar['qtd_jogadores'] ?> Jogador(es)<br />
+					<?php echo $listar['qtd_times'] ?> Time(s)<br />
 					<?php echo $listar['classificacao'] ?><br />
 				</div>
 				<div class='buttons'>

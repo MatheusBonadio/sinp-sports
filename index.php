@@ -16,7 +16,7 @@
     <meta name='theme-color' content='#141414'>
     <meta charset='UTF-8'>
     <title>Sinp Sports | Gerenciador de competições esportivas</title>
-    <meta content='width=device-width, initial-scale=0.6, maximum-scale=0.6, user-scalable=0' name='viewport' />
+    <meta content='width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=0' name='viewport' />
     <link rel='shortcut icon' href='/public/img/sistema/icon.png' type='image/x-icon'>
     <link rel='stylesheet' href='/public/css/index.css' type='text/css'>
     <link rel='stylesheet' href='/public/css/torneio.css' type='text/css'>
